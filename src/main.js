@@ -11,8 +11,11 @@ const router = new VueRouter({
 });
 
 import Vuelidate from "vuelidate";
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+
 import {
   FormGroupPlugin,
   FormPlugin,
@@ -104,3 +107,5 @@ new Vue({
   },
   render: (h) => h(App),
 }).$mount("#app");
+
+
