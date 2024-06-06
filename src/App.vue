@@ -7,14 +7,12 @@
 
 <script>
 import Navbar from './components/Navbar.vue';
-import '@fortawesome/fontawesome-free/css/all.min.css'
-
 
 export default {
   name: "App",
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
 

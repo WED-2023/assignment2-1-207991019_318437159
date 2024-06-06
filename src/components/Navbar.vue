@@ -1,7 +1,15 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- Logo -->
+    <img
+      src="../assets/ron-chili-removebg.png"
+      alt="Ron's Logo"
+      class="navbar-brand-logo"
+    />
+
+    <!-- Brand name -->
     <router-link class="navbar-brand pl-3" :to="{ name: 'main' }"
-      >Vue Recipes</router-link
+      >Ron's Matkonim</router-link
     >
     <button
       class="navbar-toggler"
@@ -160,5 +168,10 @@ export default {
 .dropdown-menu {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana;
   font-size: 22px; /* Improve font size */
+}
+.navbar-brand-logo {
+  width: 70px;
+  height: 70px;
+  margin-right: 10px; /* Adjust spacing */
 }
 </style>
