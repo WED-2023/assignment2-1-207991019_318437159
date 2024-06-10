@@ -6,48 +6,75 @@
       <div class="input-group search-bar">
         <input type="text" class="form-control" placeholder="Type any recipe name here" v-model="searchQuery">
         <button class="btn btn-search" type="button" @click="performSearch">
-          <i class="fas fa-search"></i>
+          <i class="fas fa-search"></i> 
         </button>
-      </div>
-      <div class="dropdown">
-        <button class="btn btn-search dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ recipesToShow }} <i class="fas fa-caret-down"></i>
-        </button>
-        <div class="dropdown-menu">
-          <button class="dropdown-item text-dark" @click.stop="setRecipesToShow(5)">5</button>
-          <button class="dropdown-item text-dark" @click.stop="setRecipesToShow(10)">10</button>
-          <button class="dropdown-item text-dark" @click.stop="setRecipesToShow(15)">15</button>
+        <div class="dropdown">
+          <button class="btn btn-search dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ recipesToShow }} 
+          </button>
+          <div class="dropdown-menu">
+            <button class="dropdown-item text-dark" @click.stop="setRecipesToShow(5)">5</button>
+            <button class="dropdown-item text-dark" @click.stop="setRecipesToShow(10)">10</button>
+            <button class="dropdown-item text-dark" @click.stop="setRecipesToShow(15)">15</button>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="search-results" v-if="searchPerformed">
+      <RecipePreviewList
+        title="Search Results"
+        :recipes="filteredRecipes.slice(0, recipesToShow)"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import RecipePreviewList from '../components/RecipePreviewList.vue';
+import { mockGetRecipesPreview } from '../services/recipes.js';
+
 export default {
+  components: {
+    RecipePreviewList
+  },
   data() {
     return {
       searchQuery: '',
       recipesToShow: 5,
-    }
+      allRecipes: [], // All available recipes
+      filteredRecipes: [], // Filtered recipes based on search query
+      searchPerformed: false // Track if a search has been performed
+    };
+  },
+  mounted() {
+    this.updateRecipes();
   },
   methods: {
+    async updateRecipes() {
+      try {
+        const response = mockGetRecipesPreview(100); // Fetch 100 recipes
+        console.log(response);
+        this.allRecipes = response.data.recipes;
+        this.filteredRecipes = this.allRecipes;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     performSearch() {
-      console.log('Searching for:', this.searchQuery);
-      console.log('Number of recipes to show:', this.recipesToShow);
+      if (this.searchQuery) {
+        this.filteredRecipes = this.allRecipes.filter(recipe =>
+          recipe.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      } else {
+        this.filteredRecipes = this.allRecipes;
+      }
+      this.searchPerformed = true; // Set searchPerformed to true when search is performed
     },
     setRecipesToShow(num) {
       this.recipesToShow = num;
-    },
-  },
-  mounted() {
-    // Initialize Bootstrap dropdowns
-    const dropdownElms = Array.prototype.slice.call(document.querySelectorAll('.dropdown-toggle'))
-    dropdownElms.map(function(dropdownElm) {
-      new bootstrap.Dropdown(dropdownElm)
-    })
+    }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -57,7 +84,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,8 +103,6 @@ export default {
 }
 
 .search-header {
-  position: absolute;
-  top: 20%; /* Adjust this value to move the header higher or lower */
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.7); /* Darker overlay on the header for contrast */
   padding: 20px;
@@ -96,12 +121,13 @@ p {
   background: #fff;
   border-radius: 50px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow: visible; /* Ensure the dropdown is not clipped */
   padding: 5px;
   max-width: 500px;
   display: flex;
   align-items: center;
-  margin-left: 15%; /* Add margin bottom to separate from the dropdown */
+  margin: 0 auto; /* Center the search bar */
+  position: relative; /* Add relative positioning */
 }
 
 .input-group.search-bar .form-control {
@@ -117,15 +143,56 @@ p {
   border-radius: 50px;
   border: none;
   padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group.search-bar .btn-search i {
+  font-size: 16px; /* Adjust the size of the icon */
+  color: #fff; /* Ensure the icon color contrasts with the button background */
 }
 
 .dropdown {
+  margin-left: 10px; /* Adjust the margin to align with the search bar */
+  position: relative;
+}
+
+.dropdown .btn-search.dropdown-toggle {
+  background-color: #232323;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.dropdown .dropdown-menu {
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  padding: 5px;
   position: absolute;
-  margin-left: 10px; /* Add margin-left to separate from the search bar */
-  margin-top: -50px;
+  z-index: 10; /* Ensure the dropdown appears above other elements */
+  top: 100%; /* Position the dropdown below the toggle button */
+  left: 0;
+}
+
+.dropdown .dropdown-item {
+  color: #000;
+}
+
+.dropdown .dropdown-item:hover {
   background-color: #f7ebeb;
-  border-radius: 10px; /* Add border-radius for bubble-like appearance */
-  padding: 5px; /* Add padding for better spacing */
-  color: #d81010; /* Set text color to white */
+  color: #d81010;
+}
+
+.search-results {
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 1200px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 </style>
