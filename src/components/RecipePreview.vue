@@ -1,141 +1,176 @@
 <template>
-  <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
-    <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+  <div class="recipe-preview">
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      class="recipe-link"
+      @click.native="markAsViewed"
+    >
+      <div class="recipe-body">
+        <img v-if="imageLoad" :src="recipe.image" class="recipe-image" />
+      </div>
+    </router-link>
+    <div class="favorite-icon" @click="toggleSaved">
+      <i :class="['fas', saved ? 'fa-heart' : 'fa-heart-broken']"></i>
     </div>
     <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
+      <div :title="recipe.title" class="recipe-title">{{ recipe.title }}</div>
+      <div class="recipe-rating">
+        <i class="fas fa-star"></i> {{ recipe.aggregateLikes }} Likes
       </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
+      <div class="recipe-overview">
+        <div>{{ recipe.readyInMinutes }} minutes</div>
+        <div v-if="recipe.glutenFree">
+          <img src="@/assets/gluten-free-icon.png" alt="Gluten-Free" />
+        </div>
+        <div v-if="recipe.vegan">
+          <img src="@/assets/vegan-icon.png" alt="Vegan" />
+        </div>
+        <div v-if="recipe.vegetarian && !recipe.vegan">
+          <img src="@/assets/vegetarian-icon.png" alt="Vegetarian" />
+        </div>
+        <div v-if="viewed">Viewed</div>
+        <div v-if="saved">Saved</div>
+      </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
 export default {
   mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
+    this.loadImage();
+    this.checkViewedStatus();
+    this.checkSavedStatus();
   },
   data() {
     return {
-      image_load: false
+      imageLoad: false,
+      viewed: false,
+      saved: false,
     };
   },
   props: {
     recipe: {
       type: Object,
-      required: true
-    }
-
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
-  }
+      required: true,
+    },
+  },
+  methods: {
+    loadImage() {
+      const img = new Image();
+      img.onload = () => {
+        this.imageLoad = true;
+      };
+      img.src = this.recipe.image;
+    },
+    markAsViewed() {
+      localStorage.setItem(`viewed_${this.recipe.id}`, true);
+      this.viewed = true;
+    },
+    checkViewedStatus() {
+      this.viewed = !!localStorage.getItem(`viewed_${this.recipe.id}`);
+    },
+    toggleSaved(event) {
+      event.stopPropagation(); // Prevent triggering the link click
+      this.saved = !this.saved;
+      if (this.saved) {
+        localStorage.setItem(`saved_${this.recipe.id}`, true);
+      } else {
+        localStorage.removeItem(`saved_${this.recipe.id}`);
+      }
+    },
+    checkSavedStatus() {
+      this.saved = !!localStorage.getItem(`saved_${this.recipe.id}`);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .recipe-preview {
   display: inline-block;
-  width: 90%;
-  height: 100%;
-  position: relative;
-  margin: 10px 10px;
-}
-.recipe-preview > .recipe-body {
   width: 100%;
-  height: 200px;
-  position: relative;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
-.recipe-preview .recipe-body .recipe-image {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
+.recipe-preview:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.recipe-body {
+  position: relative;
+  overflow: hidden;
+}
+
+.recipe-image {
   display: block;
-  width: 98%;
+  width: 100%;
   height: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
+  transition: transform 0.3s ease;
 }
 
-.recipe-preview .recipe-footer {
-  width: 100%;
-  height: 50%;
-  overflow: hidden;
+.recipe-body:hover .recipe-image {
+  transform: scale(1.1);
 }
 
-.recipe-preview .recipe-footer .recipe-title {
-  padding: 10px 10px;
-  width: 100%;
-  font-size: 12pt;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 5px;
+  color: #ff0000;
+  cursor: pointer;
 }
 
-.recipe-preview .recipe-footer ul.recipe-overview {
-  padding: 5px 10px;
-  width: 100%;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
+.recipe-footer {
+  padding: 10px;
+}
+
+.recipe-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.recipe-rating {
+  font-size: 14px;
+  color: #ff9900;
+  margin-bottom: 10px;
+}
+
+.recipe-overview {
   display: flex;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex: 1 auto;
-  -ms-flex: 1 auto;
-  flex: 1 auto;
-  table-layout: fixed;
-  margin-bottom: 0px;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
 }
 
-.recipe-preview .recipe-footer ul.recipe-overview li {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  width: 90px;
-  display: table-cell;
-  text-align: center;
+.recipe-overview > div {
+  display: flex;
+  align-items: center;
+}
+
+.recipe-overview img {
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
+}
+
+.recipe-summary {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
 }
 </style>

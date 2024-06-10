@@ -327,12 +327,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .b-card {
-  max-width: 800px;
   width: 100%;
+  max-width: 800px;
   border: 2px solid #ccc;
   border-radius: 15px;
   padding: 20px;
@@ -345,5 +347,11 @@ export default {
   margin-top: 15px;
   font-size: larger;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .b-card {
+    padding: 10px;
+  }
 }
 </style>

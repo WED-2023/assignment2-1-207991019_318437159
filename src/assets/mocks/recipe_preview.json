@@ -1,4 +1,5 @@
-{
+[
+  {
     "id": 716429,
     "image": "https://img.spoonacular.com/recipes/716429-556x370.jpg",
     "title": "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
@@ -8,5 +9,60 @@
     "vegan": false,
     "glutenFree": false,
     "summary": "You can never have too many main course recipes, so give Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs a try. One serving contains <b>543 calories</b>, <b>17g of protein</b>, and <b>16g of fat</b>. For <b>$1.57 per serving</b>, this recipe <b>covers 22%</b> of your daily requirements of vitamins and minerals. This recipe serves 2. A mixture of butter, white wine, pasta, and a handful of other ingredients are all it takes to make this recipe so yummy. 209 people have tried and liked this recipe. It is brought to you by fullbellysisters.blogspot.com. From preparation to the plate, this recipe takes approximately <b>45 minutes</b>. Taking all factors into account, this recipe <b>earns a spoonacular score of 83%</b>, which is tremendous. If you like this recipe, take a look at these similar recipes: <a href=\"https://spoonacular.com/recipes/pasta-with-garlic-scallions-cauliflower-breadcrumbs-1230187\">Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs</a>, <a href=\"https://spoonacular.com/recipes/pasta-with-garlic-scallions-cauliflower-breadcrumbs-1229807\">Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs</a>, and <a href=\"https://spoonacular.com/recipes/pasta-with-garlic-scallions-cauliflower-breadcrumbs-1229669\">Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs</a>."
-
-}
+  },
+  {
+    "id": 715538,
+    "image": "https://img.spoonacular.com/recipes/715538-556x370.jpg",
+    "title": "What to make for dinner tonight?? Bruschetta Style Pork & Pasta",
+    "readyInMinutes": 30,
+    "aggregateLikes": 100,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "Bruschetta Style Pork & Pasta is a great option for a quick and flavorful dinner. With ingredients like pork, pasta, tomatoes, and basil, this dish brings together a variety of flavors in just 30 minutes. It’s perfect for a weeknight meal when time is short but you still want something delicious. This recipe serves 4 and has been liked by 100 people."
+  },
+  {
+    "id": 782601,
+    "image": "https://img.spoonacular.com/recipes/782601-556x370.jpg",
+    "title": "Red Kidney Bean Jambalaya",
+    "readyInMinutes": 60,
+    "aggregateLikes": 127,
+    "vegetarian": true,
+    "vegan": true,
+    "glutenFree": true,
+    "summary": "Red Kidney Bean Jambalaya is a hearty and nutritious meal that’s perfect for vegetarians and vegans. Packed with red kidney beans, rice, and a blend of spices, this dish is both filling and flavorful. It takes about an hour to prepare and serves 6. It’s gluten-free and has received 127 likes from those who have tried it."
+  },
+  {
+    "id": 715497,
+    "image": "https://img.spoonacular.com/recipes/715497-556x370.jpg",
+    "title": "Turkey Tomato Cheese Pizza",
+    "readyInMinutes": 20,
+    "aggregateLikes": 320,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "Turkey Tomato Cheese Pizza is a quick and tasty meal that can be made in just 20 minutes. This recipe combines the flavors of turkey, tomato, and cheese on a pizza crust to create a delicious dish that’s perfect for lunch or dinner. It serves 4 and has been liked by 320 people. Whether you’re looking for a quick weeknight dinner or a satisfying weekend meal, this pizza is sure to please."
+  },
+  {
+    "id": 798400,
+    "image": "https://img.spoonacular.com/recipes/798400-556x370.jpg",
+    "title": "Spicy Black Bean Soup",
+    "readyInMinutes": 45,
+    "aggregateLikes": 210,
+    "vegetarian": true,
+    "vegan": true,
+    "glutenFree": true,
+    "summary": "Spicy Black Bean Soup is a perfect dish for those who love a bit of heat in their meal. This vegan and gluten-free soup is made with black beans, tomatoes, and a mix of spices that give it a robust flavor. It takes about 45 minutes to prepare and serves 4. This recipe has been liked by 210 people and is a great option for a hearty and healthy meal."
+  },
+  {
+    "id": 795751,
+    "image": "https://img.spoonacular.com/recipes/795751-556x370.jpg",
+    "title": "Chicken, Avocado and Mango Salad",
+    "readyInMinutes": 25,
+    "aggregateLikes": 140,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": true,
+    "summary": "Chicken, Avocado and Mango Salad is a fresh and flavorful dish that’s perfect for a light lunch or dinner. The combination of chicken, avocado, and mango creates a delicious balance of flavors and textures. This gluten-free recipe takes only 25 minutes to prepare and serves 4. It has been liked by 140 people and is a great option for a quick and healthy meal."
+  }
+]

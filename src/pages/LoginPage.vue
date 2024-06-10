@@ -149,7 +149,7 @@ export default {
 
 .login-right {
   flex: 1;
-  background-color: #d0cfca; // Revised background color
+  background-color: #ababa6; // Revised background color
   display: flex;
   justify-content: center;
   align-items: center;
@@ -162,7 +162,7 @@ export default {
   background: #333333; // Dark background for the form
   border-radius: 8px; // Rounded corners
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Subtle shadow
-  color: #ffffff; // Set text color to white to match navbar
+  color: #ffffff;
 }
 
 .title {
