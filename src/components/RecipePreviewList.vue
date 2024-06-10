@@ -38,7 +38,7 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        const amountToFetch = 6; // Set this to how many recipes you want to fetch
+        const amountToFetch = 5; // Set this to how many recipes you want to fetch
         const response = mockGetRecipesPreview(amountToFetch);
 
         console.log(response);
