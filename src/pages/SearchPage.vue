@@ -1,40 +1,105 @@
 <template>
   <div class="search-page">
-    <div class="search-header" :class="{ 'search-header-top': searchPerformed }">
+    <div
+      class="search-header"
+      :class="{ 'search-header-top': searchPerformed }"
+    >
       <h1>Find your Perfect Recipe here!</h1>
-      <p>A delightful combination of ingredients and flavors to inspire your culinary adventures. Find the best recipes now.</p>
+      <p>
+        A delightful combination of ingredients and flavors to inspire your
+        culinary adventures. Find the best recipes now.
+      </p>
       <div class="input-group search-bar">
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Type any recipe name here" 
-          v-model="searchQuery" 
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Type any recipe name here"
+          v-model="searchQuery"
           @keyup.enter="performSearch"
+        />
+        <div class="separator"></div>
+        <!-- Separator line -->
+        <button
+          class="btn btn-search no-border"
+          type="button"
+          @click="performSearch"
         >
-        <div class="separator"></div> <!-- Separator line -->
-        <button class="btn btn-search no-border" type="button" @click="performSearch">
-          <i class="fas fa-search"></i> 
+          <i class="fas fa-search"></i>
         </button>
         <div class="dropdown">
-          <button ref="recipesDropdown" class="btn btn-search dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             {{ recipesToShow }} 
+          <button
+            ref="recipesDropdown"
+            class="btn btn-search dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {{ recipesToShow }}
           </button>
           <div class="dropdown-menu">
-            <button class="dropdown-item text-dark" @click.stop="setRecipesToShow(5)">5</button>
-            <button class="dropdown-item text-dark" @click.stop="setRecipesToShow(10)">10</button>
-            <button class="dropdown-item text-dark" @click.stop="setRecipesToShow(15)">15</button>
+            <button
+              class="dropdown-item text-dark"
+              @click.stop="setRecipesToShow(5)"
+            >
+              5
+            </button>
+            <button
+              class="dropdown-item text-dark"
+              @click.stop="setRecipesToShow(10)"
+            >
+              10
+            </button>
+            <button
+              class="dropdown-item text-dark"
+              @click.stop="setRecipesToShow(15)"
+            >
+              15
+            </button>
           </div>
         </div>
         <div class="dropdown filter-dropdown">
-          <button ref="filterDropdown" class="btn btn-search dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             {{ filter }}
+          <button
+            ref="filterDropdown"
+            class="btn btn-search dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {{ filter }}
           </button>
           <div class="dropdown-menu">
-            <button class="dropdown-item text-dark" @click.stop="setFilter('All')">All</button>
-            <button class="dropdown-item text-dark" @click.stop="setFilter('Vegetarian')">Vegetarian</button>
-            <button class="dropdown-item text-dark" @click.stop="setFilter('Vegan')">Vegan</button>
-            <button class="dropdown-item text-dark" @click.stop="setFilter('Gluten-Free')">Gluten-Free</button>
-            <button class="dropdown-item text-dark" @click.stop="setFilter('Desserts')">Desserts</button>
+            <button
+              class="dropdown-item text-dark"
+              @click.stop="setFilter('All')"
+            >
+              All
+            </button>
+            <button
+              class="dropdown-item text-dark"
+              @click.stop="setFilter('Vegetarian')"
+            >
+              Vegetarian
+            </button>
+            <button
+              class="dropdown-item text-dark"
+              @click.stop="setFilter('Vegan')"
+            >
+              Vegan
+            </button>
+            <button
+              class="dropdown-item text-dark"
+              @click.stop="setFilter('Gluten-Free')"
+            >
+              Gluten-Free
+            </button>
+            <button
+              class="dropdown-item text-dark"
+              @click.stop="setFilter('Desserts')"
+            >
+              Desserts
+            </button>
             <!-- Add more filters as needed -->
           </div>
         </div>
@@ -43,29 +108,29 @@
     <div class="search-results" v-if="searchPerformed">
       <RecipePreviewList
         title="Search Results"
+        :amount="recipesToShow"
         :recipes="filteredRecipes.slice(0, recipesToShow)"
       />
     </div>
   </div>
 </template>
 
-
 <script>
-import RecipePreviewList from '../components/RecipePreviewList.vue';
-import { mockGetRecipesPreview } from '../services/recipes.js';
+import RecipePreviewList from "../components/RecipePreviewList.vue";
+import { mockGetRecipesPreview } from "../services/recipes.js";
 
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
   },
   data() {
     return {
-      searchQuery: '',
+      searchQuery: "",
       recipesToShow: 5,
       allRecipes: [], // All available recipes
       filteredRecipes: [], // Filtered recipes based on search query and filter
       searchPerformed: false, // Track if a search has been performed
-      filter: 'All' // Current filter selection
+      filter: "All", // Current filter selection
     };
   },
   mounted() {
@@ -84,15 +149,15 @@ export default {
     },
     performSearch() {
       let filtered = this.allRecipes;
-      
+
       if (this.searchQuery) {
-        filtered = filtered.filter(recipe =>
+        filtered = filtered.filter((recipe) =>
           recipe.title.toLowerCase().includes(this.searchQuery.toLowerCase())
         );
       }
 
-      if (this.filter !== 'All') {
-        filtered = filtered.filter(recipe => recipe.category === this.filter);
+      if (this.filter !== "All") {
+        filtered = filtered.filter((recipe) => recipe.category === this.filter);
       }
 
       this.filteredRecipes = filtered;
@@ -105,15 +170,15 @@ export default {
     setFilter(filter) {
       this.filter = filter;
       this.$refs.filterDropdown.click(); // Close the dropdown menu
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
 .search-page {
   position: relative;
-  background-image: url('../assets/searchBackground.jpg');
+  background-image: url("../assets/searchBackground.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -131,13 +196,23 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* Adjust the alpha value for darkness */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.3
+  ); /* Adjust the alpha value for darkness */
   z-index: 0;
 }
 
 .search-header {
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.7); /* Darker overlay on the header for contrast */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* Darker overlay on the header for contrast */
   padding: 20px;
   border-radius: 20px;
   margin-bottom: 20px; /* Space below the search header */
@@ -230,7 +305,12 @@ export default {
 .search-results {
   z-index: 0;
   margin-top: 20px;
-  background-color: rgba(200, 198, 198, 0.3); /* Adjust the alpha value for darkness */
+  background-color: rgba(
+    200,
+    198,
+    198,
+    0.3
+  ); /* Adjust the alpha value for darkness */
   padding: 20px;
   border-radius: 10px;
   width: 90%;

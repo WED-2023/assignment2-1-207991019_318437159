@@ -7,26 +7,32 @@
     >
       <div class="recipe-body">
         <img v-if="imageLoad" :src="recipe.image" class="recipe-image" />
+        <div class="favorite-icon" @click="toggleSaved">
+          <font-awesome-icon
+            :icon="[saved ? 'fas' : 'far', 'heart']"
+            class="icon-heart"
+          />
+        </div>
       </div>
     </router-link>
-    <div class="favorite-icon" @click="toggleSaved">
-      <i :class="['fas', saved ? 'fa-heart' : 'fa-heart-broken']"></i>
-    </div>
     <div class="recipe-footer">
       <div :title="recipe.title" class="recipe-title">{{ recipe.title }}</div>
+      <div class="recipe-summary">{{ recipe.summary }}</div>
       <div class="recipe-rating">
-        <i class="fas fa-star"></i> {{ recipe.aggregateLikes }} Likes
+        <font-awesome-icon :icon="['fas', 'star']" />
+        {{ recipe.aggregateLikes }} Likes
       </div>
       <div class="recipe-overview">
         <div>{{ recipe.readyInMinutes }} minutes</div>
-        <div v-if="recipe.glutenFree">
-          <img src="@/assets/gluten-free-icon.png" alt="Gluten-Free" />
+        <div v-if="recipe.glutenFree" class="bubble gluten-free">
+          Gluten-Free
         </div>
-        <div v-if="recipe.vegan">
-          <img src="@/assets/vegan-icon.png" alt="Vegan" />
-        </div>
-        <div v-if="recipe.vegetarian && !recipe.vegan">
-          <img src="@/assets/vegetarian-icon.png" alt="Vegetarian" />
+        <div v-if="recipe.vegan" class="bubble vegan">Vegan</div>
+        <div
+          v-if="recipe.vegetarian && !recipe.vegan"
+          class="bubble vegetarian"
+        >
+          Vegetarian
         </div>
         <div v-if="viewed">Viewed</div>
         <div v-if="saved">Saved</div>
@@ -90,16 +96,19 @@ export default {
 .recipe-preview {
   display: inline-block;
   width: 100%;
-  margin: 10px;
+  max-width: 400px;
+  margin: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+  background-color: #e4e4e4;
+  font-weight: 600;
 }
 
 .recipe-preview:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .recipe-link {
@@ -124,36 +133,46 @@ export default {
 }
 
 .favorite-icon {
+  color: #e74c3c;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 10px;
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  padding: 5px;
-  color: #ff0000;
   cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.favorite-icon:hover {
+  background-color: #f2f2f2;
+}
+
+.icon-heart {
+  font-size: 24px;
 }
 
 .recipe-footer {
-  padding: 10px;
+  padding: 20px;
 }
 
 .recipe-title {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .recipe-rating {
-  font-size: 14px;
+  font-size: 16px;
   color: #ff9900;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .recipe-overview {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 16px;
   color: #666;
 }
 
@@ -162,15 +181,30 @@ export default {
   align-items: center;
 }
 
-.recipe-overview img {
-  width: 24px;
-  height: 24px;
-  margin-left: 5px;
+.bubble {
+  padding: 5px 10px;
+  border-radius: 30px;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+.gluten-free {
+  background-color: #d2b48c; /* Brown color */
+}
+
+.vegan {
+  background-color: #4caf50; /* Green color */
+}
+
+.vegetarian {
+  background-color: #4caf50; /* Green color */
 }
 
 .recipe-summary {
+  font-size: 16px;
+  color: #888;
   margin-top: 10px;
-  font-size: 14px;
-  color: #666;
+  margin-bottom: 10px;
 }
 </style>

@@ -5,19 +5,28 @@ import axios from "axios";
 
 import routes from "./routes";
 import VueRouter from "vue-router";
+import Vuelidate from "vuelidate";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(fasHeart, farHeart, faStar);
+
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
 
-import Vuelidate from "vuelidate";
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
-import '@fortawesome/fontawesome-free/css/all.min.css'
-
-
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 import {
   FormGroupPlugin,
@@ -110,5 +119,3 @@ new Vue({
   },
   render: (h) => h(App),
 }).$mount("#app");
-
-

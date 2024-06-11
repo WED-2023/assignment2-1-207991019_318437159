@@ -1,45 +1,110 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
-    <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true
-      }"
-      disabled
-    ></RecipePreviewList>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
-  </div>
+  <b-container fluid>
+    <b-row>
+      <!-- Left Column: Random Recipes -->
+      <b-col cols="12" lg="6" class="left-column">
+        <RecipePreviewList
+          title="Explore these recipes"
+          :amount="3"
+          :key="randomKey"
+        />
+        <div class="list-header">
+          <b-icon
+            icon="arrow-clockwise"
+            variant="dark"
+            @click="refreshRandomRecipes"
+            class="refresh-icon"
+          ></b-icon>
+        </div>
+      </b-col>
+      <!-- Right Column: Last Viewed Recipes or Login Box -->
+      <b-col cols="12" lg="6" class="right-column">
+        <div v-if="isLoggedIn">
+          <RecipePreviewList title="Last Watched Recipes" :amount="3" />
+        </div>
+        <div v-else class="login-container">
+          <LoginBox />
+        </div>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
+import RecipePreviewList from "../components/RecipePreviewList.vue";
+import LoginBox from "../components/LoginBox.vue";
+
 export default {
+  name: "MainPage",
   components: {
-    RecipePreviewList
-  }
+    RecipePreviewList,
+    LoginBox,
+  },
+  data() {
+    return {
+      randomKey: 0,
+    };
+  },
+  computed: {
+    isLoggedIn() {
+      return !!this.$root.store.username;
+    },
+  },
+  watch: {
+    "$root.store.username": function(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$forceUpdate();
+      }
+    },
+  },
+  methods: {
+    refreshRandomRecipes() {
+      this.randomKey++;
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-.RandomRecipes {
-  margin: 10px 0 10px;
+<style scoped>
+.left-column,
+.right-column {
+  padding: 20px;
 }
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
+
+.left-column {
+  background-color: #ffffff; /* Light Teal */
 }
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
+
+.right-column {
+  background-color: #aaabac; /* Light Grey */
+}
+
+h3 {
+  margin-bottom: 20px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.list-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.refresh-icon {
+  cursor: pointer;
+  font-size: 40px;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 </style>
