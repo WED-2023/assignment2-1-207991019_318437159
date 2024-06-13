@@ -1,0 +1,81 @@
+{
+  "FamilyRecipes": [
+    {
+      "ID": 1,
+      "Image": "chraime.jpg",
+      "Title": "Chraime",
+      "Maker": "Grandma / Mom",
+      "Occasion": "Friday Evening",
+      "Ingredients": [
+        "Extra-virgin olive oil",
+        "3 large garlic cloves, coarsely chopped",
+        "6 (4-ounce) boneless, skinless cod or halibut / salmon fillets (about 1 1/2 inches thick)",
+        "1 lemon, ends trimmed, seeded, and cut into 1/4-inch dice, plus 1 lemon cut into wedges for serving",
+        "1/4 cup tomato paste",
+        "1 (28-ounce) can diced tomatoes, with their juices",
+        "Kosher salt",
+        "1 large bunch cilantro, stems thinly sliced and leaves coarsely chopped"
+      ],
+      "Directions": [
+        "To make the chraime: Sprinkle half the spice blend all over the fish, cover with plastic wrap, and refrigerate until ready to use, up to 6 hours.",
+        "Coat the bottom of a large saucepan with oil (2 to 3 tablespoons). Add the garlic and turn the heat to medium-low. Cook, stirring occasionally, until the garlic is golden, about 3 minutes.",
+        "Add the remaining spice blend, stir well, and add the diced lemon. Cook, stirring often, for 3 minutes. Add the tomato paste and cook, stirring, for 4 minutes. Add the tomatoes with their juices, raise the heat to medium-high, and season to taste with salt. Cook, stirring occasionally, for 2 minutes. Reserve some cilantro for garnish and stir in the remainder of the cilantro. Cover, reduce the heat to medium-low, and simmer for 20 minutes.",
+        "Sprinkle the fish all over with salt. Uncover the sauce; it should be bubbling slightly. Push the fish into the sauce so that all but the very tops are submerged. Cover and cook until the fish is almost opaque throughout, about 5 minutes. Remove from the heat.",
+        "Divide the fish and sauce among individual serving dishes. Garnish with the reserved cilantro and serve with lemon wedges."
+      ]
+    },
+    {
+      "ID": 2,
+      "Image": "Spaghetti.jpg",
+      "Title": "Mom's Spaghetti",
+      "Maker": "Mom",
+      "Occasion": "Family Dinner",
+      "Ingredients": [
+        "Spaghetti",
+        "Tomato Sauce",
+        "Ground Beef",
+        "Onion",
+        "Garlic",
+        "Olive Oil",
+        "Salt",
+        "Pepper",
+        "Parmesan Cheese"
+      ],
+      "Directions": [
+        "Cook spaghetti according to package instructions.",
+        "In a large pan, heat olive oil and sauté onions and garlic until fragrant.",
+        "Add ground beef and cook until browned.",
+        "Pour in tomato sauce, season with salt and pepper, and simmer for 20 minutes.",
+        "Serve the sauce over the spaghetti and top with Parmesan cheese."
+      ]
+    },
+    {
+      "ID": 4,
+      "Image": "steak.jpg",
+      "Title": "Fillet Steaks with Cauliflower Purée and Mushroom Sauce",
+      "Maker": "Dad",
+      "Occasion": "Special Occasion",
+      "Ingredients": [
+        "2 lean fillet steaks",
+        "1 tablespoon rapeseed or olive oil",
+        "For the Cauliflower Purée:",
+        "1 small cauliflower, cut into small florets",
+        "1 vegetable stock cube, crumbled",
+        "25g prepared garlic butter, melted",
+        "For the Mushroom Sauce:",
+        "25g prepared garlic butter",
+        "225g chestnut mushrooms, cleaned and sliced",
+        "100ml sweet sherry or good, hot beef stock",
+        "2 tablespoons freshly chopped flat-leaf parsley, optional"
+      ],
+      "Directions": [
+        "To prepare the cauliflower purée; cook the cauliflower in a large pan of boiling water with the crumbed vegetable stock cube for 15 minutes, or until tender. Transfer to a food processor or blender, add the melted garlic butter and purée for 1-2 minutes, or until the mixture is smooth. Season if required.",
+        "For the mushroom sauce; melt the remaining butter in a non-stick medium frying pan over a moderate heat and gently cook mushrooms for 2-3 minutes, stirring occasionally. Add the sherry and cook for 3-4 minutes or until the sauce is reduced and syrupy.",
+        "Heat a non-stick griddle pan over a moderate heat.",
+        "Put the steaks on a clean chopping board, season and brush with the oil on both sides.",
+        "Cook the steaks according to your preference; transfer to a warm plate and set aside to rest for a few minutes.",
+        "Reheat the purée, if required and place the steaks on top, spoon over the mushroom sauce, garnish with the parsley, if used and serve with seasonal vegetables."
+      ]
+    }
+  ]
+}
