@@ -1,18 +1,11 @@
 <template>
   <b-container>
-    <div class="list-header">
-      <h3 class="list-title">{{ title }}</h3>
+    <h3>
+      {{ title }}:
       <slot></slot>
-    </div>
-    <b-row class="justify-content-center">
-      <b-col
-        v-for="r in recipes"
-        :key="r.id"
-        cols="12"
-        md="6"
-        lg="6"
-        class="mb-4 d-flex justify-content-center"
-      >
+    </h3>
+    <b-row>
+      <b-col v-for="r in recipes" :key="r.id" cols="12" md="6" lg="4">
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
@@ -33,10 +26,6 @@ export default {
       type: String,
       required: true,
     },
-    amount: {
-      type: Number,
-      default: 6,
-    },
   },
   data() {
     return {
@@ -49,7 +38,10 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        const response = await mockGetRecipesPreview(this.amount);
+        const amountToFetch = 5; // Set this to how many recipes you want to fetch
+        const response = mockGetRecipesPreview(amountToFetch);
+
+        console.log(response);
         this.recipes = response.data.recipes || [];
       } catch (error) {
         console.log(error);
@@ -62,22 +54,5 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
-}
-.recipePreview {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.list-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  margin: 0 auto; /* Add this line to center the title */
 }
 </style>
