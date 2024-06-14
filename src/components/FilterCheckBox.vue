@@ -1,0 +1,113 @@
+<template>
+  <div class="filter-menu" v-if="filterMenuOpen">
+    <h3>Categories:</h3>
+    <div class="category">
+      <h4>Cuisine:</h4>
+      <div class="genres">
+        <div v-for="item in cuisine" :key="item" class="genre-item">
+          <input class="form-switch-input" type="checkbox" :id="item" :value="item" v-model="selectedCuisines" />
+          <label class="form-switch-label" :for="item">{{ item }}</label>
+        </div>
+      </div>
+    </div>
+    <div class="category">
+      <h4>Intolerance:</h4>
+      <div class="genres">
+        <div v-for="item in intolerance" :key="item" class="genre-item">
+          <input class="form-switch-input" type="checkbox" :id="item" :value="item" v-model="selectedIntolerance" />
+          <label class="form-switch-label" :for="item">{{ item }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    filterMenuOpen: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      cuisine: [
+        'African', 'Asian', 'American', 'British', 'Cajun', 'Caribbean', 'Chinese', 'Eastern European', 'European',
+        'French', 'German', 'Greek', 'Indian', 'Irish', 'Italian', 'Japanese', 'Jewish', 'Korean',
+        'Latin American', 'Mediterranean', 'Mexican', 'Middle Eastern', 'Nordic', 'Southern', 'Spanish', 'Thai', 'Vietnamese'
+      ],
+      intolerance: [
+        'Dairy', 'Egg', 'Gluten', 'Grain', 'Peanut', 'Seafood', 'Sesame', 'Shellfish', 'Soy', 'Sulfite', 'Tree Nut', 'Wheat'
+      ],
+      selectedCuisines: [],
+      selectedIntolerance: [],
+    };
+  },
+  watch: {
+    selectedCuisines(newCuisines) {
+      this.$emit('update:cuisines', newCuisines);
+    },
+    selectedIntolerance(newIntolerance) {
+      this.$emit('update:intolerance', newIntolerance);
+    },
+  },
+};
+</script>
+
+<style>
+.filter-menu {
+  padding: 20px;
+  width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+.category {
+  margin-bottom: 20px;
+}
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px; /* Adds space between columns */
+}
+.genre-item {
+  width: 26%; /* Ensures four items per row with space between */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.form-switch-input {
+  position: relative;
+  width: 40px; 
+  height: 20px;
+  appearance: none;
+  background-color: #ccc;
+  outline: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.2s;
+  margin-right: 10px;
+}
+.form-switch-input:checked {
+  background-color: #333;
+}
+.form-switch-input:checked::before {
+  transform: translateX(20px); /* Adjusted to match new switch width */
+}
+.form-switch-input::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.form-switch-label {
+  cursor: pointer;
+}
+</style>
