@@ -14,10 +14,7 @@
             </div>
             Ingredients:
             <ul>
-              <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
-              >
+              <li v-for="(r, index) in recipe.extendedIngredients" :key="index + '_' + r.id">
                 {{ r.original }}
               </li>
             </ul>
@@ -32,11 +29,6 @@
           </div>
         </div>
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
   </div>
 </template>
@@ -51,26 +43,11 @@ export default {
   },
   async created() {
     try {
-      let response;
-      // response = this.$route.params.response;
+      let recipeId = this.$route.params.recipeId;
+      console.log('Fetching recipe details for ID:', recipeId);
+      let response = mockGetRecipeFullDetails(recipeId);
 
-      try {
-        // response = await this.axios.get(
-        //   this.$root.store.server_domain + "/recipes/" + this.$route.params.recipeId,
-        //   {
-        //     withCredentials: true
-        //   }
-        // );
-
-        response = mockGetRecipeFullDetails(this.$route.params.recipeId);
-
-        // console.log("response.status", response.status);
-        if (response.status !== 200) this.$router.replace("/NotFound");
-      } catch (error) {
-        console.log("error.response.status", error.response.status);
-        this.$router.replace("/NotFound");
-        return;
-      }
+      if (response.status !== 200) this.$router.replace("/NotFound");
 
       let {
         analyzedInstructions,
@@ -89,7 +66,7 @@ export default {
         })
         .reduce((a, b) => [...a, ...b], []);
 
-      let _recipe = {
+      this.recipe = {
         instructions,
         _instructions,
         analyzedInstructions,
@@ -99,10 +76,10 @@ export default {
         image,
         title
       };
-
-      this.recipe = _recipe;
+      console.log('Recipe data loaded:', this.recipe);
     } catch (error) {
-      console.log(error);
+      console.log('Error fetching recipe:', error);
+      this.$router.replace("/NotFound");
     }
   }
 };
@@ -121,7 +98,4 @@ export default {
   margin-right: auto;
   width: 50%;
 }
-/* .recipe-header{
-
-} */
 </style>
