@@ -108,7 +108,7 @@ export default {
 <style scoped>
 .search-page {
   position: relative;
-  background-image: url("../assets/searchBackground.jpg");
+  background-image: url("../assets/photos/searchBackground.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

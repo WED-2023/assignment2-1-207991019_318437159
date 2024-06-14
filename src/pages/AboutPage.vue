@@ -69,7 +69,7 @@ export default {
 
 <style scoped>
 .about-page {
-  background-image: url("../assets/AboutUsBackground.jpg");
+  background-image: url("../assets/photos/AboutUsBackground.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

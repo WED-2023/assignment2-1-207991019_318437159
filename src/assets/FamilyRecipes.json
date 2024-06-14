@@ -2,7 +2,7 @@
   "FamilyRecipes": [
     {
       "ID": 1,
-      "Image": "chraime.jpg",
+      "Image": "photos/chraime.jpg",
       "Title": "Chraime",
       "Maker": "Grandma / Mom",
       "Occasion": "Friday Evening",
@@ -26,7 +26,7 @@
     },
     {
       "ID": 2,
-      "Image": "Spaghetti.jpg",
+      "Image": "photos/Spaghetti.jpg",
       "Title": "Mom's Spaghetti",
       "Maker": "Mom",
       "Occasion": "Family Dinner",
@@ -51,7 +51,7 @@
     },
     {
       "ID": 4,
-      "Image": "steak.jpg",
+      "Image": "photos/steak.jpg",
       "Title": "Fillet Steaks with Cauliflower Purée and Mushroom Sauce",
       "Maker": "Dad",
       "Occasion": "Special Occasion",

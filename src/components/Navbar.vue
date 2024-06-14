@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <!-- Logo -->
     <img
-      src="../assets/ron-chili-removebg.png"
+      src="../assets/photos/ron-chili-removebg.png"
       alt="Ron's Logo"
       class="navbar-brand-logo"
     />

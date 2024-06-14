@@ -321,7 +321,7 @@ export default {
 
 <style scoped>
 .register-container {
-  background-image: url("../assets/register-pic.jpg");
+  background-image: url("../assets/photos/register-pic.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;

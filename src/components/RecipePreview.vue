@@ -1,7 +1,7 @@
 <template>
   <div class="recipe-preview">
     <router-link
-      :to="{ name: 'recipe' }"
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="recipe-link"
       @click.native="markAsViewed"
     >

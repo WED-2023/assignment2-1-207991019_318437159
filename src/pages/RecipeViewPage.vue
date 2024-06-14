@@ -43,11 +43,9 @@ export default {
   },
   async created() {
     try {
-      let recipeId = this.$route.params.recipeId;
+      let recipeId = this.$route.params.Id;
       console.log('Fetching recipe details for ID:', recipeId);
       let response = mockGetRecipeFullDetails(recipeId);
-
-      if (response.status !== 200) this.$router.replace("/NotFound");
 
       let {
         analyzedInstructions,

@@ -130,7 +130,7 @@ export default {
 }
 
 .login-left {
-  background-image: url("../assets/login-pic.jpeg");
+  background-image: url("../assets/photos/login-pic.jpeg");
   background-size: cover;
   background-repeat: no-repeat; // Prevent the image from repeating
   background-position: center; // Center the image
