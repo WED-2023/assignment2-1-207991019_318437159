@@ -10,6 +10,15 @@
         @change="uploadBackground"
         accept="image/*"
       />
+      <label for="bg-upload" class="bg-upload-label"
+        >Upload Background Image</label
+      >
+      <input
+        type="file"
+        id="bg-upload"
+        @change="uploadBackground"
+        accept="image/*"
+      />
     </div>
     <div v-if="recipe" class="recipe-container">
       <DetailedRecipePreview
@@ -34,7 +43,7 @@ import { mockGetRecipeFullDetails } from "../services/recipes.js";
 
 export default {
   components: {
-    DetailedRecipePreview
+    DetailedRecipePreview,
   },
   data() {
     return {
@@ -50,13 +59,13 @@ export default {
         reader.onload = (e) => {
           this.backgroundImage = e.target.result;
           document.body.style.backgroundImage = `url(${this.backgroundImage})`;
-          document.body.style.backgroundSize = 'cover';
-          document.body.style.backgroundPosition = 'center';
-          document.body.style.backgroundRepeat = 'no-repeat';
+          document.body.style.backgroundSize = "cover";
+          document.body.style.backgroundPosition = "center";
+          document.body.style.backgroundRepeat = "no-repeat";
         };
         reader.readAsDataURL(file);
       }
-    }
+    },
   },
   methods: {
     uploadBackground(event) {
@@ -66,23 +75,19 @@ export default {
         reader.onload = (e) => {
           this.backgroundImage = e.target.result;
           document.body.style.backgroundImage = `url(${this.backgroundImage})`;
-          document.body.style.backgroundSize = 'cover';
-          document.body.style.backgroundPosition = 'center';
-          document.body.style.backgroundRepeat = 'no-repeat';
+          document.body.style.backgroundSize = "cover";
+          document.body.style.backgroundPosition = "center";
+          document.body.style.backgroundRepeat = "no-repeat";
         };
         reader.readAsDataURL(file);
       }
-    }
+    },
   },
   async created() {
     try {
 <<<<<<< HEAD
       let recipeId = this.$route.params.Id;
-      console.log('Fetching recipe details for ID:', recipeId);
-=======
-      let recipeId = this.$route.params.recipeId;
       console.log("Fetching recipe details for ID:", recipeId);
->>>>>>> f62075d (fixed navbar)
       let response = mockGetRecipeFullDetails(recipeId);
       console.log(response);
 
@@ -96,7 +101,7 @@ export default {
         title,
         cuisine,
         summary,
-        servings
+        servings,
       } = response.data.recipe;
 
       this.recipe = {
@@ -109,17 +114,13 @@ export default {
         title,
         cuisine,
         summary,
-        servings
+        servings,
       };
     } catch (error) {
       console.log("Error fetching recipe:", error);
+      console.log("Error fetching recipe:", error);
       this.$router.replace("/NotFound");
     }
-  },
-  methods: {
-    toggleFavorite() {
-      this.isLiked = !this.isLiked;
-    },
   },
 };
 </script>
@@ -132,6 +133,12 @@ export default {
   color: #333;
   max-width: 1000px;
   margin: 0 auto;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Add a slight white background with transparency */
   background-color: rgba(
     255,
     255,
