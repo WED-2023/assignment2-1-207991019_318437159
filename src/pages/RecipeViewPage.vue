@@ -65,7 +65,6 @@ export default {
       };
     } catch (error) {
       console.log("Error fetching recipe:", error);
-      console.log("Error fetching recipe:", error);
       this.$router.replace("/NotFound");
     }
   },
@@ -88,7 +87,7 @@ export default {
 .background {
   padding: 20px;
   background-color: #f5f5f5;
-  background-image: url('../assets/photos/wood_background.jpg'); /* Add your background image here */
+  background-image: url("../assets/photos/wood_background.jpg"); /* Add your background image here */
   background-size: cover; /* Make sure the background covers the entire area */
   background-position: center; /* Center the background image */
 }
