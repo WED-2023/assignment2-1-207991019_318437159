@@ -1,56 +1,78 @@
 <template>
-  <div class="container">
-    <div v-if="recipe">
-      <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
-        <b-button
-          @click.stop="toggleFavorite"
-          class="favorite-btn"
-          :class="{ liked: isLiked }"
-        >
-          <b-icon icon="heart-fill" />
-        </b-button>
-      </div>
-      <div class="recipe-body">
-        <div class="wrapper">
-          <div class="wrapped">
-            <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
-            </div>
-            Ingredients:
-            <ul>
-              <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
-              >
-                {{ r.original }}
-              </li>
-            </ul>
-          </div>
-          <div class="wrapped">
-            Instructions:
-            <ol>
-              <li v-for="s in recipe._instructions" :key="s.number">
-                {{ s.step }}
-              </li>
-            </ol>
-          </div>
-        </div>
-      </div>
+  <div>
+    <div>
+      <label for="bg-upload" class="bg-upload-label"
+        >Upload Background Image</label
+      >
+      <input
+        type="file"
+        id="bg-upload"
+        @change="uploadBackground"
+        accept="image/*"
+      />
+    </div>
+    <div v-if="recipe" class="recipe-container">
+      <DetailedRecipePreview
+        :key="recipe.id"
+        :image="recipe.image"
+        :title="recipe.title"
+        :cuisine="recipe.cuisine"
+        :summary="recipe.summary"
+        :ingredients="recipe.extendedIngredients"
+        :instructions="recipe.instructions"
+        :readyInMinutes="recipe.readyInMinutes"
+        :servings="recipe.servings"
+        :aggregateLikes="recipe.aggregateLikes"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import DetailedRecipePreview from "../components/DetailedRecipePreview.vue";
 import { mockGetRecipeFullDetails } from "../services/recipes.js";
+
 export default {
+  components: {
+    DetailedRecipePreview
+  },
   data() {
     return {
       recipe: null,
-      isLiked: false, // Add this
+      backgroundImage: null,
     };
+  },
+  methods: {
+    uploadBackground(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.backgroundImage = e.target.result;
+          document.body.style.backgroundImage = `url(${this.backgroundImage})`;
+          document.body.style.backgroundSize = 'cover';
+          document.body.style.backgroundPosition = 'center';
+          document.body.style.backgroundRepeat = 'no-repeat';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  },
+  methods: {
+    uploadBackground(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.backgroundImage = e.target.result;
+          document.body.style.backgroundImage = `url(${this.backgroundImage})`;
+          document.body.style.backgroundSize = 'cover';
+          document.body.style.backgroundPosition = 'center';
+          document.body.style.backgroundRepeat = 'no-repeat';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
   },
   async created() {
     try {
@@ -62,6 +84,7 @@ export default {
       console.log("Fetching recipe details for ID:", recipeId);
 >>>>>>> f62075d (fixed navbar)
       let response = mockGetRecipeFullDetails(recipeId);
+      console.log(response);
 
       let {
         analyzedInstructions,
@@ -71,26 +94,23 @@ export default {
         readyInMinutes,
         image,
         title,
+        cuisine,
+        summary,
+        servings
       } = response.data.recipe;
-
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
 
       this.recipe = {
         instructions,
-        _instructions,
         analyzedInstructions,
         extendedIngredients,
         aggregateLikes,
         readyInMinutes,
         image,
         title,
+        cuisine,
+        summary,
+        servings
       };
-      console.log("Recipe data loaded:", this.recipe);
     } catch (error) {
       console.log("Error fetching recipe:", error);
       this.$router.replace("/NotFound");
@@ -105,39 +125,30 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  display: flex;
+.recipe-container {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #333;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Add a slight white background with transparency */
 }
-.wrapped {
-  width: 50%;
+
+.bg-upload-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
 }
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-.favorite-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: grey;
-  cursor: pointer;
-  outline: none;
-  transition: color 0.3s, transform 0.3s;
-}
-.favorite-btn.liked {
-  color: red;
-  transform: scale(1.2);
-  animation: bounce 0.3s;
-}
-@keyframes bounce {
-  0%,
-  100% {
-    transform: scale(1.2);
-  }
-  50% {
-    transform: scale(1.5);
-  }
+
+#bg-upload {
+  display: inline-block;
+  margin-bottom: 20px;
 }
 </style>
