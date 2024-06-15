@@ -7,7 +7,9 @@
       class="navbar-brand-logo"
     />
 
-    <router-link class="navbar-brand pl-3" :to="{ name: 'main' }">Ron's Matkonim</router-link>
+    <router-link class="navbar-brand pl-3" :to="{ name: 'main' }"
+      >Ron's Matkonim</router-link
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -22,10 +24,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link class="nav-link" :to="{ name: 'search' }">Search</router-link>
+          <router-link class="nav-link" :to="{ name: 'search' }"
+            >Search</router-link
+          >
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" :to="{ name: 'about' }">About</router-link>
+          <router-link class="nav-link" :to="{ name: 'about' }"
+            >About</router-link
+          >
         </li>
         <li class="nav-item dropdown" v-if="$root.store.username">
           <a
@@ -44,9 +50,15 @@
             :class="{ show: isMyRecipesDropdownOpen }"
             aria-labelledby="navbarDropdownMenuLink1"
           >
-            <router-link class="dropdown-item" :to="{ name: 'favorites' }">Favorites</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'private' }">Private</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'family' }">Family</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'favorites' }"
+              >Favorites</router-link
+            >
+            <router-link class="dropdown-item" :to="{ name: 'private' }"
+              >Private</router-link
+            >
+            <router-link class="dropdown-item" :to="{ name: 'family' }"
+              >Family</router-link
+            >
           </div>
         </li>
       </ul>
@@ -69,12 +81,20 @@
               :class="{ show: isUserDropdownOpen }"
               aria-labelledby="navbarDropdownMenuLink2"
             >
-              <router-link class="dropdown-item" @click="toggleUserDropdown" :to="{ name: 'profile' }">Profile</router-link>
+              <router-link
+                class="dropdown-item"
+                @click="toggleUserDropdown"
+                :to="{ name: 'profile' }"
+                >Profile</router-link
+              >
               <button class="dropdown-item" @click="Logout">Sign Out</button>
             </div>
           </li>
           <li class="nav-item">
-            <button class="nav-link btn btn-link" @click="showNewRecipeModal = true">
+            <button
+              class="nav-link btn btn-link"
+              @click="showNewRecipeModal = true"
+            >
               Create New Recipe
             </button>
           </li>
@@ -84,15 +104,24 @@
             <span class="navbar-text">Hello Guest</span>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link circular-btn" :to="{ name: 'login' }">Login</router-link>
+            <router-link class="nav-link circular-btn" :to="{ name: 'login' }"
+              >Login</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link circular-btn" :to="{ name: 'register' }">Register</router-link>
+            <router-link
+              class="nav-link circular-btn"
+              :to="{ name: 'register' }"
+              >Register</router-link
+            >
           </li>
         </template>
       </ul>
     </div>
-    <NewRecipeModal :show="showNewRecipeModal" @close="showNewRecipeModal = false" />
+    <NewRecipeModal
+      :show="showNewRecipeModal"
+      @close="showNewRecipeModal = false"
+    />
   </nav>
 </template>
 
