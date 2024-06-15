@@ -66,7 +66,6 @@ export default {
   name: "About",
 };
 </script>
-
 <style scoped>
 .about-page {
   background-image: url("../assets/photos/AboutUsBackground.jpg");
@@ -74,26 +73,37 @@ export default {
   background-position: center;
   background-attachment: fixed;
   position: relative;
-  min-height: 100vh;
+  min-height: 150vh;
   color: #fff;
   font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .overlay {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.container-xxl {
+  padding: 2rem;
 }
 
 .content {
   border-radius: 10px;
   padding: 2rem;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Slightly darken the background for readability */
 }
 
 .display-4 {
@@ -102,14 +112,14 @@ export default {
 }
 
 .lead {
-  font-size: 2.3rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: #6c757d;
 }
 
 .text-primary {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #007bff;
 }
 

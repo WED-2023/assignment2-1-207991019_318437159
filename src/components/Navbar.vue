@@ -105,12 +105,16 @@
               <span class="navbar-text">Hello Guest</span>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'login' }"
+              <router-link
+                class="nav-link circular-btn-login"
+                :to="{ name: 'login' }"
                 >Login</router-link
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'register' }"
+              <router-link
+                class="nav-link circular-btn-register"
+                :to="{ name: 'register' }"
                 >Register</router-link
               >
             </li>
@@ -170,21 +174,51 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .navbar-nav > li {
   font-family: "Lato", sans-serif;
   font-weight: 400;
-  padding: 0.3rem 1.2rem; /* Adjust padding for better spacing */
+  padding: 0.2rem 1.2rem; /* Adjust padding for better spacing */
   font-size: 20px; /* Improve font size */
 }
+
 .dropdown-menu {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana;
   font-size: 20px; /* Improve font size */
 }
+
 .navbar-brand-logo {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   margin-right: 10px; /* Adjust spacing */
+}
+
+.circular-btn-login,
+.circular-btn-register {
+  border-radius: 20px; /* Make the button more compact */
+  transition: background-color 0.3s, transform 0.3s;
+  font-weight: 600;
+}
+
+.circular-btn-login {
+  background-color: #007bff;
+  border: 2px solid white; /* Add a border */
+}
+
+.circular-btn-login:hover {
+  transform: scale(1.05);
+  color: white; /* Keep text color white on hover */
+  border: 2px solid white; /* Keep border color white on hover */
+}
+
+.circular-btn-register {
+  background-color: gray; /* Better red color */
+  border: 2px solid white; /* Add a border */
+}
+
+.circular-btn-register:hover {
+  transform: scale(1.05);
+  color: white; /* Keep text color white on hover */
+  border: 2px solid white; /* Keep border color white on hover */
 }
 </style>
