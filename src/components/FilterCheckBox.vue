@@ -19,10 +19,21 @@
         </div>
       </div>
     </div>
+    <div class="category">
+      <h4>Diets:</h4>
+      <div class="genres">
+        <div v-for="item in diets" :key="item" class="genre-item">
+          <input class="form-switch-input" type="checkbox" :id="item" :value="item" v-model="selectedDiets" />
+          <label class="form-switch-label" :for="item">{{ item }}</label>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mockGetCategoriesForSearch } from '@/services/recipes.js';
+
 export default {
   props: {
     filterMenuOpen: {
@@ -32,17 +43,28 @@ export default {
   },
   data() {
     return {
-      cuisine: [
-        'African', 'Asian', 'American', 'British', 'Cajun', 'Caribbean', 'Chinese', 'Eastern European', 'European',
-        'French', 'German', 'Greek', 'Indian', 'Irish', 'Italian', 'Japanese', 'Jewish', 'Korean',
-        'Latin American', 'Mediterranean', 'Mexican', 'Middle Eastern', 'Nordic', 'Southern', 'Spanish', 'Thai', 'Vietnamese'
-      ],
-      intolerance: [
-        'Dairy', 'Egg', 'Gluten', 'Grain', 'Peanut', 'Seafood', 'Sesame', 'Shellfish', 'Soy', 'Sulfite', 'Tree Nut', 'Wheat'
-      ],
+      cuisine: [],
+      intolerance: [],
+      diets: [],
       selectedCuisines: [],
       selectedIntolerance: [],
+      selectedDiets: [],
     };
+  },
+  created() {
+    console.log('Component created');
+    try {
+      const { data } = mockGetCategoriesForSearch();
+      console.log('Fetched categories:', data);
+      this.cuisine = data.cuisine;
+      this.intolerance = data.intolerance;
+      this.diets = data.diets;
+      console.log('Cuisine:', this.cuisine);
+      console.log('Intolerance:', this.intolerance);
+      console.log('Diets:', this.diets);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
   },
   watch: {
     selectedCuisines(newCuisines) {
@@ -50,6 +72,9 @@ export default {
     },
     selectedIntolerance(newIntolerance) {
       this.$emit('update:intolerance', newIntolerance);
+    },
+    selectedDiets(newDiets) {
+      this.$emit('update:diets', newDiets);
     },
   },
 };

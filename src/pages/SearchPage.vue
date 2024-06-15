@@ -83,7 +83,7 @@ export default {
   methods: {
     performSearch() {
       this.searchPerformed = true;
-      this.$refs.recipePreviewList.updateRecipes();
+      this.$refs.recipePreviewList.updateRecipes(this.recipesToShow);
     },
     setRecipesToShow(num) {
       this.recipesToShow = num;

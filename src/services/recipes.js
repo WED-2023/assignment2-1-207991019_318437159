@@ -1,6 +1,7 @@
 // src/services/recipes.js
 import recipe_full_view from "../assets/mocks/recipe_full_view.json";
 import recipe_previews from "../assets/mocks/recipe_preview.json";
+import categories from "../assets/mocks/categories.json";
 
 export function mockGetRecipesPreview(amount = 1) {
   let recipes = [];
@@ -25,4 +26,10 @@ export function mockGetRecipeFullDetails(recipeId) {
 
 export function mockSaveNewRecipe(recipe) {
   console.log("Rceipe saved: ", recipe);
+}
+
+
+
+export function mockGetCategoriesForSearch() {
+    return { data: categories };
 }
