@@ -3,19 +3,17 @@
     <b-row>
       <!-- Left Column: Random Recipes -->
       <b-col cols="12" lg="6" class="left-column">
-        <RecipePreviewList
-          title="Explore these recipes"
-          :amount="3"
-          :key="randomKey"
-        />
         <div class="list-header">
-          <b-icon
-            icon="arrow-clockwise"
-            variant="dark"
-            @click="refreshRandomRecipes"
-            class="refresh-icon"
-          ></b-icon>
+          <h3 class="list-title">Explore these recipes</h3>
+          <b-button variant="dark" @click="refreshRandomRecipes"
+            >Refresh</b-button
+          >
         </div>
+        <RecipePreviewList
+          ref="randomRecipeList"
+          title="Random Recipes"
+          :amount="3"
+        />
       </b-col>
       <!-- Right Column: Last Viewed Recipes or Login Box -->
       <b-col cols="12" lg="6" class="right-column">
@@ -40,26 +38,16 @@ export default {
     RecipePreviewList,
     LoginBox,
   },
-  data() {
-    return {
-      randomKey: 0,
-    };
-  },
   computed: {
     isLoggedIn() {
       return !!this.$root.store.username;
     },
   },
-  watch: {
-    "$root.store.username": function(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$forceUpdate();
-      }
-    },
-  },
   methods: {
     refreshRandomRecipes() {
-      this.randomKey++;
+      if (this.$refs.randomRecipeList) {
+        this.$refs.randomRecipeList.refreshRecipes();
+      }
     },
   },
 };
@@ -85,7 +73,7 @@ h3 {
 
 .list-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -94,11 +82,6 @@ h3 {
   font-size: 24px;
   font-weight: bold;
   color: #333;
-}
-
-.refresh-icon {
-  cursor: pointer;
-  font-size: 40px;
 }
 
 .login-container {

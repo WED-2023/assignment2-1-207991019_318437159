@@ -2,7 +2,6 @@
   <b-container>
     <div class="list-header">
       <h3 class="list-title">{{ title }}</h3>
-      <slot></slot>
     </div>
     <b-row class="justify-content-center">
       <b-col
@@ -49,11 +48,15 @@ export default {
   methods: {
     async updateRecipes() {
       try {
+        console.log("Fetching recipes...");
         const response = await mockGetRecipesPreview(this.amount);
         this.recipes = response.data.recipes || [];
       } catch (error) {
         console.log(error);
       }
+    },
+    refreshRecipes() {
+      this.updateRecipes();
     },
   },
 };

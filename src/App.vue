@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navbar></navbar>
+    <Navbar />
     <router-view />
   </div>
 </template>
@@ -18,7 +18,6 @@ export default {
 
 <style lang="scss">
 @import "@/scss/form-style.scss";
-
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
