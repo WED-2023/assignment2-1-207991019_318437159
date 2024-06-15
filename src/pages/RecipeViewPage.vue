@@ -1,25 +1,5 @@
 <template>
-  <div>
-    <div>
-      <label for="bg-upload" class="bg-upload-label"
-        >Upload Background Image</label
-      >
-      <input
-        type="file"
-        id="bg-upload"
-        @change="uploadBackground"
-        accept="image/*"
-      />
-      <label for="bg-upload" class="bg-upload-label"
-        >Upload Background Image</label
-      >
-      <input
-        type="file"
-        id="bg-upload"
-        @change="uploadBackground"
-        accept="image/*"
-      />
-    </div>
+  <div class="background">
     <div v-if="recipe" class="recipe-container">
       <DetailedRecipePreview
         :key="recipe.id"
@@ -51,41 +31,8 @@ export default {
       backgroundImage: null,
     };
   },
-  methods: {
-    uploadBackground(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.backgroundImage = e.target.result;
-          document.body.style.backgroundImage = `url(${this.backgroundImage})`;
-          document.body.style.backgroundSize = "cover";
-          document.body.style.backgroundPosition = "center";
-          document.body.style.backgroundRepeat = "no-repeat";
-        };
-        reader.readAsDataURL(file);
-      }
-    },
-  },
-  methods: {
-    uploadBackground(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.backgroundImage = e.target.result;
-          document.body.style.backgroundImage = `url(${this.backgroundImage})`;
-          document.body.style.backgroundSize = "cover";
-          document.body.style.backgroundPosition = "center";
-          document.body.style.backgroundRepeat = "no-repeat";
-        };
-        reader.readAsDataURL(file);
-      }
-    },
-  },
   async created() {
     try {
-<<<<<<< HEAD
       let recipeId = this.$route.params.Id;
       console.log("Fetching recipe details for ID:", recipeId);
       let response = mockGetRecipeFullDetails(recipeId);
@@ -126,27 +73,6 @@ export default {
 </script>
 
 <style scoped>
-.recipe-container {
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #333;
-  max-width: 1000px;
-  margin: 0 auto;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.9
-  ); /* Add a slight white background with transparency */
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.9
-  ); /* Add a slight white background with transparency */
-}
-
 .bg-upload-label {
   display: inline-block;
   margin-bottom: 10px;
@@ -157,5 +83,13 @@ export default {
 #bg-upload {
   display: inline-block;
   margin-bottom: 20px;
+}
+
+.background {
+  padding: 20px;
+  background-color: #f5f5f5;
+  background-image: url('../assets/photos/wood_background.jpg'); /* Add your background image here */
+  background-size: cover; /* Make sure the background covers the entire area */
+  background-position: center; /* Center the background image */
 }
 </style>

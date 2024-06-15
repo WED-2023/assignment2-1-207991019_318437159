@@ -27,9 +27,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
+  z-index: 1000;
 }
 
-#content {
-  padding-top: 5%; /* Adjust this value if the navbar height changes */
-}
 </style>

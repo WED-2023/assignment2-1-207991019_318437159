@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <!-- Logo -->
     <img
       src="../assets/photos/ron-chili-removebg.png"
@@ -7,124 +7,93 @@
       class="navbar-brand-logo"
     />
 
-      <!-- Brand name -->
-      <router-link class="navbar-brand pl-3" :to="{ name: 'main' }"
-        >Ron's Matkonim</router-link
-      >
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'search' }"
-              >Search</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'about' }"
-              >About</router-link
-            >
-          </li>
-          <li class="nav-item dropdown" v-if="$root.store.username">
+    <router-link class="navbar-brand pl-3" :to="{ name: 'main' }">Ron's Matkonim</router-link>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <router-link class="nav-link" :to="{ name: 'search' }">Search</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" :to="{ name: 'about' }">About</router-link>
+        </li>
+        <li class="nav-item dropdown" v-if="$root.store.username">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdownMenuLink1"
+            role="button"
+            aria-haspopup="true"
+            :aria-expanded="isMyRecipesDropdownOpen"
+            @click.prevent="toggleMyRecipesDropdown"
+          >
+            My Recipes
+          </a>
+          <div
+            class="dropdown-menu"
+            :class="{ show: isMyRecipesDropdownOpen }"
+            aria-labelledby="navbarDropdownMenuLink1"
+          >
+            <router-link class="dropdown-item" :to="{ name: 'favorites' }">Favorites</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'private' }">Private</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'family' }">Family</router-link>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto pr-3">
+        <template v-if="$root.store.username">
+          <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
-              id="navbarDropdownMenuLink1"
+              id="navbarDropdownMenuLink2"
               role="button"
               aria-haspopup="true"
-              :aria-expanded="isMyRecipesDropdownOpen"
-              @click.prevent="toggleMyRecipesDropdown"
+              :aria-expanded="isUserDropdownOpen"
+              @click.prevent="toggleUserDropdown"
             >
-              My Recipes
+              {{ $root.store.username }}
             </a>
             <div
-              class="dropdown-menu"
-              :class="{ show: isMyRecipesDropdownOpen }"
-              aria-labelledby="navbarDropdownMenuLink1"
+              class="dropdown-menu dropdown-menu-right"
+              :class="{ show: isUserDropdownOpen }"
+              aria-labelledby="navbarDropdownMenuLink2"
             >
-              <router-link class="dropdown-item" :to="{ name: 'favorites' }"
-                >Favorites</router-link
-              >
-              <router-link class="dropdown-item" :to="{ name: 'private' }"
-                >Private</router-link
-              >
-              <router-link class="dropdown-item" :to="{ name: 'family' }"
-                >Family</router-link
-              >
+              <router-link class="dropdown-item" @click="toggleUserDropdown" :to="{ name: 'profile' }">Profile</router-link>
+              <button class="dropdown-item" @click="Logout">Sign Out</button>
             </div>
           </li>
-        </ul>
-        <ul class="navbar-nav ml-auto pr-3">
-          <template v-if="$root.store.username">
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdownMenuLink2"
-                role="button"
-                aria-haspopup="true"
-                :aria-expanded="isUserDropdownOpen"
-                @click.prevent="toggleUserDropdown"
-              >
-                {{ $root.store.username }}
-              </a>
-              <div
-                class="dropdown-menu dropdown-menu-right"
-                :class="{ show: isUserDropdownOpen }"
-                aria-labelledby="navbarDropdownMenuLink2"
-              >
-                <router-link
-                  class="dropdown-item"
-                  @click="toggleUserDropdown"
-                  :to="{ name: 'profile' }"
-                  >Profile</router-link
-                >
-                <button class="dropdown-item" @click="Logout">Sign Out</button>
-              </div>
-            </li>
-            <li class="nav-item">
-              <button
-                class="nav-link btn btn-link"
-                @click="showNewRecipeModal = true"
-              >
-                Create New Recipe
-              </button>
-            </li>
-          </template>
-          <template v-else>
-            <li class="nav-item">
-              <span class="navbar-text">Hello Guest</span>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link circular-btn" :to="{ name: 'login' }"
-                >Login</router-link
-              >
-            </li>
-            <li class="nav-item">
-              <router-link
-                class="nav-link circular-btn"
-                :to="{ name: 'register' }"
-                >Register</router-link
-              >
-            </li>
-          </template>
-        </ul>
-      </div>
-    </nav>
-    <NewRecipeModal
-      :show="showNewRecipeModal"
-      @close="showNewRecipeModal = false"
-    />
-  </div>
+          <li class="nav-item">
+            <button class="nav-link btn btn-link" @click="showNewRecipeModal = true">
+              Create New Recipe
+            </button>
+          </li>
+        </template>
+        <template v-else>
+          <li class="nav-item">
+            <span class="navbar-text">Hello Guest</span>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link circular-btn" :to="{ name: 'login' }">Login</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link circular-btn" :to="{ name: 'register' }">Register</router-link>
+          </li>
+        </template>
+      </ul>
+    </div>
+    <NewRecipeModal :show="showNewRecipeModal" @close="showNewRecipeModal = false" />
+  </nav>
 </template>
 
 <script>
@@ -174,19 +143,41 @@ export default {
 </script>
 
 <style scoped>
+/* Global reset for margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0; /* Remove default body margin */
+}
+
+.navbar {
+  z-index: 1000; /* Ensure the navbar is above other elements */
+  margin-bottom: 0; /* Remove any margin at the bottom of the navbar */
+}
+
 .navbar-nav > li {
   font-family: "Lato", sans-serif;
   font-weight: 400;
   padding: 0.2rem 1.2rem; /* Adjust padding for better spacing */
   font-size: 20px; /* Improve font size */
 }
+
 .dropdown-menu {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana;
   font-size: 20px; /* Improve font size */
 }
+
 .navbar-brand-logo {
-  width: px;
+  width: auto;
   height: 50px;
   margin-right: 10px; /* Adjust spacing */
+}
+
+.main-content {
+  padding-top: 70px; /* Adjust padding to the height of the navbar to prevent content from being hidden */
 }
 </style>
