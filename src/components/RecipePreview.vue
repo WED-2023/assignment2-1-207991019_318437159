@@ -78,7 +78,19 @@ export default {
     },
     toggleSaved(event) {
       event.stopPropagation(); // Prevent triggering the link click
+      event.preventDefault(); // Prevent default action
+
       this.saved = !this.saved;
+
+      // Add a class for animation
+      const favoriteIcon = event.currentTarget.querySelector(".icon-heart");
+      favoriteIcon.classList.add("like-animation");
+
+      // Remove the animation class after animation ends
+      favoriteIcon.addEventListener("animationend", () => {
+        favoriteIcon.classList.remove("like-animation");
+      });
+
       if (this.saved) {
         localStorage.setItem(`saved_${this.recipe.id}`, true);
       } else {
@@ -151,6 +163,20 @@ export default {
 
 .icon-heart {
   font-size: 24px;
+}
+
+.icon-heart.like-animation {
+  animation: like-bounce 0.5s ease-in-out;
+}
+
+@keyframes like-bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
 }
 
 .recipe-footer {

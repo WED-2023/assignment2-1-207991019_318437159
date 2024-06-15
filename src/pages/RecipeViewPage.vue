@@ -4,6 +4,13 @@
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
         <img :src="recipe.image" class="center" />
+        <b-button
+          @click.stop="toggleFavorite"
+          class="favorite-btn"
+          :class="{ liked: isLiked }"
+        >
+          <b-icon icon="heart-fill" />
+        </b-button>
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -14,7 +21,10 @@
             </div>
             Ingredients:
             <ul>
-              <li v-for="(r, index) in recipe.extendedIngredients" :key="index + '_' + r.id">
+              <li
+                v-for="(r, index) in recipe.extendedIngredients"
+                :key="index + '_' + r.id"
+              >
                 {{ r.original }}
               </li>
             </ul>
@@ -38,13 +48,19 @@ import { mockGetRecipeFullDetails } from "../services/recipes.js";
 export default {
   data() {
     return {
-      recipe: null
+      recipe: null,
+      isLiked: false, // Add this
     };
   },
   async created() {
     try {
+<<<<<<< HEAD
       let recipeId = this.$route.params.Id;
       console.log('Fetching recipe details for ID:', recipeId);
+=======
+      let recipeId = this.$route.params.recipeId;
+      console.log("Fetching recipe details for ID:", recipeId);
+>>>>>>> f62075d (fixed navbar)
       let response = mockGetRecipeFullDetails(recipeId);
 
       let {
@@ -54,7 +70,7 @@ export default {
         aggregateLikes,
         readyInMinutes,
         image,
-        title
+        title,
       } = response.data.recipe;
 
       let _instructions = analyzedInstructions
@@ -72,14 +88,19 @@ export default {
         aggregateLikes,
         readyInMinutes,
         image,
-        title
+        title,
       };
-      console.log('Recipe data loaded:', this.recipe);
+      console.log("Recipe data loaded:", this.recipe);
     } catch (error) {
-      console.log('Error fetching recipe:', error);
+      console.log("Error fetching recipe:", error);
       this.$router.replace("/NotFound");
     }
-  }
+  },
+  methods: {
+    toggleFavorite() {
+      this.isLiked = !this.isLiked;
+    },
+  },
 };
 </script>
 
@@ -95,5 +116,28 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+.favorite-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: grey;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.3s, transform 0.3s;
+}
+.favorite-btn.liked {
+  color: red;
+  transform: scale(1.2);
+  animation: bounce 0.3s;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.5);
+  }
 }
 </style>

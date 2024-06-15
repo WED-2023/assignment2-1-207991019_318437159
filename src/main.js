@@ -6,9 +6,8 @@ import axios from "axios";
 import routes from "./routes";
 import VueRouter from "vue-router";
 import Vuelidate from "vuelidate";
-import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -16,6 +15,9 @@ import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Multiselect from "vue-multiselect";
+import "vue-multiselect/dist/vue-multiselect.min.css";
+import VModal from "vue-js-modal";
 
 library.add(fasHeart, farHeart, faStar);
 
@@ -26,7 +28,10 @@ const router = new VueRouter({
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
+Vue.use(VModal);
+
 Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component("multiselect", Multiselect);
 
 import {
   FormGroupPlugin,
