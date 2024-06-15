@@ -31,6 +31,22 @@ export default {
       backgroundImage: null,
     };
   },
+  methods: {
+    uploadBackground(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.backgroundImage = e.target.result;
+          document.body.style.backgroundImage = `url(${this.backgroundImage})`;
+          document.body.style.backgroundSize = "cover";
+          document.body.style.backgroundPosition = "center";
+          document.body.style.backgroundRepeat = "no-repeat";
+        };
+        reader.readAsDataURL(file);
+      }
+    },
+  },
   async created() {
     try {
       let recipeId = this.$route.params.Id;
