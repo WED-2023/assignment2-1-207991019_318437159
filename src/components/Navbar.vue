@@ -1,11 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <!-- Logo -->
-    <img
-      src="../assets/photos/ron-chili-removebg.png"
-      alt="Ron's Logo"
-      class="navbar-brand-logo"
-    />
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <!-- Logo -->
+      <img
+        src="../assets/photos/ron-chili-removebg.png"
+        alt="Ron's Logo"
+        class="navbar-brand-logo"
+      />
 
       <!-- Brand name -->
       <router-link class="navbar-brand pl-3" :to="{ name: 'main' }"
