@@ -5,7 +5,7 @@
         <div class="content">
           <h1 class="display-4 text-center mb-4">About Us</h1>
           <p class="lead text-center mb-5">
-            Welcome to "Grandma's Recipes", where tradition meets innovation.
+            Welcome to "One Piece Recipes", where tradition meets innovation.
           </p>
           <div class="row justify-content-center">
             <div class="col-lg-6 mb-4">
@@ -20,7 +20,7 @@
               </p>
               <p>
                 Our shared passion for food has been a driving force behind
-                "Grandma's Recipes". We have always been intrigued by the
+                "One Piece Recipes". We have always been intrigued by the
                 culinary traditions passed down through our families and aim to
                 preserve and share these treasured recipes with the world.
               </p>
@@ -35,7 +35,7 @@
             <div class="col-lg-6 mb-4">
               <h3 class="text-primary mb-4">Our Project</h3>
               <p>
-                "Grandma's Recipes" is more than just a recipe website. It is a
+                "One Piece Recipes" is more than just a recipe website. It is a
                 celebration of culinary heritage and innovation. Our platform
                 features a wide range of recipes, from traditional family dishes
                 to modern favorites, all meticulously curated and presented with
@@ -72,8 +72,7 @@ export default {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  position: relative;
-  min-height: 100vh;
+  min-height: 150vh;
   color: #fff;
   font-size: 1.4rem;
   display: flex;
@@ -82,6 +81,8 @@ export default {
 }
 
 .overlay {
+  min-height: 150vh;
+
   background-color: rgba(0, 0, 0, 0.8);
   position: absolute;
   display: flex;

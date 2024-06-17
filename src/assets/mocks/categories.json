@@ -1,11 +1,9 @@
 {
     "cuisine": [
-        "African", "Asian", "American", "British", "Cajun", "Caribbean", "Chinese", "Eastern European", "European",
-        "French", "German", "Greek", "Indian", "Irish", "Italian", "Japanese", "Jewish", "Korean",
-        "Latin American", "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"
+        "Asian", "French", "Greek", "Indian", "Italian", "Mexican"
     ],
     "intolerance": [
-        "Dairy", "Egg", "Gluten", "Grain", "Peanut", "Seafood", "Sesame", "Shellfish", "Soy", "Sulfite", "Tree Nut", "Wheat"
+        "Dairy", "Grain", "Peanut", "Seafood", "Sesame", "Shellfish" 
     ],
     "diets": ["vegan", "vegetarian", "glutenFree"]
 }

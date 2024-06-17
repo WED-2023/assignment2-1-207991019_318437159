@@ -75,6 +75,12 @@
     </div>
 
     <div class="search-results" v-if="searchPerformed">
+      <div v-if="noResultsFound" class="no-results-message">
+        <h3>No recipes found!</h3>
+        <p>Sorry, we couldn't find any recipes matching your search query.</p>
+        <p>Please try a different search term or check your filters.</p>
+      </div>
+      <div v-else>
       <RecipePreviewList
         ref="recipePreviewList"
         title="Search Results"
@@ -83,6 +89,7 @@
         :selectedCuisines="selectedCuisines"
         :selectedIntolerance="selectedIntolerance"
       />
+      </div>
     </div>
   </div>
 </template>
@@ -110,7 +117,11 @@ export default {
   methods: {
     performSearch() {
       this.searchPerformed = true;
-      this.$refs.recipePreviewList.updateRecipes(this.recipesToShow);
+      this.noResultsFound = false;
+      //this.$refs.recipePreviewList.updateRecipes(this.recipesToShow);
+      if (this.recipesToShow === 0){
+        this.noResultsFound = true;
+      }
     },
     setRecipesToShow(num) {
       this.recipesToShow = num;
@@ -273,5 +284,25 @@ export default {
   width: 90%;
   max-width: 1400px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.no-results-message {
+  text-align: center;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.no-results-message h3 {
+  color: #d81010;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.no-results-message p {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 </style>
