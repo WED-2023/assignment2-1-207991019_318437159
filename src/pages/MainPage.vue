@@ -46,7 +46,7 @@ export default {
   methods: {
     refreshRandomRecipes() {
       if (this.$refs.randomRecipeList) {
-        this.$refs.randomRecipeList.refreshRecipes();
+        this.$refs.randomRecipeList.updateRecipes();
       }
     },
   },

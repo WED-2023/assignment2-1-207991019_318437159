@@ -1,55 +1,83 @@
 <template>
   <div class="search-page">
-    <div class="search-header" :class="{ 'search-header-top': searchPerformed }">
+    <div
+      class="search-header"
+      :class="{ 'search-header-top': searchPerformed }"
+    >
       <h1>Find your Perfect Recipe here!</h1>
       <p>
         A delightful combination of ingredients and flavors to inspire your
         culinary adventures. Find the best recipes now.
       </p>
       <div class="input-group search-bar">
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Type any recipe name here" 
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Type any recipe name here"
           v-model="searchQuery"
-          @keyup.enter="performSearch" 
+          @keyup.enter="performSearch"
         />
         <div class="separator"></div>
-        <button class="btn btn-search no-border" type="button" @click="performSearch">
+        <button
+          class="btn btn-search no-border"
+          type="button"
+          @click="performSearch"
+        >
           <i class="fas fa-search"></i>
         </button>
         <div class="dropdown">
-          <button 
-            ref="recipesDropdown" 
-            class="btn btn-search dropdown-toggle" 
-            type="button" 
+          <button
+            ref="recipesDropdown"
+            class="btn btn-search dropdown-toggle"
+            type="button"
             @click="toggleDropdown"
-            aria-haspopup="true" 
+            aria-haspopup="true"
             aria-expanded="false"
           >
             {{ recipesToShow }}
           </button>
           <ul class="dropdown-menu" :class="{ show: dropdownOpen }">
-            <li><button class="dropdown-item text-dark" @click.stop="setRecipesToShow(5)">5</button></li>
-            <li><button class="dropdown-item text-dark" @click.stop="setRecipesToShow(10)">10</button></li>
-            <li><button class="dropdown-item text-dark" @click.stop="setRecipesToShow(15)">15</button></li>
+            <li>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setRecipesToShow(5)"
+              >
+                5
+              </button>
+            </li>
+            <li>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setRecipesToShow(10)"
+              >
+                10
+              </button>
+            </li>
+            <li>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setRecipesToShow(15)"
+              >
+                15
+              </button>
+            </li>
           </ul>
         </div>
         <button @click="toggleFilterMenu" class="btn btn-search filter-button">
           Filter (Advanced Search)
         </button>
       </div>
-      <FilterCheckBox 
-        :filterMenuOpen="filterMenuOpen" 
-        @update:cuisines="updateCuisines" 
-        @update:intolerance="updateIntolerance" 
+      <FilterCheckBox
+        :filterMenuOpen="filterMenuOpen"
+        @update:cuisines="updateCuisines"
+        @update:intolerance="updateIntolerance"
       />
     </div>
-    
+
     <div class="search-results" v-if="searchPerformed">
-      <RecipePreviewList 
+      <RecipePreviewList
         ref="recipePreviewList"
-        title="Search Results" 
+        title="Search Results"
         :amount="recipesToShow"
         :searchQuery="searchQuery"
         :selectedCuisines="selectedCuisines"
@@ -61,13 +89,12 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList.vue";
-import FilterCheckBox from "../components/FilterCheckBox.vue"; 
-import { mockGetRecipesPreview } from "../services/recipes.js";
+import FilterCheckBox from "../components/FilterCheckBox.vue";
 
 export default {
   components: {
     RecipePreviewList,
-    FilterCheckBox 
+    FilterCheckBox,
   },
   data() {
     return {
@@ -100,8 +127,8 @@ export default {
     },
     updateIntolerance(newIntolerance) {
       this.selectedIntolerance = newIntolerance;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -225,7 +252,7 @@ export default {
 }
 
 .filter-button {
-  background-color:   #232323;
+  background-color: #232323;
   color: #fff;
   padding: 10px 20px;
   border-radius: 50px;
