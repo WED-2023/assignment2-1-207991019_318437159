@@ -1,0 +1,112 @@
+[
+  {
+    "id": 800345,
+    "image": "https://img.spoonacular.com/recipes/800345-556x370.jpg",
+    "title": "Lemon Garlic Shrimp Pasta",
+    "readyInMinutes": 25,
+    "aggregateLikes": 180,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "A zesty and flavorful shrimp pasta with lemon and garlic."
+  },
+  {
+    "id": 802346,
+    "image": "https://img.spoonacular.com/recipes/802346-556x370.jpg",
+    "title": "Vegetable Stir Fry with Tofu",
+    "readyInMinutes": 20,
+    "aggregateLikes": 250,
+    "vegetarian": true,
+    "vegan": true,
+    "glutenFree": true,
+    "summary": "A quick and healthy vegetable stir fry with tofu."
+  },
+  {
+    "id": 803457,
+    "image": "https://img.spoonacular.com/recipes/803457-556x370.jpg",
+    "title": "Beef and Broccoli Stir Fry",
+    "readyInMinutes": 30,
+    "aggregateLikes": 220,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "A classic beef and broccoli stir fry with a savory sauce."
+  },
+  {
+    "id": 804511,
+    "image": "https://img.spoonacular.com/recipes/804568-556x370.jpg",
+    "title": "Spaghetti Carbonara",
+    "readyInMinutes": 25,
+    "aggregateLikes": 300,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "A rich and creamy spaghetti carbonara with pancetta and parmesan."
+  },
+  {
+    "id": 805612,
+    "image": "https://img.spoonacular.com/recipes/805679-556x370.jpg",
+    "title": "Caprese Salad",
+    "readyInMinutes": 10,
+    "aggregateLikes": 270,
+    "vegetarian": true,
+    "vegan": false,
+    "glutenFree": true,
+    "summary": "A fresh and simple Caprese salad with tomatoes, mozzarella, and basil."
+  },
+  {
+    "id": 800313,
+    "image": "https://img.spoonacular.com/recipes/800345-556x370.jpg",
+    "title": "Lemon Garlic Shrimp Pasta",
+    "readyInMinutes": 25,
+    "aggregateLikes": 180,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "A zesty and flavorful shrimp pasta with lemon and garlic."
+  },
+  {
+    "id": 802314,
+    "image": "https://img.spoonacular.com/recipes/802346-556x370.jpg",
+    "title": "Vegetable Stir Fry with Tofu",
+    "readyInMinutes": 20,
+    "aggregateLikes": 250,
+    "vegetarian": true,
+    "vegan": true,
+    "glutenFree": true,
+    "summary": "A quick and healthy vegetable stir fry with tofu."
+  },
+  {
+    "id": 803415,
+    "image": "https://img.spoonacular.com/recipes/803457-556x370.jpg",
+    "title": "Beef and Broccoli Stir Fry",
+    "readyInMinutes": 30,
+    "aggregateLikes": 220,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "A classic beef and broccoli stir fry with a savory sauce."
+  },
+  {
+    "id": 804516,
+    "image": "https://img.spoonacular.com/recipes/804568-556x370.jpg",
+    "title": "Spaghetti Carbonara",
+    "readyInMinutes": 25,
+    "aggregateLikes": 300,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "A rich and creamy spaghetti carbonara with pancetta and parmesan."
+  },
+  {
+    "id": 805617,
+    "image": "https://img.spoonacular.com/recipes/805679-556x370.jpg",
+    "title": "Caprese Salad",
+    "readyInMinutes": 10,
+    "aggregateLikes": 270,
+    "vegetarian": true,
+    "vegan": false,
+    "glutenFree": true,
+    "summary": "A fresh and simple Caprese salad with tomatoes, mozzarella, and basil."
+  }
+]

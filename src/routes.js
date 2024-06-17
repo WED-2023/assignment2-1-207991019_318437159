@@ -1,5 +1,13 @@
 import Main from "./pages/MainPage";
 import NotFound from "./pages/NotFoundPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import SearchPage from "./pages/SearchPage";
+import AboutPage from "./pages/AboutPage";
+import FamilyRecipesPage from "./pages/FamilyRecipesPage";
+import RecipeViewPage from "./pages/RecipeViewPage";
+import MyFaviortesPage from "./pages/MyFaviortesPage";
+import MyRecipesPage from "./pages/MyRecipesPage";
 
 const routes = [
   {
@@ -10,32 +18,42 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: () => import("./pages/RegisterPage"),
+    component: RegisterPage,
   },
   {
     path: "/login",
     name: "login",
-    component: () => import("./pages/LoginPage"),
+    component: LoginPage,
   },
   {
     path: "/search",
     name: "search",
-    component: () => import("./pages/SearchPage"),
+    component: SearchPage,
   },
   {
     path: "/about",
     name: "about",
-    component: () => import("./pages/AboutPage"),
+    component: AboutPage,
   },
   {
     path: "/family",
     name: "family",
-    component: () => import("./pages/FamilyRecipesPage"),
+    component: FamilyRecipesPage,
   },
   {
     path: "/recipe",
     name: "recipe",
-    component: () => import("./pages/RecipeViewPage"),
+    component: RecipeViewPage,
+  },
+  {
+    path: "/favorites",
+    name: "favorites",
+    component: MyFaviortesPage,
+  },
+  {
+    path: "/private",
+    name: "private",
+    component: MyRecipesPage,
   },
   {
     path: "*",

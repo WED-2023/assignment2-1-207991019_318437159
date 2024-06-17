@@ -20,7 +20,11 @@
 
 <script>
 import RecipePreview from "./RecipePreview.vue";
-import { mockGetRecipesPreview } from "../services/recipes.js";
+import {
+  mockGetRecipesPreview,
+  mockGetFavoritesRecipes,
+  mockGetPrivateRecipes,
+} from "../services/recipes.js";
 
 export default {
   name: "RecipePreviewList",
@@ -30,11 +34,14 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
     },
     amount: {
       type: Number,
       default: 6,
+    },
+    type: {
+      type: String,
+      default: "random", // 'random', 'favorites', or 'private'
     },
   },
   data() {
@@ -49,14 +56,18 @@ export default {
     async updateRecipes() {
       try {
         console.log("Fetching recipes...");
-        const response = await mockGetRecipesPreview(this.amount);
+        let response;
+        if (this.type === "favorites") {
+          response = await mockGetFavoritesRecipes(this.amount);
+        } else if (this.type === "private") {
+          response = await mockGetPrivateRecipes(this.amount);
+        } else {
+          response = await mockGetRecipesPreview(this.amount);
+        }
         this.recipes = response.data.recipes || [];
       } catch (error) {
         console.log(error);
       }
-    },
-    refreshRecipes() {
-      this.updateRecipes();
     },
   },
 };
@@ -68,7 +79,7 @@ export default {
 }
 .recipePreview {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
 }
 .list-header {
