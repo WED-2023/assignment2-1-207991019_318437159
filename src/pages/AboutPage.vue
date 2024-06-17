@@ -73,7 +73,7 @@ export default {
   background-position: center;
   background-attachment: fixed;
   position: relative;
-  min-height: 150vh;
+  min-height: 100vh;
   color: #fff;
   font-size: 1.4rem;
   display: flex;

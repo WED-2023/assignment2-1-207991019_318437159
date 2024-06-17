@@ -1,23 +1,22 @@
 <template>
-  <b-container fluid>
+  <b-container fluid style="padding-top: 4rem;">
     <b-row>
       <!-- Left Column: Random Recipes -->
       <b-col cols="12" lg="6" class="left-column">
         <div class="list-header">
-          <h3 class="list-title">Explore these recipes</h3>
           <b-button variant="dark" @click="refreshRandomRecipes"
             >Refresh</b-button
           >
         </div>
         <RecipePreviewList
           ref="randomRecipeList"
-          title="Random Recipes"
+          title="Explore These Recipes"
           :amount="3"
         />
       </b-col>
       <!-- Right Column: Last Viewed Recipes or Login Box -->
-      <b-col cols="12" lg="6" class="right-column">
-        <div v-if="isLoggedIn">
+      <b-col cols="12" lg="" class="right-column">
+        <div v-if="isLoggedIn" style="padding-top: 4rem ">
           <RecipePreviewList title="Last Watched Recipes" :amount="3" />
         </div>
         <div v-else class="login-container">
@@ -88,6 +87,6 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 80%;
 }
 </style>

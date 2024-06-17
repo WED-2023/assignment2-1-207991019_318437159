@@ -37,11 +37,11 @@ export default {
     },
     amount: {
       type: Number,
-      default: 6,
+      default: 4,
     },
     type: {
       type: String,
-      default: "random", // 'random', 'favorites', or 'private'
+      default: "random", // 'random', 'favorites', or 'private' or 'search' or 'lastWatched'
     },
   },
   data() {
