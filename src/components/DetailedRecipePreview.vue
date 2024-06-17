@@ -10,13 +10,16 @@
     <div class="recipe-info">
       <div class="recipe-meta">
         <div class="meta-item">
-          <i class="fas fa-clock"></i> <span class="meta-text">{{ readyInMinutes }} minutes</span>
+          <i class="fas fa-clock"></i>
+          <span class="meta-text">{{ readyInMinutes }} minutes</span>
         </div>
         <div class="meta-item">
-          <i class="fas fa-utensils"></i> <span class="meta-text">{{ servings }} servings</span>
+          <i class="fas fa-utensils"></i>
+          <span class="meta-text">{{ servings }} servings</span>
         </div>
         <div class="meta-item">
-          <i class="fas fa-thumbs-up"></i> <span class="meta-text">{{ aggregateLikes }} likes</span>
+          <i class="fas fa-thumbs-up"></i>
+          <span class="meta-text">{{ aggregateLikes }} likes</span>
         </div>
       </div>
       <p class="recipe-summary" v-html="summary"></p>
@@ -25,14 +28,19 @@
           <div class="recipe-ingredients">
             <h4>Ingredients:</h4>
             <ul>
-              <li v-for="(ingredient, index) in ingredients" :key="index">{{ ingredient.original }}</li>
+              <li v-for="(ingredient, index) in ingredients" :key="index">
+                {{ ingredient.original }}
+              </li>
             </ul>
           </div>
           <div class="separator"></div>
           <div class="recipe-instructions">
             <h4>Instructions:</h4>
             <ol>
-              <li v-for="(step, index) in instructions" :key="index">{{ step }}</li> <!-- Display each step directly -->
+              <li v-for="(step, index) in instructions" :key="index">
+                {{ step }}
+              </li>
+              <!-- Display each step directly -->
             </ol>
           </div>
         </div>
@@ -81,24 +89,25 @@ export default {
       type: Number,
       required: true,
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap");
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
 .recipe-detail {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
-  margin-bottom: 20px;
+  margin: 3%;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #333;
   max-width: 1000px;
-  margin: 0 auto;
-  font-family: 'Comfortaa', cursive;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Comfortaa", cursive;
 }
 
 .recipe-image {
@@ -127,13 +136,13 @@ export default {
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 10px;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
 }
 
 .recipe-cuisine {
   font-size: 20px;
   margin-bottom: 10px;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
 }
 
 .recipe-meta {
@@ -158,7 +167,7 @@ export default {
 .recipe-summary {
   font-size: 18px;
   margin: 20px 0;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
   line-height: 1.6;
   text-align: justify;
   color: #555;
@@ -179,7 +188,8 @@ export default {
   justify-content: space-between;
 }
 
-.recipe-ingredients, .recipe-instructions {
+.recipe-ingredients,
+.recipe-instructions {
   width: 47%;
   text-align: left;
 }
@@ -198,20 +208,23 @@ export default {
   padding-left: 20px;
 }
 
-.recipe-ingredients h4, .recipe-instructions h4 {
+.recipe-ingredients h4,
+.recipe-instructions h4 {
   font-size: 24px;
   margin-bottom: 10px;
   color: #b5651d;
 }
 
-.recipe-ingredients ul, .recipe-instructions ol {
+.recipe-ingredients ul,
+.recipe-instructions ol {
   margin: 0;
   padding-left: 20px;
 }
 
-.recipe-ingredients li, .recipe-instructions li {
+.recipe-ingredients li,
+.recipe-instructions li {
   margin-bottom: 10px;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
   font-weight: bolder;
   font-size: 18px;
 }
