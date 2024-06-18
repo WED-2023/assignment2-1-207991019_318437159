@@ -60,3 +60,9 @@ export async function mockSearchRecipes(searchQuery, amount, selectedCuisines, s
   return response;
 }
 
+export function mockGetLastSearchRecipes(ID){
+  // will be used to fetch the last recipe from the database with the ID of the user.
+  const response = mockGetRecipesPreview(5);
+  return response;
+}
+

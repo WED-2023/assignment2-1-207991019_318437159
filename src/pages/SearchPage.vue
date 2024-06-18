@@ -84,50 +84,43 @@
     </div>
 
     <transition name="fade" mode="out-in">
-      <div 
-        :key="searchKey" 
-        :class="['search-results', { 'no-results': noResultsFound, 'results-found': searchPerformed}]">
+      <div>
         <div v-if="searchPerformed">
           <div v-if="noResultsFound" class="no-results-message">
             <img src="../assets/photos/no-results.png" alt="No results found" class="no-results-image" />
-            <h3>No Result Found</h3>
-            <p>We can't find any item matching your search.</p>
+            <h3>No Result Found!</h3>
+            <p>We can't find any recipe matching your search.</p>
           </div>
-          <div v-else>
-            <div v-if="searchPerformed && !noResultsFound" class="sort-dropdown">
-              <button
-                ref="sortDropdown"
-                class="btn btn-search dropdown-toggle"
-                type="button"
-                @click="toggleSortDropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Sort by: {{ selectedSort }}
-              </button>
-              <ul class="dropdown-menu" :class="{ show: sortDropdownOpen }">
-                <li>
-                  <button
-                    class="dropdown-item text-dark"
-                    @click.stop="setSort('likes')"
-                  >
-                    Likes
-                  </button>
-                </li>
-                <li>
-                  <button
-                    class="dropdown-item text-dark"
-                    @click.stop="setSort('time')"
-                  >
-                    Time to Make
-                  </button>
-                </li>
-              </ul>
+          <div v-else class="search-results results-found">
+            <div class="sort-container">
+              <div class="dropdown top-left-dropdown">
+                <button class="top-left-button dropdown-toggle" @click="toggleSortDropdown">
+                  <img src="../assets/photos/funnel.png" alt="icon" class="icon">
+                </button>
+                <span class="sort-by-text">Sort by: {{ selectedSort }}</span>
+                <ul class="dropdown-menu" :class="{ show: sortDropdownOpen }">
+                  <li>
+                    <button
+                      class="dropdown-item text-dark"
+                      @click.stop="setSort('Popularity')"
+                    >
+                      Popularity
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="dropdown-item text-dark"
+                      @click.stop="setSort('Time To Make')"
+                    >
+                      Time To Make
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-          <RecipePreviewList
+            <RecipePreviewList
               ref="recipePreviewList"
-              title="Search Results"
+              :title="headerTitle"
               :amount="Number(this.recipesToShow)"
               :searchQuery="searchQuery"
               :selectedCuisines="selectedCuisines"
@@ -135,7 +128,9 @@
               :selectedDiets="selectedDiets"
               :type="type"
               :sort="selectedSort"
+              @no-results="handleNoResultsFound"
             />
+          </div>
         </div>
       </div>
     </transition>
@@ -166,15 +161,65 @@ export default {
       noResultsFound: false, // Track if no results were found
       searchKey: 0, // Key to trigger re-render of search results
       sortDropdownOpen: false, // Control the visibility of the sort dropdown menu
-      selectedSort: 'likes', // Default sort criteria
+      selectedSort: 'Popularity', // Default sort criteria
+      isLastSearch: false, // Track if the results are from last search
     };
   },
+  created() {
+    this.checkLoginStatus();
+  },
+  computed: {
+    headerTitle() {
+      return this.isLastSearch ? 'Your Last Search' : 'Search Results';
+    },
+  },
   methods: {
+    checkLoginStatus() {
+      const isLoggedIn = this.isUserLoggedIn(); // Replace with actual login check
+      if (isLoggedIn) {
+        this.loadLastSearch();
+      }
+    },
+    isUserLoggedIn() {
+      // Replace this with actual login check logic
+      return !!this.$root.store.username;
+    },
+    loadLastSearch() {
+      const lastSearch = localStorage.getItem('lastSearch');
+      if (lastSearch) {
+        const { searchQuery, selectedCuisines, selectedIntolerance, selectedDiets, selectedSort, recipesToShow } = JSON.parse(lastSearch);
+        this.searchQuery = searchQuery;
+        this.selectedCuisines = selectedCuisines;
+        this.selectedIntolerance = selectedIntolerance;
+        this.selectedDiets = selectedDiets;
+        this.selectedSort = selectedSort;
+        this.recipesToShow = recipesToShow;
+        this.isLastSearch = true;
+        this.searchPerformed = true;
+        this.$nextTick(() => {
+          if (this.$refs.recipePreviewList) {
+            this.$refs.recipePreviewList.updateRecipes();
+          }
+        });
+      }
+    },
     performSearch() {
       this.noResultsFound = false;
       this.searchPerformed = false;
       this.filterMenuOpen = false;
+      this.dropdownOpen = false;
+      this.sortDropdownOpen = false;
       this.searchKey++; // Change key to trigger re-render
+      const lastSearch = {
+        searchQuery: this.searchQuery,
+        selectedCuisines: this.selectedCuisines,
+        selectedIntolerance: this.selectedIntolerance,
+        selectedDiets: this.selectedDiets,
+        selectedSort: this.selectedSort,
+        recipesToShow: this.selectedRecipesToShow,
+      };
+      localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
+      this.isLastSearch = false;
       this.$nextTick(() => {
         setTimeout(() => {
           this.recipesToShow = this.selectedRecipesToShow;
@@ -222,6 +267,9 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Segoe+Print&display=swap");
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
 .search-page {
   position: relative;
   background-image: url("../assets/photos/searchBackground.jpg");
@@ -234,6 +282,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
+  font-family: 'Comfortaa', cursive;
 }
 
 .search-page::before {
@@ -329,14 +378,15 @@ export default {
 
 .dropdown .dropdown-menu.show {
   display: block;
+  background-color: #fff;
 }
 
 .dropdown .dropdown-item {
-  color: #000;
+  color: rgb(0, 0, 0)
 }
 
 .dropdown .dropdown-item:hover {
-  background-color: #f7ebeb;
+  background-color: #867c7a;
   color: #d81010;
 }
 
@@ -362,6 +412,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 50vh; /* Adjust this to ensure the container has enough height */
+  position: relative; /* Add relative positioning to the container */
 }
 
 .search-results.results-found {
@@ -370,10 +421,42 @@ export default {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.sort-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.top-left-dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.top-left-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.top-left-button .icon {
+  width: 30px;
+  height: 30px;
+}
+
+.sort-by-text {
+  margin-left: 10px;
+  color: #000000;
+  font-size: 16px;
+  font-family: 'Comfortaa', cursive;
+  
+}
+
 .no-results-message {
   text-align: center;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(20, 20, 20, 0.8);
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -384,6 +467,7 @@ export default {
   height: auto; /* Adjust height automatically */
   justify-content: center; /* Center content vertically */
   margin: 20px; /* Margin of 20px from the container */
+  color: #ccc;
 }
 
 .no-results-image {
@@ -392,13 +476,13 @@ export default {
 }
 
 .no-results-message h3 {
-  color: #3d3d3d;
+  color: #f3f3f3e7;
   font-size: 20px; /* Adjust font size for better fit */
   margin-bottom: 5px; /* Reduce margin for better fit */
 }
 
 .no-results-message p {
-  color: #555;
+  color: #f3f3f3e7;
   font-size: 14px; /* Adjust font size for better fit */
   margin-bottom: 0; /* Remove margin for better fit */
 }
@@ -424,6 +508,11 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
+}
+
+.top-left-dropdown .dropdown-menu .dropdown-item:hover {
+  background-color: #867c7a; /* Change this to your desired hover background color */
+  color: #ffffff; /* Change this to your desired hover text color */
 }
 
 .sort-dropdown .btn-search.dropdown-toggle {
