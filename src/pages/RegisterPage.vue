@@ -121,12 +121,13 @@
           </b-form-invalid-feedback>
           <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
             Your password should be <strong>strong</strong>. <br />
-            For that your password should be also:
+            For that your password should be:
           </b-form-text>
           <b-form-invalid-feedback
-            v-if="$v.form.password.required && !$v.form.password.length"
+            v-if="$v.form.password.required && !$v.form.password.valid"
           >
-            Password must be between 5-10 characters long
+            5-10 characters long, at least one numeric digit, and one special
+            character
           </b-form-invalid-feedback>
         </b-form-group>
 
@@ -186,21 +187,21 @@
         <b-button type="submit" variant="primary" class="register-btn"
           >Register</b-button
         >
-
+        <b-modal
+          v-model="form.submitError"
+          centered
+          hide-footer
+          modal-header-bg="danger"
+          modal-body-bg="danger"
+          title="Registration Error"
+        >
+          {{ form.submitError }}</b-modal
+        >
         <div class="mt-4 text-center lead">
           Already have an account?
           <router-link to="login"> Log in here</router-link>
         </div>
       </b-form>
-      <b-alert
-        class="mt-2"
-        v-if="form.submitError"
-        variant="warning"
-        dismissible
-        show
-      >
-        Register failed: {{ form.submitError }}
-      </b-alert>
     </b-card>
   </div>
 </template>
@@ -259,6 +260,11 @@ export default {
       },
       password: {
         required,
+        valid: function(value) {
+          const containsNumber = /[0-9]/.test(value);
+          const containsSpecial = /[#?!@$%^&*-.]/.test(value);
+          return containsNumber && containsSpecial;
+        },
         minLength: minLength(5),
         maxLength: maxLength(10),
       },
@@ -285,13 +291,19 @@ export default {
           email: this.form.email,
           password: this.form.password,
         };
+        const isSuccessful = false;
+        const response = await mockRegister(userDetails, isSuccessful);
 
-        const response = await mockRegister(userDetails);
-
-        this.$router.push("/login");
+        if (response.status === 200 && response.response.data.success) {
+          this.$router.push("/login");
+        } else {
+          this.form.submitError = response.response.data.message;
+        }
       } catch (err) {
         console.log(err.response);
-        this.form.submitError = err.response.data.message;
+        this.form.submitError = err.response
+          ? err.response.data.message
+          : err.message;
       }
     },
     onRegister() {
@@ -310,6 +322,7 @@ export default {
         password: "",
         confirmedPassword: "",
         email: "",
+        usernameError: null,
       };
       this.$nextTick(() => {
         this.$v.$reset();

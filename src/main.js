@@ -11,15 +11,18 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart as fasHeart,
+  faEye,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Multiselect from "vue-multiselect";
 import "vue-multiselect/dist/vue-multiselect.min.css";
 import VModal from "vue-js-modal";
 
-library.add(fasHeart, farHeart, faStar);
+library.add(fasHeart, farHeart, faStar, faEye);
 
 Vue.use(VueRouter);
 const router = new VueRouter({

@@ -1,6 +1,11 @@
 <template>
   <b-container>
     <div class="list-header">
+      <div v-if="isRandom">
+        <b-button variant="dark" class="font-weight-bold" @click="updateRecipes"
+          >Refresh</b-button
+        >
+      </div>
       <h3 class="list-title">{{ title }}</h3>
     </div>
     <b-row class="justify-content-center">
@@ -24,6 +29,7 @@ import {
   mockGetRecipesPreview,
   mockGetFavoritesRecipes,
   mockGetPrivateRecipes,
+  mockGetLastWatchedRecipes,
 } from "../services/recipes.js";
 
 export default {
@@ -41,7 +47,7 @@ export default {
     },
     type: {
       type: String,
-      default: "random", // 'random', 'favorites', or 'private' or 'search' or 'lastWatched'
+      default: "random", // 'random', 'favorites', or 'private' or 'search' or 'last-watched'
     },
   },
   data() {
@@ -52,6 +58,11 @@ export default {
   mounted() {
     this.updateRecipes();
   },
+  computed: {
+    isRandom() {
+      return this.type === "random";
+    },
+  },
   methods: {
     async updateRecipes() {
       try {
@@ -61,6 +72,12 @@ export default {
           response = await mockGetFavoritesRecipes(this.amount);
         } else if (this.type === "private") {
           response = await mockGetPrivateRecipes(this.amount);
+        } else if (this.type === "last-watched") {
+          console.log("Fetching last watched recipes...");
+          response = await mockGetLastWatchedRecipes(this.amount);
+          console.log("ron homo ", response);
+        } else if (this.type === "search") {
+          response = await mockSearchRecipes(this.amount);
         } else {
           response = await mockGetRecipesPreview(this.amount);
         }

@@ -28,7 +28,7 @@
     "readyInMinutes": 60,
     "aggregateLikes": 127,
     "vegetarian": true,
-    "vegan": true,
+    "vegan": false,
     "glutenFree": true,
     "summary": "Hearty and nutritious meal with red kidney beans, rice, and a blend of spices."
   },

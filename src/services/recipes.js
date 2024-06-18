@@ -30,22 +30,25 @@ export function mockSaveNewRecipe(recipe) {
   console.log("Rceipe saved: ", recipe);
 }
 
-export function mockGetFavoritesRecipes(amount = 5) {
+function genericMock(amount, gen_recipes) {
   let recipes = [];
   for (let i = 0; i < amount; i++) {
-    let index = i % favorites_recipes.length;
-    recipes.push(favorites_recipes[index]);
+    let index = i % gen_recipes.length;
+    recipes.push(gen_recipes[index]);
   }
   return { data: { recipes } };
 }
 
+export function mockGetFavoritesRecipes(amount = 5) {
+  return genericMock(amount, favorites_recipes);
+}
+
 export function mockGetPrivateRecipes(amount = 5) {
-  let recipes = [];
-  for (let i = 0; i < amount; i++) {
-    let index = i % my_receips.length;
-    recipes.push(my_receips[index]);
-  }
-  return { data: { recipes } };
+  return genericMock(amount, my_receips);
+}
+
+export function mockGetLastWatchedRecipes(amount = 5) {
+  return genericMock(amount, favorites_recipes);
 }
 
 export function mockGetCategoriesForSearch() {

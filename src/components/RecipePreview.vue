@@ -7,23 +7,35 @@
     >
       <div class="recipe-body">
         <img v-if="imageLoad" :src="recipe.image" class="recipe-image" />
-        <div class="favorite-icon" @click="toggleSaved">
+        <div v-if="loggedIn" class="favorite-icon" @click="toggleSaved">
           <font-awesome-icon
             :icon="[saved ? 'fas' : 'far', 'heart']"
             class="icon-heart"
           />
         </div>
+        <div v-if="viewed" class="viewed-icon">
+          <font-awesome-icon :icon="['fas', 'eye']" class="icon-view" />
+        </div>
+        <div class="recipe-title-box">
+          <div :title="recipe.title" class="recipe-title">
+            {{ recipe.title }}
+          </div>
+        </div>
       </div>
     </router-link>
     <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">{{ recipe.title }}</div>
-      <div class="recipe-summary">{{ recipe.summary }}</div>
-      <div class="recipe-rating">
-        <font-awesome-icon :icon="['fas', 'star']" />
-        {{ recipe.aggregateLikes }} Likes
+      <div class="recipe-details">
+        <div class="recipe-rating">
+          <i class="fas fa-thumbs-up"></i>
+          {{ recipe.aggregateLikes }} Likes
+        </div>
+        <div class="recipe-time">
+          <i class="fas fa-clock"></i>
+          {{ recipe.readyInMinutes }} minutes
+        </div>
       </div>
+      <div class="recipe-summary">{{ recipe.summary }}</div>
       <div class="recipe-overview">
-        <div>{{ recipe.readyInMinutes }} minutes</div>
         <div v-if="recipe.glutenFree" class="bubble gluten-free">
           Gluten-Free
         </div>
@@ -34,19 +46,20 @@
         >
           Vegetarian
         </div>
-        <div v-if="viewed">Viewed</div>
-        <div v-if="saved">Saved</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mockToggleFavorite, mockGetIsFaviorite } from "../services/user.js";
 export default {
   mounted() {
     this.loadImage();
     this.checkViewedStatus();
-    this.checkSavedStatus();
+    if (this.loggedIn) {
+      this.checkSavedStatus();
+    }
   },
   data() {
     return {
@@ -59,6 +72,11 @@ export default {
     recipe: {
       type: Object,
       required: true,
+    },
+  },
+  computed: {
+    loggedIn() {
+      return !!this.$root.store.username;
     },
   },
   methods: {
@@ -90,15 +108,13 @@ export default {
       favoriteIcon.addEventListener("animationend", () => {
         favoriteIcon.classList.remove("like-animation");
       });
-
-      if (this.saved) {
-        localStorage.setItem(`saved_${this.recipe.id}`, true);
-      } else {
-        localStorage.removeItem(`saved_${this.recipe.id}`);
-      }
+      mockToggleFavorite(this.recipe.id, this.$root.store.username);
     },
     checkSavedStatus() {
-      this.saved = !!localStorage.getItem(`saved_${this.recipe.id}`);
+      this.saved = mockGetIsFaviorite(
+        this.recipe.id,
+        this.$root.store.username
+      );
     },
   },
 };
@@ -136,7 +152,7 @@ export default {
 .recipe-image {
   display: block;
   width: 100%;
-  height: auto;
+  height: 150%;
   transition: transform 0.3s ease;
 }
 
@@ -146,7 +162,7 @@ export default {
 
 .favorite-icon {
   color: #e74c3c;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.6); /* Slightly opaque background */
   border-radius: 50%;
   padding: 10px;
   position: absolute;
@@ -155,10 +171,6 @@ export default {
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, color 0.3s;
-}
-
-.favorite-icon:hover {
-  background-color: #f2f2f2;
 }
 
 .icon-heart {
@@ -179,20 +191,59 @@ export default {
   }
 }
 
-.recipe-footer {
-  padding: 20px;
+.viewed-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.6); /* Slightly opaque background */
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.icon-view {
+  font-size: 24px;
+}
+
+.recipe-title-box {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-align: center;
+  padding: 10px;
 }
 
 .recipe-title {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 15px;
 }
 
-.recipe-rating {
+.recipe-footer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe-details {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.recipe-rating,
+.recipe-time {
   font-size: 16px;
-  color: #ff9900;
-  margin-bottom: 15px;
+}
+
+.recipe-summary {
+  font-size: 16px;
+  color: #888;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .recipe-overview {
@@ -209,6 +260,7 @@ export default {
 
 .bubble {
   padding: 5px 10px;
+  margin-left: 3px;
   border-radius: 30px;
   color: white;
   text-align: center;
@@ -225,12 +277,5 @@ export default {
 
 .vegetarian {
   background-color: #4caf50; /* Green color */
-}
-
-.recipe-summary {
-  font-size: 16px;
-  color: #888;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 </style>
