@@ -34,13 +34,21 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            {{ recipesToShow }}
+            {{ selectedRecipesToShow }}
           </button>
           <ul class="dropdown-menu" :class="{ show: dropdownOpen }">
             <li>
               <button
                 class="dropdown-item text-dark"
-                @click.stop="setRecipesToShow(5)"
+                @click.stop="setSelectedRecipesToShow(0)"
+              >
+                0
+              </button>
+            </li>
+            <li>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setSelectedRecipesToShow(5)"
               >
                 5
               </button>
@@ -48,7 +56,7 @@
             <li>
               <button
                 class="dropdown-item text-dark"
-                @click.stop="setRecipesToShow(10)"
+                @click.stop="setSelectedRecipesToShow(10)"
               >
                 10
               </button>
@@ -56,7 +64,7 @@
             <li>
               <button
                 class="dropdown-item text-dark"
-                @click.stop="setRecipesToShow(15)"
+                @click.stop="setSelectedRecipesToShow(15)"
               >
                 15
               </button>
@@ -71,27 +79,67 @@
         :filterMenuOpen="filterMenuOpen"
         @update:cuisines="updateCuisines"
         @update:intolerance="updateIntolerance"
+        @update:diets="updateDiets"
       />
     </div>
 
-    <div class="search-results" v-if="searchPerformed">
-      <div v-if="noResultsFound" class="no-results-message">
-        <h3>No recipes found!</h3>
-        <p>Sorry, we couldn't find any recipes matching your search query.</p>
-        <p>Please try a different search term or check your filters.</p>
+    <transition name="fade" mode="out-in">
+      <div 
+        :key="searchKey" 
+        :class="['search-results', { 'no-results': noResultsFound, 'results-found': searchPerformed && !noResultsFound }]">
+        <div v-if="searchPerformed">
+          <div v-if="noResultsFound" class="no-results-message">
+            <img src="../assets/photos/no-results.png" alt="No results found" class="no-results-image" />
+            <h3>No Result Found</h3>
+            <p>We can't find any item matching your search.</p>
+          </div>
+          <div v-else>
+            <div class="sort-dropdown">
+              <button
+                ref="sortDropdown"
+                class="btn btn-search dropdown-toggle"
+                type="button"
+                @click="toggleSortDropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Sort by: {{ selectedSort }}
+              </button>
+              <ul class="dropdown-menu" :class="{ show: sortDropdownOpen }">
+                <li>
+                  <button
+                    class="dropdown-item text-dark"
+                    @click.stop="setSort('likes')"
+                  >
+                    Likes
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item text-dark"
+                    @click.stop="setSort('time')"
+                  >
+                    Time to Make
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <RecipePreviewList
+              ref="recipePreviewList"
+              title="Search Results"
+              :amount="Number(recipesToShow)"
+              :searchQuery="searchQuery"
+              :selectedCuisines="selectedCuisines"
+              :selectedIntolerance="selectedIntolerance"
+              :selectedDiets="selectedDiets"
+              :type="type"
+              :sort="selectedSort"
+              @no-results-found="handleNoResultsFound"
+            />
+          </div>
+        </div>
       </div>
-      <div v-else>
-      <RecipePreviewList
-        ref="recipePreviewList"
-        title="Search Results"
-        :amount="recipesToShow"
-        :searchQuery="searchQuery"
-        :selectedCuisines="selectedCuisines"
-        :selectedIntolerance="selectedIntolerance"
-        :type="search"
-      />
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -107,25 +155,40 @@ export default {
   data() {
     return {
       searchQuery: "",
-      recipesToShow: 5,
+      type: "search",
+      recipesToShow: 0, // This will be set when search is performed
+      selectedRecipesToShow: 0, // This is updated by dropdown selection
       searchPerformed: false, // Track if a search has been performed
       filterMenuOpen: false, // Control the visibility of the filter menu
       dropdownOpen: false, // Control the visibility of the dropdown menu
       selectedCuisines: [], // Selected cuisines for filtering
       selectedIntolerance: [], // Selected intolerance for filtering
+      selectedDiets: [],
+      noResultsFound: false, // Track if no results were found
+      searchKey: 0, // Key to trigger re-render of search results
+      sortDropdownOpen: false, // Control the visibility of the sort dropdown menu
+      selectedSort: 'likes', // Default sort criteria
     };
   },
   methods: {
     performSearch() {
-      this.searchPerformed = true;
       this.noResultsFound = false;
-      //this.$refs.recipePreviewList.updateRecipes(this.recipesToShow);
-      if (this.recipesToShow === 0){
-        this.noResultsFound = true;
-      }
+      this.searchPerformed = false;
+      this.filterMenuOpen = false;
+      this.searchKey++; // Change key to trigger re-render
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.recipesToShow = this.selectedRecipesToShow;
+          this.searchPerformed = true;
+          if (this.$refs.recipePreviewList) {
+            this.$refs.recipePreviewList.updateRecipes();
+          }
+        }, 300); // Delay to allow fade-out animation
+      });
+      
     },
-    setRecipesToShow(num) {
-      this.recipesToShow = num;
+    setSelectedRecipesToShow(num) {
+      this.selectedRecipesToShow = num;
       this.dropdownOpen = false; // Close the dropdown menu
     },
     toggleDropdown() {
@@ -139,6 +202,22 @@ export default {
     },
     updateIntolerance(newIntolerance) {
       this.selectedIntolerance = newIntolerance;
+    },
+    updateDiets(newDiets) {
+      this.selectedDiets = newDiets;
+    },
+    handleNoResultsFound() {
+      this.noResultsFound = true;
+    },
+    toggleSortDropdown() {
+      this.sortDropdownOpen = !this.sortDropdownOpen;
+    },
+    setSort(sortCriteria) {
+      this.selectedSort = sortCriteria;
+      this.sortDropdownOpen = false;
+      if (this.searchPerformed && this.$refs.recipePreviewList) {
+        this.$refs.recipePreviewList.sortedRecipes();
+      }
     },
   },
 };
@@ -157,7 +236,6 @@ export default {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  color: #fff;
 }
 
 .search-page::before {
@@ -177,6 +255,7 @@ export default {
   margin-bottom: 20px;
   margin-top: 10%;
   transition: margin-top 0.5s ease;
+  color: #fff;
 }
 
 .search-header-top {
@@ -279,31 +358,80 @@ export default {
 .search-results {
   z-index: 0;
   margin-top: 20px;
-  background-color: rgba(200, 198, 198, 0.3);
   padding: 20px;
   border-radius: 10px;
-  width: 90%;
-  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh; /* Adjust this to ensure the container has enough height */
+}
+
+.search-results.results-found {
+  border: 2px solid rgba(255, 255, 255, 0.7); /* Light border */
+  background-color: rgba(126, 126, 126, 0.6); /* Slightly opaque background for the box */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .no-results-message {
   text-align: center;
-  padding: 40px;
+  padding: 20px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - 40px); /* Full width minus 20px margin on each side */
+  max-width: 300px; /* Set a maximum width */
+  height: auto; /* Adjust height automatically */
+  justify-content: center; /* Center content vertically */
+  margin: 20px; /* Margin of 20px from the container */
+}
+
+.no-results-image {
+  width: 100px; /* Adjust width to fit within the square */
+  height: 100px; /* Adjust height to fit within the square */
 }
 
 .no-results-message h3 {
-  color: #d81010;
-  font-size: 24px;
-  margin-bottom: 10px;
+  color: #3d3d3d;
+  font-size: 20px; /* Adjust font size for better fit */
+  margin-bottom: 5px; /* Reduce margin for better fit */
 }
 
 .no-results-message p {
   color: #555;
-  font-size: 16px;
-  margin-bottom: 5px;
+  font-size: 14px; /* Adjust font size for better fit */
+  margin-bottom: 0; /* Remove margin for better fit */
+}
+
+/* Transition styles */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
+
+.sort-dropdown {
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.sort-dropdown .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.sort-dropdown .btn-search.dropdown-toggle {
+  background-color: #232323;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 50px;
 }
 </style>
