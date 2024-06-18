@@ -88,6 +88,7 @@
         :searchQuery="searchQuery"
         :selectedCuisines="selectedCuisines"
         :selectedIntolerance="selectedIntolerance"
+        :type="search"
       />
       </div>
     </div>

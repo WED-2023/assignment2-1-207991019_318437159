@@ -75,7 +75,6 @@ export default {
         } else if (this.type === "last-watched") {
           console.log("Fetching last watched recipes...");
           response = await mockGetLastWatchedRecipes(this.amount);
-          console.log("ron homo ", response);
         } else if (this.type === "search") {
           response = await mockSearchRecipes(this.amount);
         } else {
