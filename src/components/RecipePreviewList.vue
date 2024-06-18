@@ -89,7 +89,6 @@ export default {
         }
         return 0;
       });
-      console.log('Sorted recipes:', sorted); // Log the sorted recipes
       return sorted;
     }
   },
@@ -110,10 +109,12 @@ export default {
           response = await mockGetLastWatchedRecipes(this.amount);
         } else if (this.type === "search") {
           response = await mockSearchRecipes(this.searchQuery, this.amount, this.selectedCuisines, this.selectedIntolerance, this.selectedDiets);
+          
         } else {
           response = await mockGetRecipesPreview(this.amount);
         }
         this.recipes = response.data.recipes || [];
+      
       } catch (error) {
         console.log(error);
       }

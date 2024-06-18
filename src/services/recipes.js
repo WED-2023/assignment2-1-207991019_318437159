@@ -57,7 +57,6 @@ export function mockGetCategoriesForSearch() {
 
 export async function mockSearchRecipes(searchQuery, amount, selectedCuisines, selectedIntolerance, selecteddiets) {
   const response = mockGetRecipesPreview(amount);
-  console.log(`mockSearchRecipes: Returning ${response.data.recipes.length} recipes for search query "${searchQuery}"`);
   return response;
 }
 

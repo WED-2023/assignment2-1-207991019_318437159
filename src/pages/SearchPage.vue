@@ -86,7 +86,7 @@
     <transition name="fade" mode="out-in">
       <div 
         :key="searchKey" 
-        :class="['search-results', { 'no-results': noResultsFound, 'results-found': searchPerformed && !noResultsFound }]">
+        :class="['search-results', { 'no-results': noResultsFound, 'results-found': searchPerformed}]">
         <div v-if="searchPerformed">
           <div v-if="noResultsFound" class="no-results-message">
             <img src="../assets/photos/no-results.png" alt="No results found" class="no-results-image" />
@@ -94,7 +94,7 @@
             <p>We can't find any item matching your search.</p>
           </div>
           <div v-else>
-            <div class="sort-dropdown">
+            <div v-if="searchPerformed && !noResultsFound" class="sort-dropdown">
               <button
                 ref="sortDropdown"
                 class="btn btn-search dropdown-toggle"
@@ -124,19 +124,18 @@
                 </li>
               </ul>
             </div>
-            <RecipePreviewList
+          </div>
+          <RecipePreviewList
               ref="recipePreviewList"
               title="Search Results"
-              :amount="Number(recipesToShow)"
+              :amount="Number(this.recipesToShow)"
               :searchQuery="searchQuery"
               :selectedCuisines="selectedCuisines"
               :selectedIntolerance="selectedIntolerance"
               :selectedDiets="selectedDiets"
               :type="type"
               :sort="selectedSort"
-              @no-results-found="handleNoResultsFound"
             />
-          </div>
         </div>
       </div>
     </transition>
@@ -156,8 +155,8 @@ export default {
     return {
       searchQuery: "",
       type: "search",
-      recipesToShow: 0, // This will be set when search is performed
-      selectedRecipesToShow: 0, // This is updated by dropdown selection
+      recipesToShow: 5, // This will be set when search is performed
+      selectedRecipesToShow: 5, // This is updated by dropdown selection
       searchPerformed: false, // Track if a search has been performed
       filterMenuOpen: false, // Control the visibility of the filter menu
       dropdownOpen: false, // Control the visibility of the dropdown menu
@@ -185,7 +184,6 @@ export default {
           }
         }, 300); // Delay to allow fade-out animation
       });
-      
     },
     setSelectedRecipesToShow(num) {
       this.selectedRecipesToShow = num;
@@ -215,7 +213,7 @@ export default {
     setSort(sortCriteria) {
       this.selectedSort = sortCriteria;
       this.sortDropdownOpen = false;
-      if (this.searchPerformed && this.$refs.recipePreviewList) {
+      if (this.searchPerformed && !this.noResultsFound && this.$refs.recipePreviewList) {
         this.$refs.recipePreviewList.sortedRecipes();
       }
     },
