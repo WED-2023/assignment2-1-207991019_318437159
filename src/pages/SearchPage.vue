@@ -210,22 +210,28 @@ export default {
       this.dropdownOpen = false;
       this.sortDropdownOpen = false;
       this.searchKey++; // Change key to trigger re-render
-      const lastSearch = {
-        searchQuery: this.searchQuery,
-        selectedCuisines: this.selectedCuisines,
-        selectedIntolerance: this.selectedIntolerance,
-        selectedDiets: this.selectedDiets,
-        selectedSort: this.selectedSort,
-        recipesToShow: this.selectedRecipesToShow,
-      };
-      localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
       this.isLastSearch = false;
+
       this.$nextTick(() => {
         setTimeout(() => {
           this.recipesToShow = this.selectedRecipesToShow;
           this.searchPerformed = true;
           if (this.$refs.recipePreviewList) {
-            this.$refs.recipePreviewList.updateRecipes();
+            this.$refs.recipePreviewList.updateRecipes().then(() => {
+              if (!this.noResultsFound) {
+                const lastSearch = {
+                  searchQuery: this.searchQuery,
+                  selectedCuisines: this.selectedCuisines,
+                  selectedIntolerance: this.selectedIntolerance,
+                  selectedDiets: this.selectedDiets,
+                  selectedSort: this.selectedSort,
+                  recipesToShow: this.selectedRecipesToShow,
+                };
+                localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
+              } else {
+                localStorage.removeItem('lastSearch');
+              }
+            });
           }
         }, 300); // Delay to allow fade-out animation
       });
@@ -262,7 +268,7 @@ export default {
         this.$refs.recipePreviewList.sortedRecipes();
       }
     },
-  },
+  }
 };
 </script>
 
@@ -417,8 +423,14 @@ export default {
 
 .search-results.results-found {
   border: 2px solid rgba(255, 255, 255, 0.7); /* Light border */
-  background-color: rgba(126, 126, 126, 0.6); /* Slightly opaque background for the box */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.6
+  )
+
 }
 
 .sort-container {
@@ -489,7 +501,7 @@ export default {
 
 /* Transition styles */
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.7s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0;
