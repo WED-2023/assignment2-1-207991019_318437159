@@ -8,6 +8,7 @@ import FamilyRecipesPage from "./pages/FamilyRecipesPage";
 import RecipeViewPage from "./pages/RecipeViewPage";
 import MyFaviortesPage from "./pages/MyFaviortesPage";
 import MyRecipesPage from "./pages/MyRecipesPage";
+import PrepareRecipePage from "./pages/PrepareRecipePage";
 
 const routes = [
   {
@@ -59,6 +60,11 @@ const routes = [
     path: "*",
     name: "notFound",
     component: NotFound,
+  },
+  {
+    path: "/prepare",
+    name: "prepare",
+    component: PrepareRecipePage,
   },
 ];
 

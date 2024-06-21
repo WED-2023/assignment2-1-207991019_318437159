@@ -107,8 +107,8 @@ export default {
           response = await mockGetLastWatchedRecipes(this.amount);
         } else if (this.type === "search") {
           response = await mockSearchRecipes(this.searchQuery, this.amount, this.selectedCuisines, this.selectedIntolerance, this.selectedDiets);
-        // } else if (this.type === "last-search"){
-        //   response = await mockGetLastSearchRecipes("");
+        } else if (this.type === "last-search"){
+          response = await mockGetLastSearchRecipes("");
         } else {
           response = await mockGetRecipesPreview(this.amount);
         }

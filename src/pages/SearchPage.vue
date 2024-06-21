@@ -1,14 +1,8 @@
 <template>
   <div class="search-page">
-    <div
-      class="search-header"
-      :class="{ 'search-header-top': searchPerformed }"
-    >
+    <div class="search-header" :class="{ 'search-header-top': searchPerformed }">
       <h1>Find your Perfect Recipe here!</h1>
-      <p>
-        A delightful combination of ingredients and flavors to inspire your
-        culinary adventures. Find the best recipes now.
-      </p>
+      <p>A delightful combination of ingredients and flavors to inspire your culinary adventures. Find the best recipes now.</p>
       <div class="input-group search-bar">
         <input
           type="text"
@@ -18,69 +12,31 @@
           @keyup.enter="performSearch"
         />
         <div class="separator"></div>
-        <button
-          class="btn btn-search no-border"
-          type="button"
-          @click="performSearch"
-        >
+        <button class="btn btn-search no-border" type="button" @click="performSearch">
           <i class="fas fa-search"></i>
         </button>
         <div class="dropdown">
-          <button
-            ref="recipesDropdown"
-            class="btn btn-search dropdown-toggle"
-            type="button"
-            @click="toggleDropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+          <button ref="recipesDropdown" class="btn btn-search dropdown-toggle" type="button" @click="toggleDropdown" aria-haspopup="true" aria-expanded="false">
             {{ selectedRecipesToShow }}
           </button>
           <ul class="dropdown-menu" :class="{ show: dropdownOpen }">
             <li>
-              <button
-                class="dropdown-item text-dark"
-                @click.stop="setSelectedRecipesToShow(0)"
-              >
-                0
-              </button>
+              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(0)">0</button>
             </li>
             <li>
-              <button
-                class="dropdown-item text-dark"
-                @click.stop="setSelectedRecipesToShow(5)"
-              >
-                5
-              </button>
+              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(5)">5</button>
             </li>
             <li>
-              <button
-                class="dropdown-item text-dark"
-                @click.stop="setSelectedRecipesToShow(10)"
-              >
-                10
-              </button>
+              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(10)">10</button>
             </li>
             <li>
-              <button
-                class="dropdown-item text-dark"
-                @click.stop="setSelectedRecipesToShow(15)"
-              >
-                15
-              </button>
+              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(15)">15</button>
             </li>
           </ul>
         </div>
-        <button @click="toggleFilterMenu" class="btn btn-search filter-button">
-          Filter (Advanced Search)
-        </button>
+        <button @click="toggleFilterMenu" class="btn btn-search filter-button">Filter (Advanced Search)</button>
       </div>
-      <FilterCheckBox
-        :filterMenuOpen="filterMenuOpen"
-        @update:cuisines="updateCuisines"
-        @update:intolerance="updateIntolerance"
-        @update:diets="updateDiets"
-      />
+      <FilterCheckBox :filterMenuOpen="filterMenuOpen" @update:cuisines="updateCuisines" @update:intolerance="updateIntolerance" @update:diets="updateDiets" />
     </div>
 
     <transition name="fade" mode="out-in">
@@ -100,20 +56,10 @@
                 <span class="sort-by-text">Sort by: {{ selectedSort }}</span>
                 <ul class="dropdown-menu" :class="{ show: sortDropdownOpen }">
                   <li>
-                    <button
-                      class="dropdown-item text-dark"
-                      @click.stop="setSort('Popularity')"
-                    >
-                      Popularity
-                    </button>
+                    <button class="dropdown-item text-dark" @click.stop="setSort('Popularity')">Popularity</button>
                   </li>
                   <li>
-                    <button
-                      class="dropdown-item text-dark"
-                      @click.stop="setSort('Time To Make')"
-                    >
-                      Time To Make
-                    </button>
+                    <button class="dropdown-item text-dark" @click.stop="setSort('Time To Make')">Time To Make</button>
                   </li>
                 </ul>
               </div>
@@ -175,13 +121,12 @@ export default {
   },
   methods: {
     checkLoginStatus() {
-      const isLoggedIn = this.isUserLoggedIn(); // Replace with actual login check
+      const isLoggedIn = this.isUserLoggedIn();
       if (isLoggedIn) {
         this.loadLastSearch();
       }
     },
     isUserLoggedIn() {
-      // Replace this with actual login check logic
       return !!this.$root.store.username;
     },
     loadLastSearch() {
@@ -193,14 +138,10 @@ export default {
         this.selectedIntolerance = selectedIntolerance;
         this.selectedDiets = selectedDiets;
         this.selectedSort = selectedSort;
+        this.selectedRecipesToShow = recipesToShow; // Ensure selectedRecipesToShow is updated as well
         this.recipesToShow = recipesToShow;
         this.isLastSearch = true;
-        this.searchPerformed = true;
-        this.$nextTick(() => {
-          if (this.$refs.recipePreviewList) {
-            this.$refs.recipePreviewList.updateRecipes();
-          }
-        });
+        this.performSearch(); // Perform search immediately after loading last search
       }
     },
     performSearch() {
@@ -209,7 +150,7 @@ export default {
       this.filterMenuOpen = false;
       this.dropdownOpen = false;
       this.sortDropdownOpen = false;
-      this.searchKey++; // Change key to trigger re-render
+      this.searchKey++;
       this.isLastSearch = false;
 
       this.$nextTick(() => {
@@ -218,7 +159,6 @@ export default {
           this.searchPerformed = true;
           if (this.$refs.recipePreviewList) {
             this.$refs.recipePreviewList.updateRecipes().then(() => {
-              if (!this.noResultsFound) {
                 const lastSearch = {
                   searchQuery: this.searchQuery,
                   selectedCuisines: this.selectedCuisines,
@@ -228,12 +168,9 @@ export default {
                   recipesToShow: this.selectedRecipesToShow,
                 };
                 localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
-              } else {
-                localStorage.removeItem('lastSearch');
-              }
             });
           }
-        }, 300); // Delay to allow fade-out animation
+        }, 300); 
       });
     },
     setSelectedRecipesToShow(num) {

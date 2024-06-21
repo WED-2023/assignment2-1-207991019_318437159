@@ -1,6 +1,7 @@
 <template>
   <div class="recipe-detail">
     <div class="recipe-image">
+      <button @click="$emit('prepareRecipe')" class="prepare-recipe-button">Prepare This Recipe Here</button>
       <img :src="image" alt="Recipe Image" />
       <div class="recipe-text-overlay">
         <h3 class="recipe-title">{{ title }}</h3>
@@ -40,7 +41,6 @@
               <li v-for="(step, index) in instructions" :key="index">
                 {{ step }}
               </li>
-              <!-- Display each step directly -->
             </ol>
           </div>
         </div>
@@ -119,6 +119,24 @@ export default {
   border-radius: 10px;
 }
 
+.prepare-recipe-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #1f1f1fd2; 
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 2; /* Ensure button appears above the image */
+}
+
+.prepare-recipe-button:hover {
+  background-color: #727272; /* Darker shade of tomato */
+}
+
 .recipe-text-overlay {
   position: absolute;
   bottom: 0;
@@ -130,6 +148,7 @@ export default {
   text-align: center;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  z-index: 1; /* Ensure overlay appears above the image but below the button */
 }
 
 .recipe-title {

@@ -12,6 +12,7 @@
         :readyInMinutes="recipe.readyInMinutes"
         :servings="recipe.servings"
         :aggregateLikes="recipe.aggregateLikes"
+        @prepareRecipe="navigateToPreparePage"
       />
     </div>
   </div>
@@ -45,6 +46,9 @@ export default {
         };
         reader.readAsDataURL(file);
       }
+    },
+    navigateToPreparePage() {
+      this.$router.push({ name: "prepare" });
     },
   },
   async created() {
@@ -88,23 +92,15 @@ export default {
 </script>
 
 <style scoped>
-.bg-upload-label {
-  display: inline-block;
-  margin-bottom: 10px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-#bg-upload {
-  display: inline-block;
-  margin-bottom: 20px;
-}
-
 .background {
   padding: 20px;
   background-color: #f5f5f5;
   background-image: url("../assets/photos/wood_background.jpg"); /* Add your background image here */
   background-size: cover; /* Make sure the background covers the entire area */
   background-position: center; /* Center the background image */
+}
+
+.recipe-container {
+  position: relative;
 }
 </style>
