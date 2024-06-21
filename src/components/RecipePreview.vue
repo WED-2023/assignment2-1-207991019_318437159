@@ -92,7 +92,7 @@ export default {
       event.stopPropagation(); // Prevent triggering the link click
       event.preventDefault(); // Prevent default action
 
-      recipe.faviorte = !recipe.faviorte;
+      this.recipe.faviorte = !this.recipe.faviorte;
 
       // Add a class for animation
       const favoriteIcon = event.currentTarget.querySelector(".icon-heart");

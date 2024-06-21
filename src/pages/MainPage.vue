@@ -1,6 +1,15 @@
 <template>
   <b-container fluid class="main-container">
     <div class="background-container">
+      <!-- Logo Section -->
+      <b-row class="justify-content-center">
+        <b-col cols="12" lg="6" class="text-center logo-container">
+          <div class="logo-background">
+            <img src="../assets/photos/logo-Photoroom.png" alt="Logo" class="logo-image"/>
+          </div>
+        </b-col>
+      </b-row>
+      <!-- Main Content -->
       <b-row>
         <!-- Left Column: Random Recipes -->
         <b-col cols="12" lg="6" class="left-column">
@@ -53,6 +62,23 @@ export default {
   padding-top: 4rem;
   background: url("../assets/photos/wood_background.jpg") no-repeat center;
   background-size: cover;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo-background {
+  background: rgba(0, 0, 0, 0.7); /* Black transparent background */
+  margin-top: 2%;
+  padding: 10px;
+  border-radius: 10px; /* Optional: adds rounded corners */
+  display: inline-block;
+}
+
+.logo-image {
+  max-width: 100%;
+  height: auto;
 }
 
 .list-header {
