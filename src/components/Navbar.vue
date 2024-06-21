@@ -1,85 +1,64 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-      <!-- Home button at the most left -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <router-link class="nav-link" :to="{ name: 'main' }">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" :to="{ name: 'search' }">Search</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" :to="{ name: 'about' }">About</router-link>
-        </li>
-      </ul>
-      
-      <div class="navbar-logo-container">
-        <img
-          src="../assets/photos/OPR.png"
-          alt="Ron's Logo"
-          class="navbar-brand-logo"
-        />
-      </div>
+  <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top">
+    <div class="container-fluid">
+      <!-- Navbar Toggler Button -->
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
+      <!-- Collapsible Navbar Content -->
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item :to="{ name: 'main' }">Home</b-nav-item>
+          <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
+          <b-nav-item :to="{ name: 'about' }">About</b-nav-item>
+        </b-navbar-nav>
+
+        <div class="d-flex mx-auto">
+          <img
+            src="../assets/photos/OPR.png"
+            alt="Ron's Logo"
+            class="navbar-brand-logo mx-auto"
+          />
+        </div>
+
+        <b-navbar-nav class="ms-auto">
           <template v-if="$root.store.username">
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdownMenuLink2"
-                role="button"
-                aria-haspopup="true"
-                :aria-expanded="isUserDropdownOpen"
-                @click.prevent="toggleUserDropdown"
-              >
+            <b-nav-item-dropdown right>
+              <template #button-content>
                 {{ $root.store.username }}
-              </a>
-              <div
-                class="dropdown-menu dropdown-menu-right"
-                :class="{ show: isUserDropdownOpen }"
-                aria-labelledby="navbarDropdownMenuLink2"
+              </template>
+              <b-dropdown-item :to="{ name: 'favorites' }"
+                >Favorites</b-dropdown-item
               >
-                <router-link class="dropdown-item" :to="{ name: 'favorites' }">Favorites</router-link>
-                <router-link class="dropdown-item" :to="{ name: 'private' }">Private</router-link>
-                <router-link class="dropdown-item" :to="{ name: 'family' }">Family</router-link>
-                <button class="dropdown-item" @click="Logout">Sign Out</button>
-              </div>
-            </li>
-            <li class="nav-item">
-              <button
-                class="nav-link btn btn-link btn-create-recipe"
-                @click="showNewRecipeModal = true"
+              <b-dropdown-item :to="{ name: 'private' }"
+                >Private</b-dropdown-item
               >
-                Create New Recipe
-              </button>
-            </li>
+              <b-dropdown-item :to="{ name: 'family' }">Family</b-dropdown-item>
+              <b-dropdown-item @click="Logout">Sign Out</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item>
+              <b-button variant="secondary" @click="showNewRecipeModal = true"
+                >Create New Recipe</b-button
+              >
+            </b-nav-item>
           </template>
           <template v-else>
-            <li class="nav-item">
-              <span class="navbar-text">Hello Guest</span>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link circular-btn" :to="{ name: 'login' }">Login</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link circular-btn" :to="{ name: 'register' }">Register</router-link>
-            </li>
+            <b-nav-item>Hello Guest</b-nav-item>
+            <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
+            <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
           </template>
-        </ul>
-      </div>
+        </b-navbar-nav>
+      </b-collapse>
     </div>
     <NewRecipeModal
       :show="showNewRecipeModal"
       @close="showNewRecipeModal = false"
     />
-  </nav>
+  </b-navbar>
 </template>
 
 <script>
 import NewRecipeModal from "./NewRecipeModal.vue";
+
 export default {
   name: "Navbar",
   components: {
@@ -124,37 +103,35 @@ export default {
   top: 0; /* Align it to the top of the page */
   left: 0;
   right: 0;
-  max-height: 65px;
 }
 
 .navbar-nav > li {
   font-family: "Lato", sans-serif;
   font-weight: 400;
-  padding: 0% 1.5rem; /* Adjust padding for better spacing */
-  font-size: 22px; /* Improve font size */
+  padding: 0 1.5rem;
+  font-size: 22px;
 }
 
 .dropdown-menu {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana;
-  font-size: 22px; /* Improve font size */
+  font-family: "Segoe UI", Tahoma;
+  font-size: 22px;
 }
-
 
 .navbar-brand-logo {
-  width: 50vh;
-  height: 8vh; /* Adjust height to stretch logo */
-  margin-left: 22vh;
+  width: 45vh;
+  height: 50px;
+  margin: 0 auto;
 }
 
-.btn-create-recipe {
-  font-size: 22px; /* Increase font size for the Create New Recipe button */
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
+@media (max-width: 768px) {
+  .navbar-collapse {
+    display: flex;
+    flex-direction: column;
+  }
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
-
-.btn-create-recipe:focus {
-  box-shadow: none; /* Remove the box-shadow */
-}
-
 </style>

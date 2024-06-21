@@ -7,13 +7,13 @@
     >
       <div class="recipe-body">
         <img v-if="imageLoad" :src="recipe.image" class="recipe-image" />
-        <div v-if="loggedIn" class="favorite-icon" @click="toggleSaved">
+        <div v-if="loggedIn" class="favorite-icon" @click="toggleFavorite">
           <font-awesome-icon
-            :icon="[saved ? 'fas' : 'far', 'heart']"
+            :icon="[recipe.faviorte ? 'fas' : 'far', 'heart']"
             class="icon-heart"
           />
         </div>
-        <div v-if="viewed" class="viewed-icon">
+        <div v-if="loggedIn && recipe.viewed" class="viewed-icon">
           <font-awesome-icon :icon="['fas', 'eye']" class="icon-view" />
         </div>
         <div class="recipe-title-box">
@@ -52,14 +52,10 @@
 </template>
 
 <script>
-import { mockToggleFavorite, mockGetIsFaviorite } from "../services/user.js";
+import { mockToggleFavorite, mockMarkViewed } from "../services/user.js";
 export default {
   mounted() {
     this.loadImage();
-    this.checkViewedStatus();
-    if (this.loggedIn) {
-      this.checkSavedStatus();
-    }
   },
   data() {
     return {
@@ -88,17 +84,15 @@ export default {
       img.src = this.recipe.image;
     },
     markAsViewed() {
-      localStorage.setItem(`viewed_${this.recipe.id}`, true);
-      this.viewed = true;
+      if (this.recipe.viewed || !this.loggedIn) return;
+      recipe.viewed = true;
+      mockMarkViewed(this.recipe.id, this.$root.store.username);
     },
-    checkViewedStatus() {
-      this.viewed = !!localStorage.getItem(`viewed_${this.recipe.id}`);
-    },
-    toggleSaved(event) {
+    toggleFavorite(event) {
       event.stopPropagation(); // Prevent triggering the link click
       event.preventDefault(); // Prevent default action
 
-      this.saved = !this.saved;
+      recipe.faviorte = !recipe.faviorte;
 
       // Add a class for animation
       const favoriteIcon = event.currentTarget.querySelector(".icon-heart");
@@ -109,12 +103,6 @@ export default {
         favoriteIcon.classList.remove("like-animation");
       });
       mockToggleFavorite(this.recipe.id, this.$root.store.username);
-    },
-    checkSavedStatus() {
-      this.saved = mockGetIsFaviorite(
-        this.recipe.id,
-        this.$root.store.username
-      );
     },
   },
 };
@@ -152,7 +140,9 @@ export default {
 .recipe-image {
   display: block;
   width: 100%;
-  height: 150%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
 
