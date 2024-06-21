@@ -46,7 +46,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
 
 .family-recipes {
-  margin-top: 4%;
+  margin-top: 3%;
   padding: 20px;
   background-color: #f5f5f5;
   background-image: url("../assets/photos/wood_background.jpg"); /* Add your background image here */

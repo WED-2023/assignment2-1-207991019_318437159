@@ -8,7 +8,9 @@
     "vegetarian": false,
     "vegan": false,
     "glutenFree": false,
-    "summary": "Delicious pasta dish with garlic, scallions, cauliflower, and breadcrumbs."
+    "summary": "Delicious pasta dish with garlic, scallions, cauliflower, and breadcrumbs.",
+    "faviorte": true,
+    "viewed": false
   },
   {
     "id": 715538,
@@ -19,7 +21,9 @@
     "vegetarian": false,
     "vegan": false,
     "glutenFree": false,
-    "summary": "Quick and flavorful dinner with pork, pasta, tomatoes, and basil."
+    "summary": "Quick and flavorful dinner with pork, pasta, tomatoes, and basil.",
+    "faviorte": true,
+    "viewed": true
   },
   {
     "id": 782601,
@@ -30,7 +34,9 @@
     "vegetarian": true,
     "vegan": false,
     "glutenFree": true,
-    "summary": "Hearty and nutritious meal with red kidney beans, rice, and a blend of spices."
+    "summary": "Hearty and nutritious meal with red kidney beans, rice, and a blend of spices.",
+    "faviorte": false,
+    "viewed": true
   },
   {
     "id": 715497,
@@ -41,7 +47,9 @@
     "vegetarian": false,
     "vegan": false,
     "glutenFree": false,
-    "summary": "Quick and tasty pizza with turkey, tomato, and cheese on a crispy crust."
+    "summary": "Quick and tasty pizza with turkey, tomato, and cheese on a crispy crust.",
+    "faviorte": true,
+    "viewed": false
   },
   {
     "id": 798400,
@@ -52,7 +60,9 @@
     "vegetarian": true,
     "vegan": true,
     "glutenFree": true,
-    "summary": "Perfect dish for spice lovers, made with black beans, tomatoes, and a mix of spices."
+    "summary": "Perfect dish for spice lovers, made with black beans, tomatoes, and a mix of spices.",
+    "faviorte": true,
+    "viewed": true
   },
   {
     "id": 795751,
@@ -63,6 +73,8 @@
     "vegetarian": false,
     "vegan": false,
     "glutenFree": true,
-    "summary": "Fresh and flavorful salad with chicken, avocado, and mango, perfect for a light meal."
+    "summary": "Fresh and flavorful salad with chicken, avocado, and mango, perfect for a light meal.",
+    "faviorte": false,
+    "viewed": false
   }
 ]

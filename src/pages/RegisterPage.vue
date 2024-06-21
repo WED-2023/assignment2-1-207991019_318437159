@@ -126,8 +126,7 @@
           <b-form-invalid-feedback
             v-if="$v.form.password.required && !$v.form.password.valid"
           >
-            5-10 characters long, at least one numeric digit, and one special
-            character
+            5-10 characters long, at least one digit, and one special character
           </b-form-invalid-feedback>
         </b-form-group>
 
@@ -187,22 +186,29 @@
         <b-button type="submit" variant="primary" class="register-btn"
           >Register</b-button
         >
-        <b-modal
-          v-model="form.submitError"
-          centered
-          hide-footer
-          modal-header-bg="danger"
-          modal-body-bg="danger"
-          title="Registration Error"
-        >
-          {{ form.submitError }}</b-modal
-        >
         <div class="mt-4 text-center lead">
           Already have an account?
           <router-link to="login"> Log in here</router-link>
         </div>
       </b-form>
     </b-card>
+
+    <!-- Error Modal -->
+    <b-modal
+      v-model="showModal"
+      hide-footer
+      centered
+      title="Registration Error"
+      header-class="bg-danger text-white"
+      content-class="bg-white text-center"
+    >
+      <div class="text-black">
+        {{ errorMessage }}
+      </div>
+      <b-button class="mt-3" variant="dark" @click="showModal = false"
+        >Close</b-button
+      >
+    </b-modal>
   </div>
 </template>
 
@@ -230,8 +236,9 @@ export default {
         password: "",
         confirmedPassword: "",
         email: "",
-        submitError: undefined,
       },
+      errorMessage: "",
+      showModal: false,
       countries: [{ value: null, text: "Select your country", disabled: true }],
     };
   },
@@ -292,18 +299,21 @@ export default {
           password: this.form.password,
         };
         const isSuccessful = false;
+        //const isSuccessful = Math.random() >= 0.5; // Randomly set isSuccessful to true or false
         const response = await mockRegister(userDetails, isSuccessful);
 
         if (response.status === 200 && response.response.data.success) {
           this.$router.push("/login");
         } else {
-          this.form.submitError = response.response.data.message;
+          console.log("aaa");
+          this.errorMessage = response.response.data.message;
+          this.showModal = true;
         }
       } catch (err) {
         console.log(err.response);
-        this.form.submitError = err.response
-          ? err.response.data.message
-          : err.message;
+        console.log("aaa");
+        this.errorMessage = err.response.data.message;
+        this.showModal = true;
       }
     },
     onRegister() {
@@ -322,8 +332,9 @@ export default {
         password: "",
         confirmedPassword: "",
         email: "",
-        usernameError: null,
       };
+      this.errorMessage = "";
+      this.showModal = false;
       this.$nextTick(() => {
         this.$v.$reset();
       });
