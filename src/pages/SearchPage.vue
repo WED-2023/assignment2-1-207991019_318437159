@@ -140,37 +140,33 @@ export default {
         this.selectedSort = selectedSort;
         this.selectedRecipesToShow = recipesToShow; // Ensure selectedRecipesToShow is updated as well
         this.recipesToShow = recipesToShow;
-        this.isLastSearch = true;
         this.performSearch(); // Perform search immediately after loading last search
+        this.isLastSearch = true;
+
       }
     },
     performSearch() {
-      this.noResultsFound = false;
       this.searchPerformed = false;
       this.filterMenuOpen = false;
       this.dropdownOpen = false;
       this.sortDropdownOpen = false;
-      this.searchKey++;
       this.isLastSearch = false;
-
+      this.searchKey++;
       this.$nextTick(() => {
         setTimeout(() => {
           this.recipesToShow = this.selectedRecipesToShow;
           this.searchPerformed = true;
-          if (this.$refs.recipePreviewList) {
-            this.$refs.recipePreviewList.updateRecipes().then(() => {
-                const lastSearch = {
-                  searchQuery: this.searchQuery,
-                  selectedCuisines: this.selectedCuisines,
-                  selectedIntolerance: this.selectedIntolerance,
-                  selectedDiets: this.selectedDiets,
-                  selectedSort: this.selectedSort,
-                  recipesToShow: this.selectedRecipesToShow,
-                };
-                localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
-            });
-          }
-        }, 300); 
+          if (!this.noResultsFound){
+            const lastSearch = {
+            searchQuery: this.searchQuery,
+            selectedCuisines: this.selectedCuisines,
+            selectedIntolerance: this.selectedIntolerance,
+            selectedDiets: this.selectedDiets,
+            selectedSort: this.selectedSort,
+            recipesToShow: this.selectedRecipesToShow,
+          };
+              localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
+        }}, 300); 
       });
     },
     setSelectedRecipesToShow(num) {

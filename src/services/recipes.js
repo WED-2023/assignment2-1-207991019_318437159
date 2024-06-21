@@ -10,7 +10,7 @@ export function mockGetRecipesPreview(amount = 3) {
   const previewLength = recipe_previews.length;
   let usedIndices = new Set();
 
-  while (recipes.length < amount && usedIndices.size < previewLength) {
+  while (recipes.length < amount) {
     let randomIndex = Math.floor(Math.random() * previewLength);
 
     if (!usedIndices.has(randomIndex)) {
@@ -56,8 +56,20 @@ export function mockGetCategoriesForSearch() {
 }
 
 export async function mockSearchRecipes(searchQuery, amount, selectedCuisines, selectedIntolerance, selecteddiets) {
-  const response = mockGetRecipesPreview(amount);
-  return response;
+  let recipes = [];
+  const previewLength = recipe_previews.length;
+  //let usedIndices = new Set();
+
+  while (recipes.length < amount) {
+    let randomIndex = Math.floor(Math.random() * previewLength);
+
+    //if (!usedIndices.has(randomIndex)) {
+      recipes.push(recipe_previews[randomIndex]);
+    //   usedIndices.add(randomIndex);
+    // }
+  }
+  return { data: { recipes } };
+
 }
 
 export function mockGetLastSearchRecipes(ID){
