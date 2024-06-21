@@ -1,8 +1,14 @@
 <template>
   <div class="search-page">
-    <div class="search-header" :class="{ 'search-header-top': searchPerformed }">
+    <div
+      class="search-header"
+      :class="{ 'search-header-top': searchPerformed }"
+    >
       <h1>Find your Perfect Recipe here!</h1>
-      <p>A delightful combination of ingredients and flavors to inspire your culinary adventures. Find the best recipes now.</p>
+      <p>
+        A delightful combination of ingredients and flavors to inspire your
+        culinary adventures. Find the best recipes now.
+      </p>
       <div class="input-group search-bar">
         <input
           type="text"
@@ -12,54 +18,113 @@
           @keyup.enter="performSearch"
         />
         <div class="separator"></div>
-        <button class="btn btn-search no-border" type="button" @click="performSearch">
+        <button
+          class="btn btn-search no-border"
+          type="button"
+          @click="performSearch"
+        >
           <i class="fas fa-search"></i>
         </button>
         <div class="dropdown">
-          <button ref="recipesDropdown" class="btn btn-search dropdown-toggle" type="button" @click="toggleDropdown" aria-haspopup="true" aria-expanded="false">
+          <button
+            ref="recipesDropdown"
+            class="btn btn-search dropdown-toggle"
+            type="button"
+            @click="toggleDropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
             {{ selectedRecipesToShow }}
           </button>
           <ul class="dropdown-menu" :class="{ show: dropdownOpen }">
             <li>
-              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(0)">0</button>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setSelectedRecipesToShow(0)"
+              >
+                0
+              </button>
             </li>
             <li>
-              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(5)">5</button>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setSelectedRecipesToShow(5)"
+              >
+                5
+              </button>
             </li>
             <li>
-              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(10)">10</button>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setSelectedRecipesToShow(10)"
+              >
+                10
+              </button>
             </li>
             <li>
-              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(15)">15</button>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setSelectedRecipesToShow(15)"
+              >
+                15
+              </button>
             </li>
           </ul>
         </div>
-        <button @click="toggleFilterMenu" class="btn btn-search filter-button">Filter (Advanced Search)</button>
+        <button @click="toggleFilterMenu" class="btn btn-search filter-button">
+          Filter (Advanced Search)
+        </button>
       </div>
-      <FilterCheckBox :filterMenuOpen="filterMenuOpen" @update:cuisines="updateCuisines" @update:intolerance="updateIntolerance" @update:diets="updateDiets" />
+      <FilterCheckBox
+        :filterMenuOpen="filterMenuOpen"
+        @update:cuisines="updateCuisines"
+        @update:intolerance="updateIntolerance"
+        @update:diets="updateDiets"
+      />
     </div>
 
     <transition name="fade" mode="out-in">
       <div>
         <div v-if="searchPerformed">
           <div v-if="noResultsFound" class="no-results-message">
-            <img src="../assets/photos/no-results.png" alt="No results found" class="no-results-image" />
+            <img
+              src="../assets/photos/no-results.png"
+              alt="No results found"
+              class="no-results-image"
+            />
             <h3>No Result Found!</h3>
             <p>We can't find any recipe matching your search.</p>
           </div>
           <div v-else class="search-results results-found">
             <div class="sort-container">
               <div class="dropdown top-left-dropdown">
-                <button class="top-left-button dropdown-toggle" @click="toggleSortDropdown">
-                  <img src="../assets/photos/funnel.png" alt="icon" class="icon">
+                <button
+                  class="top-left-button dropdown-toggle"
+                  @click="toggleSortDropdown"
+                >
+                  <img
+                    src="../assets/photos/funnel.png"
+                    alt="icon"
+                    class="icon"
+                  />
                 </button>
                 <span class="sort-by-text">Sort by: {{ selectedSort }}</span>
                 <ul class="dropdown-menu" :class="{ show: sortDropdownOpen }">
                   <li>
-                    <button class="dropdown-item text-dark" @click.stop="setSort('Popularity')">Popularity</button>
+                    <button
+                      class="dropdown-item text-dark"
+                      @click.stop="setSort('Popularity')"
+                    >
+                      Popularity
+                    </button>
                   </li>
                   <li>
-                    <button class="dropdown-item text-dark" @click.stop="setSort('Time To Make')">Time To Make</button>
+                    <button
+                      class="dropdown-item text-dark"
+                      @click.stop="setSort('Time To Make')"
+                    >
+                      Time To Make
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -107,7 +172,7 @@ export default {
       noResultsFound: false, // Track if no results were found
       searchKey: 0, // Key to trigger re-render of search results
       sortDropdownOpen: false, // Control the visibility of the sort dropdown menu
-      selectedSort: 'Popularity', // Default sort criteria
+      selectedSort: "Popularity", // Default sort criteria
       isLastSearch: false, // Track if the results are from last search
     };
   },
@@ -116,7 +181,7 @@ export default {
   },
   computed: {
     headerTitle() {
-      return this.isLastSearch ? 'Your Last Search' : 'Search Results';
+      return this.isLastSearch ? "Your Last Search" : "Search Results";
     },
   },
   methods: {
@@ -130,9 +195,17 @@ export default {
       return !!this.$root.store.username;
     },
     loadLastSearch() {
-      const lastSearch = localStorage.getItem('lastSearch');
+      console.log("Loading last search");
+      const lastSearch = localStorage.getItem("lastSearch");
       if (lastSearch) {
-        const { searchQuery, selectedCuisines, selectedIntolerance, selectedDiets, selectedSort, recipesToShow } = JSON.parse(lastSearch);
+        const {
+          searchQuery,
+          selectedCuisines,
+          selectedIntolerance,
+          selectedDiets,
+          selectedSort,
+          recipesToShow,
+        } = JSON.parse(lastSearch);
         this.searchQuery = searchQuery;
         this.selectedCuisines = selectedCuisines;
         this.selectedIntolerance = selectedIntolerance;
@@ -142,7 +215,6 @@ export default {
         this.recipesToShow = recipesToShow;
         this.performSearch(); // Perform search immediately after loading last search
         this.isLastSearch = true;
-
       }
     },
     performSearch() {
@@ -156,17 +228,18 @@ export default {
         setTimeout(() => {
           this.recipesToShow = this.selectedRecipesToShow;
           this.searchPerformed = true;
-          if (!this.noResultsFound){
+          if (!this.noResultsFound) {
             const lastSearch = {
-            searchQuery: this.searchQuery,
-            selectedCuisines: this.selectedCuisines,
-            selectedIntolerance: this.selectedIntolerance,
-            selectedDiets: this.selectedDiets,
-            selectedSort: this.selectedSort,
-            recipesToShow: this.selectedRecipesToShow,
-          };
-              localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
-        }}, 300); 
+              searchQuery: this.searchQuery,
+              selectedCuisines: this.selectedCuisines,
+              selectedIntolerance: this.selectedIntolerance,
+              selectedDiets: this.selectedDiets,
+              selectedSort: this.selectedSort,
+              recipesToShow: this.selectedRecipesToShow,
+            };
+            localStorage.setItem("lastSearch", JSON.stringify(lastSearch));
+          }
+        }, 300);
       });
     },
     setSelectedRecipesToShow(num) {
@@ -197,11 +270,15 @@ export default {
     setSort(sortCriteria) {
       this.selectedSort = sortCriteria;
       this.sortDropdownOpen = false;
-      if (this.searchPerformed && !this.noResultsFound && this.$refs.recipePreviewList) {
+      if (
+        this.searchPerformed &&
+        !this.noResultsFound &&
+        this.$refs.recipePreviewList
+      ) {
         this.$refs.recipePreviewList.sortedRecipes();
       }
     },
-  }
+  },
 };
 </script>
 
@@ -221,7 +298,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
 }
 
 .search-page::before {
@@ -321,7 +398,7 @@ export default {
 }
 
 .dropdown .dropdown-item {
-  color: rgb(0, 0, 0)
+  color: rgb(0, 0, 0);
 }
 
 .dropdown .dropdown-item:hover {
@@ -357,13 +434,7 @@ export default {
 .search-results.results-found {
   border: 2px solid rgba(255, 255, 255, 0.7); /* Light border */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.6
-  )
-
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .sort-container {
@@ -394,8 +465,7 @@ export default {
   margin-left: 10px;
   color: #000000;
   font-size: 16px;
-  font-family: 'Comfortaa', cursive;
-  
+  font-family: "Comfortaa", cursive;
 }
 
 .no-results-message {
@@ -433,7 +503,8 @@ export default {
 }
 
 /* Transition styles */
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.7s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {

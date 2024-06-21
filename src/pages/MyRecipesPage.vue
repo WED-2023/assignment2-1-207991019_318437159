@@ -3,13 +3,11 @@
     <div class="list-header">
       <h1 class="list-title">Private Recipes</h1>
     </div>
-    <div v-if="noResults" class="no-results-message">
-      <div class="no-results-box">
-        <i class="fas fa-ban no-results-icon"></i>
-        <h3>No Private Recipes !</h3>
-        <p>You've yet to create any recipes</p>
-      </div>
-    </div>
+    <NoResults
+      v-if="noResults"
+      title="No Private Recipes!"
+      message="You've yet to create any recipes"
+    />
     <div v-else>
       <RecipePreviewList
         ref="recipePreviewList"
@@ -23,11 +21,13 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList.vue";
+import NoResults from "../components/NoResults.vue";
 
 export default {
   name: "MyRecipes",
   components: {
     RecipePreviewList,
+    NoResults,
   },
   data() {
     return {
@@ -66,26 +66,5 @@ export default {
   font-family: "Great Vibes", cursive;
   font-size: 80px;
   font-weight: lighter;
-}
-
-.no-results-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px; /* Adjust height as needed */
-}
-
-.no-results-box {
-  text-align: center;
-  background: rgba(255, 255, 255, 0.8); /* Slightly opaque background */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.no-results-icon {
-  font-size: 60px;
-  color: #888;
-  margin-bottom: 10px;
 }
 </style>
