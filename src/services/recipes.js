@@ -31,6 +31,9 @@ export function mockSaveNewRecipe(recipe) {
 }
 
 function genericMock(amount, gen_recipes) {
+  if (!gen_recipes || gen_recipes.length === 0) {
+    return { data: { recipes: [] } };
+  }
   let recipes = [];
   for (let i = 0; i < amount; i++) {
     let index = i % gen_recipes.length;
@@ -69,12 +72,10 @@ export async function mockSearchRecipes(searchQuery, amount, selectedCuisines, s
     // }
   }
   return { data: { recipes } };
-
 }
 
-export function mockGetLastSearchRecipes(ID){
+export function mockGetLastSearchRecipes(ID) {
   // will be used to fetch the last recipe from the database with the ID of the user.
   const response = mockGetRecipesPreview(5);
   return response;
 }
-

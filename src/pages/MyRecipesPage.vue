@@ -4,12 +4,16 @@
       <h1 class="list-title">Private Recipes</h1>
     </div>
     <div v-if="noResults" class="no-results-message">
-      No private recipes found. Try adding some!
+      <div class="no-results-box">
+        <i class="fas fa-ban no-results-icon"></i>
+        <h3>No Private Recipes !</h3>
+        <p>You've yet to create any recipes</p>
+      </div>
     </div>
     <div v-else>
       <RecipePreviewList
         ref="recipePreviewList"
-        :amount="7"
+        :amount="4"
         type="private"
         @no-results="handleNoResultsFound"
       />
@@ -42,6 +46,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
 
 .my-recipes-page {
+  min-height: 100vh; /* Ensure the page covers the full viewport height */
   margin-top: 3%;
   padding: 40px;
   background-image: url("../assets/photos/wood_background.jpg");
@@ -64,9 +69,23 @@ export default {
 }
 
 .no-results-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Adjust height as needed */
+}
+
+.no-results-box {
   text-align: center;
-  font-size: 24px;
+  background: rgba(255, 255, 255, 0.8); /* Slightly opaque background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.no-results-icon {
+  font-size: 60px;
   color: #888;
-  margin-top: 20px;
+  margin-bottom: 10px;
 }
 </style>

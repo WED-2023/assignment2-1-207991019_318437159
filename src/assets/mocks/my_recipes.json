@@ -8,8 +8,7 @@
     "vegetarian": true,
     "vegan": true,
     "glutenFree": true,
-    "summary": "A nutritious and flavorful quinoa and black bean salad with fresh veggies.",
-    "faviorte": true
+    "summary": "A nutritious and flavorful quinoa and black bean salad with fresh veggies."
   },
   {
     "id": 807901,
@@ -20,8 +19,7 @@
     "vegetarian": false,
     "vegan": false,
     "glutenFree": false,
-    "summary": "A delicious BBQ chicken pizza with red onions, cilantro, and mozzarella.",
-    "faviorte": true
+    "summary": "A delicious BBQ chicken pizza with red onions, cilantro, and mozzarella."
   },
   {
     "id": 808912,
@@ -32,8 +30,7 @@
     "vegetarian": true,
     "vegan": true,
     "glutenFree": true,
-    "summary": "A hearty and flavorful sweet potato and chickpea curry with coconut milk.",
-    "faviorte": true
+    "summary": "A hearty and flavorful sweet potato and chickpea curry with coconut milk."
   },
   {
     "id": 809923,
@@ -44,8 +41,7 @@
     "vegetarian": true,
     "vegan": false,
     "glutenFree": false,
-    "summary": "A classic Margherita pizza with fresh tomatoes, mozzarella, and basil.",
-    "faviorte": true
+    "summary": "A classic Margherita pizza with fresh tomatoes, mozzarella, and basil."
   },
   {
     "id": 810934,
@@ -56,7 +52,6 @@
     "vegetarian": false,
     "vegan": false,
     "glutenFree": true,
-    "summary": "A flavorful Mediterranean grilled chicken with olives, tomatoes, and herbs.",
-    "faviorte": true
+    "summary": "A flavorful Mediterranean grilled chicken with olives, tomatoes, and herbs."
   }
 ]

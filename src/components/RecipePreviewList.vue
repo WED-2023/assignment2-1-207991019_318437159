@@ -62,14 +62,14 @@ export default {
       type: Array,
       default: () => [],
     },
-    selectedDiets:{
+    selectedDiets: {
       type: Array,
       default: () => [],
     },
     sort: {
       type: String,
-      default: 'Popularity',
-    }
+      default: "Popularity",
+    },
   },
   data() {
     return {
@@ -82,15 +82,15 @@ export default {
     },
     sortedRecipes() {
       const sorted = [...this.recipes].sort((a, b) => {
-        if (this.sort === 'Popularity') {
+        if (this.sort === "Popularity") {
           return b.aggregateLikes - a.aggregateLikes;
-        } else if (this.sort === 'Time To Make') {
+        } else if (this.sort === "Time To Make") {
           return a.readyInMinutes - b.readyInMinutes;
         }
         return 0;
       });
       return sorted;
-    }
+    },
   },
   mounted() {
     this.updateRecipes();
@@ -106,16 +106,23 @@ export default {
         } else if (this.type === "last-watched") {
           response = await mockGetLastWatchedRecipes(this.amount);
         } else if (this.type === "search") {
-          response = await mockSearchRecipes(this.searchQuery, this.amount, this.selectedCuisines, this.selectedIntolerance, this.selectedDiets);
-        } else if (this.type === "last-search"){
+          response = await mockSearchRecipes(
+            this.searchQuery,
+            this.amount,
+            this.selectedCuisines,
+            this.selectedIntolerance,
+            this.selectedDiets
+          );
+        } else if (this.type === "last-search") {
           response = await mockGetLastSearchRecipes("");
         } else {
           response = await mockGetRecipesPreview(this.amount);
         }
-          
+
         this.recipes = response.data.recipes || [];
+        console.log(this.recipes);
         if (this.recipes.length === 0) {
-          this.$emit('no-results');
+          this.$emit("no-results");
         }
       } catch (error) {
         console.log(error);
