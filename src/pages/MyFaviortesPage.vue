@@ -3,7 +3,20 @@
     <div class="list-header">
       <h1 class="list-title">Favorite Recipes</h1>
     </div>
-    <RecipePreviewList :amount="5" type="favorites" />
+    <div v-if="noResults" class="no-results-message">
+      <div class="no-results-box">
+        <i class="fas fa-ban no-results-icon"></i>
+        <h3>No Private Recipes !</h3>
+        <p>You've yet to create any recipes</p>
+      </div>
+    </div>
+    <div v-else>
+      <RecipePreviewList
+        :amount="4"
+        type="favorites"
+        @no-results="handleNoResultsFound"
+      />
+    </div>
   </div>
 </template>
 
@@ -15,6 +28,16 @@ export default {
   components: {
     RecipePreviewList,
   },
+  data() {
+    return {
+      noResults: false,
+    };
+  },
+  methods: {
+    handleNoResultsFound() {
+      this.noResults = true;
+    },
+  },
 };
 </script>
 
@@ -22,6 +45,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
 
 .my-recipes-page {
+  min-height: 100vh; /* Ensure the page covers the full viewport height */
   margin-top: 3%;
   padding: 40px;
   background-image: url("../assets/photos/wood_background.jpg");
@@ -39,7 +63,27 @@ export default {
   text-align: center;
   margin-bottom: 10px;
   font-family: "Great Vibes", cursive; /* Apply the font to these elements */
-  font-size: 95px;
+  font-size: 80px;
   font-weight: lighter;
+}
+.no-results-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Adjust height as needed */
+}
+
+.no-results-box {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8); /* Slightly opaque background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.no-results-icon {
+  font-size: 60px;
+  color: #303030;
+  margin-bottom: 20px;
 }
 </style>

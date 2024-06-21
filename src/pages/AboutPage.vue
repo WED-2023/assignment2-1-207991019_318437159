@@ -19,10 +19,10 @@
                 unique project.
               </p>
               <p>
-                Our shared passion for food has been a driving force behind
-                "One Piece Recipes". We have always been intrigued by the
-                culinary traditions passed down through our families and aim to
-                preserve and share these treasured recipes with the world.
+                Our shared passion for food has been a driving force behind "One
+                Piece Recipes". We have always been intrigued by the culinary
+                traditions passed down through our families and aim to preserve
+                and share these treasured recipes with the world.
               </p>
               <p>
                 We believe that food has the power to bring people together,
@@ -68,28 +68,18 @@ export default {
 </script>
 <style scoped>
 .about-page {
+  margin-top: 3%;
+  padding-top: 20px;
   background-image: url("../assets/photos/AboutUsBackground.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  min-height: 150vh;
+  min-height: 100vh;
   color: #fff;
   font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.overlay {
-  min-height: 150vh;
-
-  background-color: rgba(0, 0, 0, 0.8);
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
 }
 
 .container-xxl {
@@ -99,12 +89,7 @@ export default {
 .content {
   border-radius: 10px;
   padding: 2rem;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.1
-  ); /* Slightly darken the background for readability */
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .display-4 {
