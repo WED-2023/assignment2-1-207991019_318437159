@@ -98,9 +98,9 @@ export default {
 
 <style scoped>
 .navbar {
-  z-index: 1000; /* Ensure the navbar is above other elements */
+  z-index: 1000; 
   width: 100%;
-  top: 0; /* Align it to the top of the page */
+  top: 0; 
   left: 0;
   right: 0;
 }

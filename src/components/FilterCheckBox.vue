@@ -1,9 +1,15 @@
 <template>
   <div class="filter-menu" v-if="filterMenuOpen">
+
+    <!-- Header for Filter Menu -->
     <h3>Categories:</h3>
     <div class="category">
+
+      <!-- Header for Cuisine Category -->
       <h4>Cuisine:</h4>
       <div class="genres">
+
+        <!-- Loop through Cuisine Options -->
         <div v-for="item in cuisine" :key="item" class="genre-item">
           <input class="form-switch-input" type="checkbox" :id="item" :value="item" v-model="selectedCuisines" />
           <label class="form-switch-label" :for="item">{{ item }}</label>
@@ -11,8 +17,12 @@
       </div>
     </div>
     <div class="category">
+
+      <!-- Header for Intolerance Category -->
       <h4>Intolerance:</h4>
       <div class="genres">
+
+        <!-- Loop through Intolerance Options -->
         <div v-for="item in intolerance" :key="item" class="genre-item">
           <input class="form-switch-input" type="checkbox" :id="item" :value="item" v-model="selectedIntolerance" />
           <label class="form-switch-label" :for="item">{{ item }}</label>
@@ -20,8 +30,12 @@
       </div>
     </div>
     <div class="category">
+
+      <!-- Header for Diets Category -->
       <h4>Diets:</h4>
       <div class="genres">
+
+        <!-- Loop through Diet Options -->
         <div v-for="item in diets" :key="item" class="genre-item">
           <input class="form-switch-input" type="checkbox" :id="item" :value="item" v-model="selectedDiets" />
           <label class="form-switch-label" :for="item">{{ item }}</label>
@@ -52,16 +66,12 @@ export default {
     };
   },
   created() {
-    console.log('Component created');
+    
     try {
       const { data } = mockGetCategoriesForSearch();
-      console.log('Fetched categories:', data);
       this.cuisine = data.cuisine;
       this.intolerance = data.intolerance;
       this.diets = data.diets;
-      console.log('Cuisine:', this.cuisine);
-      console.log('Intolerance:', this.intolerance);
-      console.log('Diets:', this.diets);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
@@ -80,6 +90,7 @@ export default {
 };
 </script>
 
+
 <style>
 .filter-menu {
   padding: 20px;
@@ -94,10 +105,10 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px; /* Adds space between columns */
+  gap: 15px; 
 }
 .genre-item {
-  width: 26%; /* Ensures four items per row with space between */
+  width: 26%; 
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -119,7 +130,7 @@ export default {
   background-color: #333;
 }
 .form-switch-input:checked::before {
-  transform: translateX(20px); /* Adjusted to match new switch width */
+  transform: translateX(20px); 
 }
 .form-switch-input::before {
   content: '';

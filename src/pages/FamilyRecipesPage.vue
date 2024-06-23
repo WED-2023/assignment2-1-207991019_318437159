@@ -10,7 +10,7 @@
       :occasion="recipe.Occasion"
       :ingredients="recipe.Ingredients"
       :directions="recipe.Directions"
-      class="Space-between-recipes"
+      class="space-between-recipes"
     />
   </div>
 </template>
@@ -30,6 +30,11 @@ export default {
     };
   },
   methods: {
+    /**
+     * Gets the path for the recipe image
+     * @param {string} image - The image filename
+     * @returns {string} - The path to the image
+     */
     getImagePath(image) {
       try {
         return require(`@/assets/${image}`);
@@ -49,21 +54,21 @@ export default {
   margin-top: 3%;
   padding: 20px;
   background-color: #f5f5f5;
-  background-image: url("../assets/photos/wood_background.jpg"); /* Add your background image here */
-  background-size: cover; /* Make sure the background covers the entire area */
-  background-position: center; /* Center the background image */
+  background-image: url("../assets/photos/wood_background.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
   margin-top: 10px;
-  font-family: "Great Vibes", cursive; /* Apply the font to these elements */
+  font-family: "Great Vibes", cursive;
   font-size: 80px;
   font-weight: lighter;
 }
 
-.Space-between-recipes {
+.space-between-recipes {
   margin-bottom: 20px; /* Add space between recipes */
 }
 </style>

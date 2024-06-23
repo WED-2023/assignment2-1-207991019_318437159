@@ -1,7 +1,7 @@
 [
   {
     "id": 800345,
-    "image": "https://img.spoonacular.com/recipes/800345-556x370.jpg",
+    "image": "https://pinchandswirl.com/wp-content/uploads/2020/06/Lemon-Garlic-Shrimp-Pasta.jpg",
     "title": "Lemon Garlic Shrimp Pasta",
     "readyInMinutes": 25,
     "aggregateLikes": 180,
@@ -14,7 +14,7 @@
   },
   {
     "id": 803457,
-    "image": "https://img.spoonacular.com/recipes/803457-556x370.jpg",
+    "image": "https://www.kitchensanctuary.com/wp-content/uploads/2021/01/Beef-and-Broccoli-square-FS.jpg",
     "title": "Beef and Broccoli Stir Fry",
     "readyInMinutes": 30,
     "aggregateLikes": 220,
@@ -27,7 +27,7 @@
   },
   {
     "id": 804511,
-    "image": "https://img.spoonacular.com/recipes/804568-556x370.jpg",
+    "image": "https://static01.nyt.com/images/2021/02/14/dining/carbonara-horizontal/carbonara-horizontal-square640-v2.jpg",
     "title": "Spaghetti Carbonara",
     "readyInMinutes": 25,
     "aggregateLikes": 300,
@@ -40,7 +40,7 @@
   },
   {
     "id": 805612,
-    "image": "https://img.spoonacular.com/recipes/805679-556x370.jpg",
+    "image": "https://whatsgabycooking.com/wp-content/uploads/2023/06/Dinner-Party-__-Traditional-Caprese-1-1200x800-1.jpg",
     "title": "Caprese Salad",
     "readyInMinutes": 10,
     "aggregateLikes": 270,
@@ -52,21 +52,8 @@
     "viewed": "true"
   },
   {
-    "id": 800313,
-    "image": "https://img.spoonacular.com/recipes/800345-556x370.jpg",
-    "title": "Lemon Garlic Shrimp Pasta",
-    "readyInMinutes": 25,
-    "aggregateLikes": 180,
-    "vegetarian": false,
-    "vegan": false,
-    "glutenFree": false,
-    "summary": "A zesty and flavorful shrimp pasta with lemon and garlic.",
-    "faviorte": "true",
-    "viewed": "true"
-  },
-  {
     "id": 802314,
-    "image": "https://img.spoonacular.com/recipes/802346-556x370.jpg",
+    "image": "https://littlespicejar.com/wp-content/uploads/2015/08/Sesame-Ginger-Tofu-Stir-Fry-1-735x1103.jpeg",
     "title": "Vegetable Stir Fry with Tofu",
     "readyInMinutes": 20,
     "aggregateLikes": 250,
@@ -74,19 +61,6 @@
     "vegan": true,
     "glutenFree": true,
     "summary": "A quick and healthy vegetable stir fry with tofu.",
-    "faviorte": "true",
-    "viewed": "false"
-  },
-  {
-    "id": 805617,
-    "image": "https://img.spoonacular.com/recipes/805679-556x370.jpg",
-    "title": "Caprese Salad",
-    "readyInMinutes": 10,
-    "aggregateLikes": 270,
-    "vegetarian": true,
-    "vegan": false,
-    "glutenFree": true,
-    "summary": "A fresh and simple Caprese salad with tomatoes, mozzarella, and basil.",
     "faviorte": "true",
     "viewed": "false"
   }

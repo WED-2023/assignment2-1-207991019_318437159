@@ -84,7 +84,7 @@ export default {
     },
     async Login() {
       try {
-        const success = true; // Modify this to test the error handling
+        const success = true;
         const response = mockLogin(
           this.form.username,
           this.form.password,
@@ -113,18 +113,18 @@ export default {
 <style scoped>
 .login-box {
   width: 100%;
-  max-width: 700px; /* Adjust this value as needed */
+  max-width: 700px; 
   padding: 20px;
-  background: #333333; /* Dark background for the form */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background: #333333; 
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
   color: #ffffff;
 }
 
 .title {
   text-align: center;
   margin-bottom: 20px;
-  color: #ffffff; /* White text color for the title */
+  color: #ffffff; 
 }
 
 .login-button {
@@ -137,13 +137,13 @@ export default {
 .register-link {
   margin-top: 10px;
   text-align: center;
-  color: #ffffff; /* White text color for the register link */
+  color: #ffffff; 
 }
 
 .login-label {
   font-size: 1.3rem;
   font-weight: 400;
   margin-bottom: 15px;
-  color: #ffffff; /* White text color for the labels */
+  color: #ffffff; 
 }
 </style>

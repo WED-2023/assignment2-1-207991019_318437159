@@ -1,7 +1,8 @@
 [
+
   {
     "id": 716429,
-    "image": "https://img.spoonacular.com/recipes/716429-556x370.jpg",
+    "image": "https://www.theoriginaldish.com/wp-content/uploads/2023/08/Creamy-Tomato-Pasta-8-scaled.jpg",
     "title": "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
     "readyInMinutes": 45,
     "aggregateLikes": 209,
@@ -14,7 +15,7 @@
   },
   {
     "id": 715538,
-    "image": "https://img.spoonacular.com/recipes/715538-556x370.jpg",
+    "image": "https://www.dontgobaconmyheart.co.uk/wp-content/uploads/2020/07/bruschetta-pasta.jpg",
     "title": "Bruschetta Style Pork & Pasta",
     "readyInMinutes": 30,
     "aggregateLikes": 100,
@@ -27,7 +28,7 @@
   },
   {
     "id": 782601,
-    "image": "https://img.spoonacular.com/recipes/782601-556x370.jpg",
+    "image": "https://beanrecipes.com/wp-content/uploads/2022/06/Vegetarian-Jambalaya-6-540x720.jpg",
     "title": "Red Kidney Bean Jambalaya",
     "readyInMinutes": 60,
     "aggregateLikes": 127,
@@ -39,8 +40,8 @@
     "viewed": true
   },
   {
-    "id": 715497,
-    "image": "https://img.spoonacular.com/recipes/715497-556x370.jpg",
+    "id": 715498, 
+    "image": "https://www.mydigitalkitchen.ca/wp-content/uploads/2015/08/20150831-111446.jpg",
     "title": "Turkey Tomato Cheese Pizza",
     "readyInMinutes": 20,
     "aggregateLikes": 320,
@@ -53,7 +54,7 @@
   },
   {
     "id": 798400,
-    "image": "https://img.spoonacular.com/recipes/798400-556x370.jpg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQYX9KuZSwcWFnNmj8cAlE3NvyzpYc6QojAA&s",
     "title": "Spicy Black Bean Soup",
     "readyInMinutes": 45,
     "aggregateLikes": 210,
@@ -66,7 +67,7 @@
   },
   {
     "id": 795751,
-    "image": "https://img.spoonacular.com/recipes/795751-556x370.jpg",
+    "image": "https://www.dontgobaconmyheart.co.uk/wp-content/uploads/2020/06/avocado-chicken-salad-with-mango-480x270.jpg",
     "title": "Chicken, Avocado and Mango Salad",
     "readyInMinutes": 25,
     "aggregateLikes": 140,
@@ -76,5 +77,147 @@
     "summary": "Fresh and flavorful salad with chicken, avocado, and mango, perfect for a light meal.",
     "faviorte": false,
     "viewed": false
+  },
+  {
+    "id": 712345,
+    "image": "https://www.foodandwine.com/thmb/t9YqzGbmH-huAbV6xitCQs0-G4s=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/FAW-recipes-herb-and-lemon-roasted-chicken-hero-c4ba0aec56884683be482c47b1e1df11.jpg",
+    "title": "Lemon Herb Chicken",
+    "readyInMinutes": 35,
+    "aggregateLikes": 180,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": true,
+    "summary": "Juicy chicken breasts marinated in a lemon herb sauce.",
+    "faviorte": true,
+    "viewed": false
+  },
+  {
+    "id": 789012,
+    "image": "https://www.onceuponachef.com/images/2017/02/Asian-Vegetable-Stir-Fry-3.jpg",
+    "title": "Vegetable Stir Fry",
+    "readyInMinutes": 25,
+    "aggregateLikes": 150,
+    "vegetarian": true,
+    "vegan": true,
+    "glutenFree": true,
+    "summary": "A quick and easy stir fry with fresh vegetables and soy sauce.",
+    "faviorte": false,
+    "viewed": true
+  },
+  {
+    "id": 734567,
+    "image": "https://joyfoodsunshine.com/wp-content/uploads/2022/04/mexian-ground-beef-tacos-recipe-9.jpg",
+    "title": "Beef Tacos",
+    "readyInMinutes": 20,
+    "aggregateLikes": 300,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "Tasty tacos with seasoned beef, cheese, and lettuce.",
+    "faviorte": true,
+    "viewed": false
+  },
+  {
+    "id": 745678,
+    "image": "https://images.getrecipekit.com/20221019153942-creamy-20dill-20salmon-20finished.jpg?width=750",
+    "title": "Grilled Salmon with Dill Sauce",
+    "readyInMinutes": 40,
+    "aggregateLikes": 230,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": true,
+    "summary": "Tender grilled salmon served with a creamy dill sauce.",
+    "faviorte": false,
+    "viewed": true
+  },
+  {
+    "id": 756789,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Ie7dVUafnrdsNt6F-n8nWiktJb15z7HgvA&s",
+    "title": "Chocolate Cake",
+    "readyInMinutes": 60,
+    "aggregateLikes": 350,
+    "vegetarian": true,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "Rich and moist chocolate cake with a chocolate ganache.",
+    "faviorte": true,
+    "viewed": false
+  },
+  {
+    "id": 765432,
+    "image": "https://badtothebowl.com/wp-content/uploads/2020/04/vegan-buddha-bowl-recipe-10.jpg",
+    "title": "Vegan Buddha Bowl",
+    "readyInMinutes": 30,
+    "aggregateLikes": 175,
+    "vegetarian": true,
+    "vegan": true,
+    "glutenFree": true,
+    "summary": "A healthy bowl with quinoa, vegetables, and tahini sauce.",
+    "faviorte": false,
+    "viewed": true
+  },
+  {
+    "id": 776543,
+    "image": "https://www.allrecipes.com/thmb/jiV_4f8vXFle1RdFLgd8-_31J3M=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/229960-shrimp-scampi-with-pasta-DDMFS-4x3-e065ddef4e6d44479d37b4523808cc23.jpg",
+    "title": "Shrimp Scampi",
+    "readyInMinutes": 25,
+    "aggregateLikes": 290,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "Garlic shrimp sautéed in a buttery white wine sauce.",
+    "faviorte": true,
+    "viewed": false
+  },
+  {
+    "id": 787654,
+    "image": "https://cdn.loveandlemons.com/wp-content/uploads/2020/08/quinoa-salad.jpg",
+    "title": "Quinoa Salad",
+    "readyInMinutes": 20,
+    "aggregateLikes": 210,
+    "vegetarian": true,
+    "vegan": true,
+    "glutenFree": true,
+    "summary": "A light and refreshing salad with quinoa, tomatoes, and cucumbers.",
+    "faviorte": false,
+    "viewed": true
+  },
+  {
+    "id": 798765,
+    "image": "https://healthyfitnessmeals.com/wp-content/uploads/2020/01/Classic-beef-stew-4.jpg",
+    "title": "Classic Beef Stew",
+    "readyInMinutes": 90,
+    "aggregateLikes": 240,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "Hearty beef stew with potatoes, carrots, and a rich broth.",
+    "faviorte": true,
+    "viewed": false
+  },
+  {
+    "id": 709876,
+    "image": "https://recipes.net/wp-content/uploads/2023/05/spinach-and-feta-stuffed-chicken-breast-recipe_4330bdac2ffc4d9b193662adedd72d1a.jpeg",
+    "title": "Spinach and Feta Stuffed Chicken",
+    "readyInMinutes": 50,
+    "aggregateLikes": 190,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": true,
+    "summary": "Juicy chicken breasts stuffed with spinach and feta cheese.",
+    "faviorte": false,
+    "viewed": true
+  },
+  
+  {
+    "id": 809923,
+    "image": "https://www.allrecipes.com/thmb/j_cDAbocAHOqde-4IgWKWIs0skk=/0x512/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/14522-Pizza-On-The-Grill100-4x3-cd872c310ad243c2b39917186df83d77.jpg",
+    "title": "Classic Margherita Pizza",
+    "readyInMinutes": 25,
+    "aggregateLikes": 330,
+    "vegetarian": true,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "A classic Margherita pizza with fresh tomatoes, mozzarella, and basil."
   }
 ]

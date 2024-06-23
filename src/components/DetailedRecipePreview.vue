@@ -1,15 +1,25 @@
 <template>
   <div class="recipe-detail">
+
+    <!-- Button to Prepare Recipe -->
     <div class="recipe-image">
-      <button @click="$emit('prepareRecipe')" class="prepare-recipe-button">Prepare This Recipe Here</button>
+      <!-- <button @click="$emit('prepareRecipe')" class="prepare-recipe-button">Prepare This Recipe Here</button> -->
+
+      <!-- Recipe Image -->
       <img :src="image" alt="Recipe Image" />
       <div class="recipe-text-overlay">
+
+        <!-- Recipe Title -->
         <h3 class="recipe-title">{{ title }}</h3>
+
+        <!-- Recipe Cuisine -->
         <div class="recipe-cuisine">Cuisine: {{ cuisine }}</div>
       </div>
     </div>
     <div class="recipe-info">
       <div class="recipe-meta">
+
+        <!-- Meta Information: Time, Servings, Likes -->
         <div class="meta-item">
           <i class="fas fa-clock"></i>
           <span class="meta-text">{{ readyInMinutes }} minutes</span>
@@ -23,12 +33,18 @@
           <span class="meta-text">{{ aggregateLikes }} likes</span>
         </div>
       </div>
+
+      <!-- Recipe Summary -->
       <p class="recipe-summary" v-html="summary"></p>
       <div class="recipe-content">
         <div class="recipe-columns">
           <div class="recipe-ingredients">
+
+            <!-- Ingredients Header -->
             <h4>Ingredients:</h4>
             <ul>
+
+              <!-- Loop through Ingredients -->
               <li v-for="(ingredient, index) in ingredients" :key="index">
                 {{ ingredient.original }}
               </li>
@@ -36,8 +52,12 @@
           </div>
           <div class="separator"></div>
           <div class="recipe-instructions">
+
+            <!-- Instructions Header -->
             <h4>Instructions:</h4>
             <ol>
+
+              <!-- Loop through Instructions -->
               <li v-for="(step, index) in instructions" :key="index">
                 {{ step }}
               </li>
@@ -75,7 +95,7 @@ export default {
     },
     instructions: {
       type: Array,
-      required: true, // Expecting an array of instructions now
+      required: true, 
     },
     readyInMinutes: {
       type: Number,
@@ -92,6 +112,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap");
@@ -119,7 +140,7 @@ export default {
   border-radius: 10px;
 }
 
-.prepare-recipe-button {
+/* .prepare-recipe-button {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -130,12 +151,12 @@ export default {
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  z-index: 2; /* Ensure button appears above the image */
-}
+  z-index: 2; 
+} */
 
-.prepare-recipe-button:hover {
-  background-color: #727272; /* Darker shade of tomato */
-}
+/* .prepare-recipe-button:hover {
+  background-color: #727272; 
+} */
 
 .recipe-text-overlay {
   position: absolute;
@@ -148,7 +169,7 @@ export default {
   text-align: center;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  z-index: 1; /* Ensure overlay appears above the image but below the button */
+  z-index: 1; 
 }
 
 .recipe-title {
@@ -166,8 +187,8 @@ export default {
 
 .recipe-meta {
   display: flex;
-  justify-content: center; /* Center the items horizontally */
-  gap: 20px; /* Add space between the items */
+  justify-content: center; 
+  gap: 20px; 
   margin: 20px 0;
   font-size: 18px;
   color: #555;
@@ -176,7 +197,7 @@ export default {
 .meta-item {
   display: flex;
   align-items: center;
-  font-weight: bold; /* Make the text bold */
+  font-weight: bold; 
 }
 
 .meta-item i {

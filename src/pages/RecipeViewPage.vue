@@ -33,6 +33,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * Uploads and sets the background image for the page
+     * @param {Event} event - The file input change event
+     */
     uploadBackground(event) {
       const file = event.target.files[0];
       if (file) {
@@ -47,6 +51,9 @@ export default {
         reader.readAsDataURL(file);
       }
     },
+    /**
+     * Navigates to the preparation page
+     */
     navigateToPreparePage() {
       this.$router.push({ name: "prepare" });
     },
@@ -54,9 +61,7 @@ export default {
   async created() {
     try {
       let recipeId = this.$route.params.Id;
-      console.log("Fetching recipe details for ID:", recipeId);
       let response = mockGetRecipeFullDetails(recipeId);
-      console.log(response);
 
       let {
         analyzedInstructions,
@@ -84,7 +89,7 @@ export default {
         servings,
       };
     } catch (error) {
-      console.log("Error fetching recipe:", error);
+      console.error("Error fetching recipe:", error);
       this.$router.replace("/NotFound");
     }
   },
@@ -95,9 +100,9 @@ export default {
 .background {
   padding: 20px;
   background-color: #f5f5f5;
-  background-image: url("../assets/photos/wood_background.jpg"); /* Add your background image here */
-  background-size: cover; /* Make sure the background covers the entire area */
-  background-position: center; /* Center the background image */
+  background-image: url("../assets/photos/wood_background.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .recipe-container {

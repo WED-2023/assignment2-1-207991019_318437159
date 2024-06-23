@@ -35,12 +35,20 @@ function genericMock(amount, gen_recipes) {
     return { data: { recipes: [] } };
   }
   let recipes = [];
-  for (let i = 0; i < amount; i++) {
-    let index = i % gen_recipes.length;
-    recipes.push(gen_recipes[index]);
+  let usedIndices = new Set();
+
+  while (recipes.length < amount && usedIndices.size < gen_recipes.length) {
+    let randomIndex = Math.floor(Math.random() * gen_recipes.length);
+
+    if (!usedIndices.has(randomIndex)) {
+      recipes.push(gen_recipes[randomIndex]);
+      usedIndices.add(randomIndex);
+    }
   }
+
   return { data: { recipes } };
 }
+
 
 export function mockGetFavoritesRecipes(amount = 5) {
   return genericMock(amount, favorites_recipes);
@@ -58,22 +66,22 @@ export function mockGetCategoriesForSearch() {
   return { data: categories };
 }
 
-export async function mockSearchRecipes(searchQuery, amount, selectedCuisines, selectedIntolerance, selecteddiets) {
+export function mockSearchRecipes(searchQuery, amount, selectedCuisines, selectedIntolerance, selectedDiets) {
   let recipes = [];
   const previewLength = recipe_previews.length;
-  //let usedIndices = new Set();
+  let usedIndices = new Set();
 
-  while (recipes.length < amount) {
+  while (recipes.length < amount && usedIndices.size < previewLength) {
     let randomIndex = Math.floor(Math.random() * previewLength);
 
-    //if (!usedIndices.has(randomIndex)) {
+    if (!usedIndices.has(randomIndex)) {
       recipes.push(recipe_previews[randomIndex]);
-    //   usedIndices.add(randomIndex);
-    // }
+      usedIndices.add(randomIndex);
+    }
   }
+
   return { data: { recipes } };
 }
-
 export function mockGetLastSearchRecipes(ID) {
   // will be used to fetch the last recipe from the database with the ID of the user.
   const response = mockGetRecipesPreview(5);

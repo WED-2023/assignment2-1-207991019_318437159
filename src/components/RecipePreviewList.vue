@@ -48,7 +48,7 @@ export default {
     },
     type: {
       type: String,
-      default: "random", // 'random', 'favorites', or 'private' or 'search' or 'last-watched'
+      default: "random", // 'random', 'favorites', 'private', 'search', or 'last-watched'
     },
     searchQuery: {
       type: String,
@@ -96,6 +96,9 @@ export default {
     this.updateRecipes();
   },
   methods: {
+    /**
+     * Fetches recipes based on the type and updates the recipes list
+     */
     async updateRecipes() {
       try {
         let response;
@@ -120,12 +123,11 @@ export default {
         }
 
         this.recipes = response.data.recipes || [];
-        console.log(this.recipes);
         if (this.recipes.length === 0) {
           this.$emit("no-results");
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
   },
@@ -141,21 +143,24 @@ export default {
 .container {
   min-height: 400px;
 }
+
 .recipePreview {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
 }
+
 .list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
+
 .list-title {
   font-size: 24px;
   font-weight: bold;
   color: #333;
-  margin: 0 auto; /* Add this line to center the title */
+  margin: 0 auto; 
 }
 </style>

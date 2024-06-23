@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import LoginBox from "../components/LoginBox.vue"; // Adjust the path as necessary
+import LoginBox from "../components/LoginBox.vue"; 
 
 export default {
   name: "Login",
@@ -31,9 +31,9 @@ export default {
 .login-left {
   background-image: url("../assets/photos/login-pic.jpeg");
   background-size: cover;
-  background-repeat: no-repeat; // Prevent the image from repeating
-  background-position: center; // Center the image
-  background-color: #474c51; // Adjust the color to match the example
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #474c51;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -41,14 +41,14 @@ export default {
 }
 
 .welcome-text {
-  color: #f5f6f5; // White text color
+  color: #f5f6f5;
   font-size: 3rem;
   font-weight: bold;
 }
 
 .login-right {
   flex: 1;
-  background-color: #ababa6; // Revised background color
+  background-color: #ababa6;
   display: flex;
   padding: 10px;
   justify-content: center;

@@ -21,7 +21,7 @@
           </div>
           <div class="separator"></div>
           <div class="recipe-directions">
-            <h4>Directions:</h4>
+            <h4>Instructions:</h4>
             <ol>
               <li v-for="(step, index) in directions" :key="index">
                 {{ step }}

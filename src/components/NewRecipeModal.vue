@@ -15,10 +15,14 @@
     >
       <div class="modal-background">
         <div class="modal-content-wrapper">
+          
+          <!-- Modal Header Information -->
           <p>
             Fields marked with <span class="mandatory">*</span> are mandatory
           </p>
           <form @submit.prevent="submitForm">
+
+            <!-- Recipe Name Input -->
             <div
               class="form-group"
               :class="{
@@ -35,6 +39,8 @@
                 required
               ></b-form-input>
             </div>
+
+            <!-- Recipe Preview Input -->
             <div
               class="form-group"
               :class="{
@@ -51,6 +57,8 @@
                 required
               ></b-form-input>
             </div>
+
+            <!-- Recipe Summary Input -->
             <div
               class="form-group"
               :class="{
@@ -66,6 +74,8 @@
                 required
               ></b-form-textarea>
             </div>
+
+            <!-- Recipe Photo Input -->
             <div
               class="form-group"
               :class="{
@@ -82,6 +92,8 @@
                 required
               ></b-form-file>
             </div>
+
+            <!-- Recipe Cuisine Input -->
             <div
               class="form-group"
               :class="{
@@ -100,6 +112,8 @@
                 <option disabled value="">Please select cuisine</option>
               </b-form-select>
             </div>
+
+            <!-- Recipe Diets Input -->
             <div
               class="form-group"
               :class="{
@@ -122,6 +136,8 @@
                 "
               ></multiselect>
             </div>
+
+            <!-- Recipe Intolerances Input -->
             <div
               class="form-group"
               :class="{
@@ -147,6 +163,8 @@
                 "
               ></multiselect>
             </div>
+
+            <!-- Recipe Ingredients Input -->
             <div
               class="form-group"
               :class="{
@@ -219,6 +237,8 @@
                 >+ Add Ingredient</b-button
               >
             </div>
+
+            <!-- Recipe Instructions Input -->
             <div
               class="form-group"
               :class="{
@@ -255,6 +275,8 @@
                 >+ Add Step</b-button
               >
             </div>
+
+            <!-- Recipe Servings Input -->
             <div
               class="form-group"
               :class="{
@@ -274,6 +296,8 @@
                 required
               ></b-form-input>
             </div>
+
+            <!-- Recipe Time Input -->
             <div
               class="form-group"
               :class="{
@@ -293,6 +317,8 @@
                 required
               ></b-form-input>
             </div>
+
+            <!-- Form Submission Buttons -->
             <div class="text-center">
               <b-button type="submit" variant="success">Create</b-button>
               <b-button variant="secondary" @click="closeModal"
@@ -495,7 +521,7 @@ export default {
 
 <style scoped>
 .modal-background {
-  background-image: url("../assets/photos/wood_background.jpg"); /* Update with your image path */
+  background-image: url("../assets/photos/wood_background.jpg");
   background-size: cover;
   background-position: center;
   width: 100%;
@@ -506,7 +532,7 @@ export default {
 }
 
 .modal-content-wrapper {
-  background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+  background: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 10px;
   width: 100%;
@@ -514,6 +540,7 @@ export default {
   margin-bottom: 3%;
   margin-top: 3%;
 }
+
 .form-group {
   margin-bottom: 15px;
 }
@@ -525,8 +552,8 @@ export default {
 .text-center {
   display: flex;
   justify-content: center;
-  gap: 10px; /* Adjust as needed for spacing */
-  margin-top: 15px; /* Add some top margin */
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .has-error input,

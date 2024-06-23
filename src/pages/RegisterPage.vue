@@ -5,6 +5,8 @@
         <h1 class="title">Register</h1>
       </b-card-title>
       <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
+
+        <!-- Username Field -->
         <b-form-group
           id="input-group-username"
           label-size="lg"
@@ -32,6 +34,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- First Name Field -->
         <b-form-group
           id="input-group-firstName"
           label-size="lg"
@@ -56,6 +59,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- Last Name Field -->
         <b-form-group
           id="input-group-lastName"
           label-size="lg"
@@ -80,6 +84,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- Country Selection Field -->
         <b-form-group
           id="input-group-country"
           label-size="lg"
@@ -100,6 +105,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- Password Field -->
         <b-form-group
           id="input-group-password"
           label-size="lg"
@@ -130,6 +136,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- Confirm Password Field -->
         <b-form-group
           id="input-group-confirmedPassword"
           label-size="lg"
@@ -156,6 +163,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- Email Field -->
         <b-form-group
           id="input-group-email"
           label-cols-sm="3"
@@ -180,12 +188,9 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
-        <b-button type="reset" variant="danger" class="register-btn"
-          >Reset</b-button
-        >
-        <b-button type="submit" variant="primary" class="register-btn"
-          >Register</b-button
-        >
+        <!-- Reset and Submit Buttons -->
+        <b-button type="reset" variant="danger" class="register-btn">Reset</b-button>
+        <b-button type="submit" variant="primary" class="register-btn">Register</b-button>
         <div class="mt-4 text-center lead">
           Already have an account?
           <router-link to="login"> Log in here</router-link>
@@ -205,9 +210,7 @@
       <div class="text-black">
         {{ errorMessage }}
       </div>
-      <b-button class="mt-3" variant="dark" @click="showModal = false"
-        >Close</b-button
-      >
+      <b-button class="mt-3" variant="dark" @click="showModal = false">Close</b-button>
     </b-modal>
   </div>
 </template>
@@ -267,7 +270,7 @@ export default {
       },
       password: {
         required,
-        valid: function(value) {
+        valid(value) {
           const containsNumber = /[0-9]/.test(value);
           const containsSpecial = /[#?!@$%^&*-.]/.test(value);
           return containsNumber && containsSpecial;
@@ -298,20 +301,17 @@ export default {
           email: this.form.email,
           password: this.form.password,
         };
-        const isSuccessful = false;
+        const isSuccessful = true;
         //const isSuccessful = Math.random() >= 0.5; // Randomly set isSuccessful to true or false
         const response = await mockRegister(userDetails, isSuccessful);
 
         if (response.status === 200 && response.response.data.success) {
           this.$router.push("/login");
         } else {
-          console.log("aaa");
           this.errorMessage = response.response.data.message;
           this.showModal = true;
         }
       } catch (err) {
-        console.log(err.response);
-        console.log("aaa");
         this.errorMessage = err.response.data.message;
         this.showModal = true;
       }
@@ -363,7 +363,7 @@ export default {
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-  opacity: 0.9; /* Adjust opacity here */
+  opacity: 0.9;
 }
 
 .register-btn {

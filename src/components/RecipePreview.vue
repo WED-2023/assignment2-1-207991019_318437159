@@ -53,6 +53,7 @@
 
 <script>
 import { mockToggleFavorite, mockMarkViewed } from "../services/user.js";
+
 export default {
   mounted() {
     this.loadImage();
@@ -76,6 +77,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * Loads the image for the recipe.
+     */
     loadImage() {
       const img = new Image();
       img.onload = () => {
@@ -83,11 +87,17 @@ export default {
       };
       img.src = this.recipe.image;
     },
+    /**
+     * Marks the recipe as viewed if the user is logged in.
+     */
     markAsViewed() {
       if (this.recipe.viewed || !this.loggedIn) return;
-      recipe.viewed = true;
+      this.recipe.viewed = true;
       mockMarkViewed(this.recipe.id, this.$root.store.username);
     },
+    /**
+     * Toggles the favorite status of the recipe.
+     */
     toggleFavorite(event) {
       event.stopPropagation(); // Prevent triggering the link click
       event.preventDefault(); // Prevent default action
@@ -152,7 +162,7 @@ export default {
 
 .favorite-icon {
   color: #e74c3c;
-  background-color: rgba(255, 255, 255, 0.6); /* Slightly opaque background */
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 50%;
   padding: 10px;
   position: absolute;
@@ -172,8 +182,7 @@ export default {
 }
 
 @keyframes like-bounce {
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
   }
   50% {
@@ -185,7 +194,7 @@ export default {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: rgba(255, 255, 255, 0.6); /* Slightly opaque background */
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 50%;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -258,14 +267,14 @@ export default {
 }
 
 .gluten-free {
-  background-color: #d2b48c; /* Brown color */
+  background-color: #d2b48c;
 }
 
 .vegan {
-  background-color: #4caf50; /* Green color */
+  background-color: #4caf50;
 }
 
 .vegetarian {
-  background-color: #4caf50; /* Green color */
+  background-color: #4caf50;
 }
 </style>

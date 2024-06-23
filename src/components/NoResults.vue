@@ -29,12 +29,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px; /* Adjust height as needed */
+  height: 300px;
 }
 
 .no-results-box {
   text-align: center;
-  background: rgba(255, 255, 255, 0.8); /* Slightly opaque background */
+  background: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);

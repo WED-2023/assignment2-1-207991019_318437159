@@ -66,6 +66,7 @@ export default {
   name: "About",
 };
 </script>
+
 <style scoped>
 .about-page {
   margin-top: 3%;

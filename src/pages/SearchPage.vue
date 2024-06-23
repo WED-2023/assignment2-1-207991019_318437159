@@ -1,15 +1,16 @@
 <template>
   <div class="search-page">
-    <div
-      class="search-header"
-      :class="{ 'search-header-top': searchPerformed }"
-    >
+
+    <!-- Search Header -->
+    <div class="search-header" :class="{ 'search-header-top': searchPerformed }">
       <h1>Find your Perfect Recipe here!</h1>
       <p>
         A delightful combination of ingredients and flavors to inspire your
         culinary adventures. Find the best recipes now.
       </p>
       <div class="input-group search-bar">
+
+        <!-- Search Input -->
         <input
           type="text"
           class="form-control"
@@ -18,13 +19,13 @@
           @keyup.enter="performSearch"
         />
         <div class="separator"></div>
-        <button
-          class="btn btn-search no-border"
-          type="button"
-          @click="performSearch"
-        >
+
+        <!-- Search Button -->
+        <button class="btn btn-search no-border" type="button" @click="performSearch">
           <i class="fas fa-search"></i>
         </button>
+
+        <!-- Dropdown for Number of Recipes to Show -->
         <div class="dropdown">
           <button
             ref="recipesDropdown"
@@ -38,43 +39,22 @@
           </button>
           <ul class="dropdown-menu" :class="{ show: dropdownOpen }">
             <li>
-              <button
-                class="dropdown-item text-dark"
-                @click.stop="setSelectedRecipesToShow(0)"
-              >
-                0
-              </button>
+              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(5)">5</button>
             </li>
             <li>
-              <button
-                class="dropdown-item text-dark"
-                @click.stop="setSelectedRecipesToShow(5)"
-              >
-                5
-              </button>
+              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(10)">10</button>
             </li>
             <li>
-              <button
-                class="dropdown-item text-dark"
-                @click.stop="setSelectedRecipesToShow(10)"
-              >
-                10
-              </button>
-            </li>
-            <li>
-              <button
-                class="dropdown-item text-dark"
-                @click.stop="setSelectedRecipesToShow(15)"
-              >
-                15
-              </button>
+              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(15)">15</button>
             </li>
           </ul>
         </div>
-        <button @click="toggleFilterMenu" class="btn btn-search filter-button">
-          Filter (Advanced Search)
-        </button>
+
+        <!-- Filter Button -->
+        <button @click="toggleFilterMenu" class="btn btn-search filter-button">Filter (Advanced Search)</button>
       </div>
+
+      <!-- Filter Options -->
       <FilterCheckBox
         :filterMenuOpen="filterMenuOpen"
         @update:cuisines="updateCuisines"
@@ -83,54 +63,36 @@
       />
     </div>
 
+    <!-- Search Results -->
     <transition name="fade" mode="out-in">
       <div>
         <div v-if="searchPerformed">
           <div v-if="noResultsFound" class="no-results-message">
-            <img
-              src="../assets/photos/no-results.png"
-              alt="No results found"
-              class="no-results-image"
-            />
+            <img src="../assets/photos/no-results.png" alt="No results found" class="no-results-image" />
             <h3>No Result Found!</h3>
             <p>We can't find any recipe matching your search.</p>
           </div>
           <div v-else class="search-results results-found">
             <div class="sort-container">
               <div class="dropdown top-left-dropdown">
-                <button
-                  class="top-left-button dropdown-toggle"
-                  @click="toggleSortDropdown"
-                >
-                  <img
-                    src="../assets/photos/funnel.png"
-                    alt="icon"
-                    class="icon"
-                  />
+                <button class="top-left-button dropdown-toggle" @click="toggleSortDropdown">
+                  <img src="../assets/photos/funnel.png" alt="icon" class="icon" />
                 </button>
                 <span class="sort-by-text">Sort by: {{ selectedSort }}</span>
                 <ul class="dropdown-menu" :class="{ show: sortDropdownOpen }">
                   <li>
-                    <button
-                      class="dropdown-item text-dark"
-                      @click.stop="setSort('Popularity')"
-                    >
-                      Popularity
-                    </button>
+                    <button class="dropdown-item text-dark" @click.stop="setSort('Popularity')">Popularity</button>
                   </li>
                   <li>
-                    <button
-                      class="dropdown-item text-dark"
-                      @click.stop="setSort('Time To Make')"
-                    >
-                      Time To Make
-                    </button>
+                    <button class="dropdown-item text-dark" @click.stop="setSort('Time To Make')">Time To Make</button>
                   </li>
                 </ul>
               </div>
             </div>
+
+            <!-- List of Recipe Previews -->
             <RecipePreviewList
-              ref="recipePreviewList"
+              ref="RecipePreviewList"
               :title="headerTitle"
               :amount="Number(this.recipesToShow)"
               :searchQuery="searchQuery"
@@ -161,19 +123,19 @@ export default {
     return {
       searchQuery: "",
       type: "search",
-      recipesToShow: 5, // This will be set when search is performed
-      selectedRecipesToShow: 5, // This is updated by dropdown selection
-      searchPerformed: false, // Track if a search has been performed
-      filterMenuOpen: false, // Control the visibility of the filter menu
-      dropdownOpen: false, // Control the visibility of the dropdown menu
-      selectedCuisines: [], // Selected cuisines for filtering
-      selectedIntolerance: [], // Selected intolerance for filtering
-      selectedDiets: [],
-      noResultsFound: false, // Track if no results were found
+      recipesToShow: 5, // Number of recipes to show in the search results
+      selectedRecipesToShow: 5, // Number of recipes selected from the dropdown
+      searchPerformed: false, // Flag to track if a search has been performed
+      filterMenuOpen: false, // Flag to control the visibility of the filter menu
+      dropdownOpen: false, // Flag to control the visibility of the dropdown menu
+      selectedCuisines: [], // Array of selected cuisines for filtering
+      selectedIntolerance: [], // Array of selected intolerances for filtering
+      selectedDiets: [], // Array of selected diets for filtering
+      noResultsFound: false, // Flag to track if no results were found
       searchKey: 0, // Key to trigger re-render of search results
-      sortDropdownOpen: false, // Control the visibility of the sort dropdown menu
+      sortDropdownOpen: false, // Flag to control the visibility of the sort dropdown menu
       selectedSort: "Popularity", // Default sort criteria
-      isLastSearch: false, // Track if the results are from last search
+      isLastSearch: false, // Flag to track if the results are from the last search
     };
   },
   created() {
@@ -195,7 +157,7 @@ export default {
       return !!this.$root.store.username;
     },
     loadLastSearch() {
-      console.log("Loading last search");
+      // load the last search and show it right away.
       const lastSearch = localStorage.getItem("lastSearch");
       if (lastSearch) {
         const {
@@ -211,13 +173,14 @@ export default {
         this.selectedIntolerance = selectedIntolerance;
         this.selectedDiets = selectedDiets;
         this.selectedSort = selectedSort;
-        this.selectedRecipesToShow = recipesToShow; // Ensure selectedRecipesToShow is updated as well
+        this.selectedRecipesToShow = recipesToShow; 
         this.recipesToShow = recipesToShow;
-        this.performSearch(); // Perform search immediately after loading last search
+        this.performSearch(); 
         this.isLastSearch = true;
       }
     },
     performSearch() {
+      this.noResultsFound = false;
       this.searchPerformed = false;
       this.filterMenuOpen = false;
       this.dropdownOpen = false;
@@ -244,7 +207,7 @@ export default {
     },
     setSelectedRecipesToShow(num) {
       this.selectedRecipesToShow = num;
-      this.dropdownOpen = false; // Close the dropdown menu
+      this.dropdownOpen = false;
     },
     toggleDropdown() {
       this.dropdownOpen = !this.dropdownOpen;
@@ -270,11 +233,7 @@ export default {
     setSort(sortCriteria) {
       this.selectedSort = sortCriteria;
       this.sortDropdownOpen = false;
-      if (
-        this.searchPerformed &&
-        !this.noResultsFound &&
-        this.$refs.recipePreviewList
-      ) {
+      if (this.searchPerformed && !this.noResultsFound && this.$refs.recipePreviewList) {
         this.$refs.recipePreviewList.sortedRecipes();
       }
     },
@@ -394,7 +353,6 @@ export default {
 
 .dropdown .dropdown-menu.show {
   display: block;
-  background-color: #fff;
 }
 
 .dropdown .dropdown-item {
@@ -427,12 +385,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 50vh; /* Adjust this to ensure the container has enough height */
-  position: relative; /* Add relative positioning to the container */
+  min-height: 50vh;
+  position: relative;
 }
 
 .search-results.results-found {
-  border: 2px solid rgba(255, 255, 255, 0.7); /* Light border */
+  border: 2px solid rgba(255, 255, 255, 0.7);
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 0.6);
 }
@@ -477,37 +435,37 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(100% - 40px); /* Full width minus 20px margin on each side */
-  max-width: 300px; /* Set a maximum width */
-  height: auto; /* Adjust height automatically */
-  justify-content: center; /* Center content vertically */
-  margin: 20px; /* Margin of 20px from the container */
+  width: calc(100% - 40px);
+  max-width: 300px;
+  height: auto;
+  justify-content: center;
+  margin: 20px;
   color: #ccc;
 }
 
 .no-results-image {
-  width: 100px; /* Adjust width to fit within the square */
-  height: 100px; /* Adjust height to fit within the square */
+  width: 100px;
+  height: 100px;
 }
 
 .no-results-message h3 {
   color: #f3f3f3e7;
-  font-size: 20px; /* Adjust font size for better fit */
-  margin-bottom: 5px; /* Reduce margin for better fit */
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
 .no-results-message p {
   color: #f3f3f3e7;
-  font-size: 14px; /* Adjust font size for better fit */
-  margin-bottom: 0; /* Remove margin for better fit */
+  font-size: 14px;
+  margin-bottom: 0;
 }
 
-/* Transition styles */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.7s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 
@@ -527,8 +485,8 @@ export default {
 }
 
 .top-left-dropdown .dropdown-menu .dropdown-item:hover {
-  background-color: #867c7a; /* Change this to your desired hover background color */
-  color: #ffffff; /* Change this to your desired hover text color */
+  background-color: #867c7a;
+  color: #ffffff;
 }
 
 .sort-dropdown .btn-search.dropdown-toggle {

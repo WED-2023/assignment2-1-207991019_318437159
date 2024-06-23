@@ -11,7 +11,7 @@
     <div v-else>
       <RecipePreviewList
         ref="recipePreviewList"
-        :amount="4"
+        :amount="Number(4)"
         type="favorites"
         @no-results="handleNoResultsFound"
       />
@@ -35,6 +35,9 @@ export default {
     };
   },
   methods: {
+    /**
+     * Handles the event when no results are found
+     */
     handleNoResultsFound() {
       this.noResults = true;
     },
@@ -46,7 +49,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
 
 .my-recipes-page {
-  min-height: 100vh; /* Ensure the page covers the full viewport height */
+  min-height: 100vh; 
   margin-top: 3%;
   padding: 40px;
   background-image: url("../assets/photos/wood_background.jpg");
@@ -63,7 +66,7 @@ export default {
 .list-title {
   text-align: center;
   margin-bottom: 10px;
-  font-family: "Great Vibes", cursive; /* Apply the font to these elements */
+  font-family: "Great Vibes", cursive;
   font-size: 80px;
   font-weight: lighter;
 }

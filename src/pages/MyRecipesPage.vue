@@ -35,6 +35,9 @@ export default {
     };
   },
   methods: {
+    /**
+     * Handles the event when no results are found
+     */
     handleNoResultsFound() {
       this.noResults = true;
     },
