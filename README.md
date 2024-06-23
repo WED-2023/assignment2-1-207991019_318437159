@@ -52,5 +52,3 @@ This project does not currently include a license.
 Currently, the site operates using mock data. In future updates, an API and server integration will be added to enhance the functionality and user experience.
 
 ---
-
-Feel free to customize further if needed.
