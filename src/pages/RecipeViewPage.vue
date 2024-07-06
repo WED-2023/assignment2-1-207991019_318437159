@@ -12,7 +12,11 @@
         :readyInMinutes="recipe.readyInMinutes"
         :servings="recipe.servings"
         :aggregateLikes="recipe.aggregateLikes"
+        :glutenFree="recipe.glutenFree"
+        :vegan="recipe.vegan"
+        :vegetarian="recipe.vegetarian"
         @prepareRecipe="navigateToPreparePage"
+        @addToMeal="navigateToMealPage"
       />
     </div>
   </div>
@@ -20,7 +24,7 @@
 
 <script>
 import DetailedRecipePreview from "../components/DetailedRecipePreview.vue";
-import { mockGetRecipeFullDetails } from "../services/recipes.js";
+import { mockGetRecipeFullDetails, mockAddRecipeToMeal } from "../services/recipes.js";
 
 export default {
   components: {
@@ -34,28 +38,14 @@ export default {
   },
   methods: {
     /**
-     * Uploads and sets the background image for the page
-     * @param {Event} event - The file input change event
-     */
-    uploadBackground(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.backgroundImage = e.target.result;
-          document.body.style.backgroundImage = `url(${this.backgroundImage})`;
-          document.body.style.backgroundSize = "cover";
-          document.body.style.backgroundPosition = "center";
-          document.body.style.backgroundRepeat = "no-repeat";
-        };
-        reader.readAsDataURL(file);
-      }
-    },
-    /**
      * Navigates to the preparation page
      */
     navigateToPreparePage() {
-      this.$router.push({ name: "prepare" });
+      this.$router.push({ name: "prepare"});
+    },
+    navigateToMealPage() {
+      const addedRecipe = mockAddRecipeToMeal(this.recipe.id);
+      this.$router.push({ name: "meal", params: { recipeId: addedRecipe.id } });
     },
   },
   async created() {
@@ -72,6 +62,9 @@ export default {
         image,
         title,
         cuisine,
+        vegan,
+        vegetarian,
+        glutenFree,
         summary,
         servings,
       } = response.data.recipe;
@@ -84,6 +77,9 @@ export default {
         readyInMinutes,
         image,
         title,
+        vegan,
+        vegetarian,
+        glutenFree,
         cuisine,
         summary,
         servings,

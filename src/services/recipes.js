@@ -4,6 +4,7 @@ import recipe_previews from "../assets/mocks/recipe_preview.json";
 import categories from "../assets/mocks/categories.json";
 import favorites_recipes from "../assets/mocks/my_favs.json";
 import my_receips from "../assets/mocks/my_recipes.json";
+import instructions from '../assets/mocks/AnalyzedInstructions.json';
 
 export function mockGetRecipesPreview(amount = 3) {
   let recipes = [];
@@ -66,6 +67,8 @@ export function mockGetCategoriesForSearch() {
   return { data: categories };
 }
 
+
+// searchQuary = string, amount = number, selected = every one is []
 export function mockSearchRecipes(searchQuery, amount, selectedCuisines, selectedIntolerance, selectedDiets) {
   let recipes = [];
   const previewLength = recipe_previews.length;
@@ -87,3 +90,31 @@ export function mockGetLastSearchRecipes(ID) {
   const response = mockGetRecipesPreview(5);
   return response;
 }
+
+
+export function mockGetRecipeInstructions() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(instructions);
+    }); 
+  });
+}
+
+export function mockAddRecipeToMeal(ID){
+  let recipes = [];
+  const previewLength = recipe_previews.length;
+  let usedIndices = new Set();
+
+  while (recipes.length < 1) {
+    let randomIndex = Math.floor(Math.random() * previewLength);
+
+    if (!usedIndices.has(randomIndex)) {
+      recipes.push(recipe_previews[randomIndex]);
+      usedIndices.add(randomIndex);
+    }
+  }
+  const result = { data: { recipes } };
+  console.log('mockGetRecipesPreview result:', result); // Debug line
+  return result;
+}
+

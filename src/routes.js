@@ -9,6 +9,7 @@ import RecipeViewPage from "./pages/RecipeViewPage";
 import MyFaviortesPage from "./pages/MyFaviortesPage";
 import MyRecipesPage from "./pages/MyRecipesPage";
 import PrepareRecipePage from "./pages/PrepareRecipePage";
+import MealPage from "./pages/MealPage";
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     name: "prepare",
     component: PrepareRecipePage,
   },
+  {
+    path: "/meal",
+    name: "meal",
+    component: MealPage,
+  }
 ];
 
 export default routes;

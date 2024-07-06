@@ -33,6 +33,7 @@
                 >Private</b-dropdown-item
               >
               <b-dropdown-item :to="{ name: 'family' }">Family</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'meal' }">My Meal</b-dropdown-item>
               <b-dropdown-item @click="Logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item>

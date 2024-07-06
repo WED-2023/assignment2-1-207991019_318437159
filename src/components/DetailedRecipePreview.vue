@@ -1,25 +1,20 @@
 <template>
   <div class="recipe-detail">
-
-    <!-- Button to Prepare Recipe -->
     <div class="recipe-image">
-      <!-- <button @click="$emit('prepareRecipe')" class="prepare-recipe-button">Prepare This Recipe Here</button> -->
-
-      <!-- Recipe Image -->
+      <button v-if="loggedIn" @click="prepareRecipe" class="prepare-recipe-button">
+        Prepare This Recipe
+      </button>
+      <button v-if="loggedIn" @click="addToMeal" class="add-to-meal-button">
+        Add To Meal
+      </button>
       <img :src="image" alt="Recipe Image" />
       <div class="recipe-text-overlay">
-
-        <!-- Recipe Title -->
         <h3 class="recipe-title">{{ title }}</h3>
-
-        <!-- Recipe Cuisine -->
         <div class="recipe-cuisine">Cuisine: {{ cuisine }}</div>
       </div>
     </div>
     <div class="recipe-info">
       <div class="recipe-meta">
-
-        <!-- Meta Information: Time, Servings, Likes -->
         <div class="meta-item">
           <i class="fas fa-clock"></i>
           <span class="meta-text">{{ readyInMinutes }} minutes</span>
@@ -33,18 +28,17 @@
           <span class="meta-text">{{ aggregateLikes }} likes</span>
         </div>
       </div>
-
-      <!-- Recipe Summary -->
+      <div class="recipe-tags">
+        <span v-if="glutenFree" class="gluten">Gluten Free</span>
+        <span v-if="vegetarian" class="tag">Vegetarian</span>
+        <span v-if="vegan" class="tag">Vegan</span>
+      </div>
       <p class="recipe-summary" v-html="summary"></p>
       <div class="recipe-content">
         <div class="recipe-columns">
           <div class="recipe-ingredients">
-
-            <!-- Ingredients Header -->
             <h4>Ingredients:</h4>
             <ul>
-
-              <!-- Loop through Ingredients -->
               <li v-for="(ingredient, index) in ingredients" :key="index">
                 {{ ingredient.original }}
               </li>
@@ -52,12 +46,8 @@
           </div>
           <div class="separator"></div>
           <div class="recipe-instructions">
-
-            <!-- Instructions Header -->
             <h4>Instructions:</h4>
             <ol>
-
-              <!-- Loop through Instructions -->
               <li v-for="(step, index) in instructions" :key="index">
                 {{ step }}
               </li>
@@ -95,7 +85,7 @@ export default {
     },
     instructions: {
       type: Array,
-      required: true, 
+      required: true,
     },
     readyInMinutes: {
       type: Number,
@@ -109,10 +99,37 @@ export default {
       type: Number,
       required: true,
     },
+    glutenFree: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    vegetarian: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    vegan: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
+  computed: {
+    loggedIn() {
+      return !!this.$root.store.username;
+    }
+  },
+  methods: {
+    prepareRecipe() {
+      this.$emit('prepareRecipe');
+    },
+    addToMeal() {
+      this.$emit('addToMeal');
+    }
+  }
 };
 </script>
-
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap");
@@ -140,23 +157,39 @@ export default {
   border-radius: 10px;
 }
 
-/* .prepare-recipe-button {
+.prepare-recipe-button {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: #1f1f1fd2; 
+  background-color: #1f1f1fd2;
   color: white;
   border: none;
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  z-index: 2; 
-} */
+  z-index: 2;
+}
+.add-to-meal-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #1f1f1fd2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 2;
+}
+.add-to-meal-button:hover {
+  background-color: #727272;
+}
 
-/* .prepare-recipe-button:hover {
-  background-color: #727272; 
-} */
+.prepare-recipe-button:hover {
+  background-color: #727272;
+}
 
 .recipe-text-overlay {
   position: absolute;
@@ -169,7 +202,7 @@ export default {
   text-align: center;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  z-index: 1; 
+  z-index: 1;
 }
 
 .recipe-title {
@@ -187,8 +220,8 @@ export default {
 
 .recipe-meta {
   display: flex;
-  justify-content: center; 
-  gap: 20px; 
+  justify-content: center;
+  gap: 20px;
   margin: 20px 0;
   font-size: 18px;
   color: #555;
@@ -197,11 +230,36 @@ export default {
 .meta-item {
   display: flex;
   align-items: center;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 .meta-item i {
   margin-right: 10px;
+}
+
+.recipe-tags {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tag {
+  background-color: #4caf50;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-family: "Comfortaa", cursive;
+}
+
+.gluten {
+  background-color: #d2b48c;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-family: "Comfortaa", cursive;
 }
 
 .recipe-summary {
