@@ -1,14 +1,22 @@
+import api from "../main.js";
+const routePrefix = "users";
 
-export function mockToggleFavorite(recipeId, userId) {
-  return {
-    status: 200,
-    response: {
-      data: {
-        message: "The Recipe successfully changed its recipe value",
-        success: true,
-      },
+export function markFavoirte(recipeId) {
+  api.post(`${routePrefix}/markFavorite`, {
+    recipeId: recipeId,
+  });
+}
+
+export function markViewed(recipeId) {
+  api.post(
+    `${routePrefix}/markViewed`,
+    {
+      recipeId: recipeId,
     },
-  };
+    {
+      withCredentials: true,
+    }
+  );
 }
 
 export function mockMarkViewed(recipeId, userId) {

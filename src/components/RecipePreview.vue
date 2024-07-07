@@ -3,13 +3,13 @@
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="recipe-link"
-      @click.native="markAsViewed"
+      @click.native.prevent="markAsViewed"
     >
       <div class="recipe-body">
         <img v-if="imageLoad" :src="recipe.image" class="recipe-image" />
         <div v-if="loggedIn" class="favorite-icon" @click="toggleFavorite">
           <font-awesome-icon
-            :icon="[recipe.faviorte ? 'fas' : 'far', 'heart']"
+            :icon="[recipe.favorite ? 'fas' : 'far', 'heart']"
             class="icon-heart"
           />
         </div>
@@ -34,7 +34,7 @@
           {{ recipe.readyInMinutes }} minutes
         </div>
       </div>
-      <div class="recipe-summary">{{ recipe.summary }}</div>
+      <div class="recipe-summary" v-html="recipe.summary"></div>
       <div class="recipe-overview">
         <div v-if="recipe.glutenFree" class="bubble gluten-free">
           Gluten-Free
@@ -52,8 +52,7 @@
 </template>
 
 <script>
-import { mockToggleFavorite, mockMarkViewed } from "../services/user.js";
-
+import { markFavoirte, markViewed } from "../services/user.js";
 export default {
   mounted() {
     this.loadImage();
@@ -90,10 +89,14 @@ export default {
     /**
      * Marks the recipe as viewed if the user is logged in.
      */
-    markAsViewed() {
+    async markAsViewed() {
       if (this.recipe.viewed || !this.loggedIn) return;
-      this.recipe.viewed = true;
-      mockMarkViewed(this.recipe.id, this.$root.store.username);
+      recipe.viewed = true;
+      await markViewed(this.recipe.id);
+      this.$router.push({
+        name: "recipe",
+        params: { recipeId: this.recipe.id },
+      });
     },
     /**
      * Toggles the favorite status of the recipe.
@@ -102,17 +105,20 @@ export default {
       event.stopPropagation(); // Prevent triggering the link click
       event.preventDefault(); // Prevent default action
 
-      this.recipe.faviorte = !this.recipe.faviorte;
+      console.log(this.recipe);
+      if (!this.recipe.favorite) {
+        this.recipe.favorite = !this.recipe.favorite;
 
-      // Add a class for animation
-      const favoriteIcon = event.currentTarget.querySelector(".icon-heart");
-      favoriteIcon.classList.add("like-animation");
+        // Add a class for animation
+        const favoriteIcon = event.currentTarget.querySelector(".icon-heart");
+        favoriteIcon.classList.add("like-animation");
 
-      // Remove the animation class after animation ends
-      favoriteIcon.addEventListener("animationend", () => {
-        favoriteIcon.classList.remove("like-animation");
-      });
-      mockToggleFavorite(this.recipe.id, this.$root.store.username);
+        // Remove the animation class after animation ends
+        favoriteIcon.addEventListener("animationend", () => {
+          favoriteIcon.classList.remove("like-animation");
+        });
+        markFavoirte(this.recipe.id);
+      }
     },
   },
 };

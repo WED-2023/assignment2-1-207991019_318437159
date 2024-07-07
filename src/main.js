@@ -62,43 +62,17 @@ import {
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
-axios.interceptors.request.use(
-  function(config) {
-    // Do something before request is sent
-    return config;
-  },
-  function(error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
-);
-
-// Add a response interceptor
-axios.interceptors.response.use(
-  function(response) {
-    // Do something with response data
-    return response;
-  },
-  function(error) {
-    // Do something with response error
-    return Promise.reject(error);
-  }
-);
-
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 
 const shared_data = {
-  server_domain: "http://localhost:3000",
   username: localStorage.username,
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
-    console.log("login", this.username);
   },
   logout() {
-    console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
   },
@@ -127,3 +101,12 @@ new Vue({
   },
   render: (h) => h(App),
 }).$mount("#app");
+
+const SERVER_DOMAIN = "http://localhost:80/";
+
+const api = axios.create({
+  baseURL: SERVER_DOMAIN,
+  withCredentials: true,
+});
+
+export default api;

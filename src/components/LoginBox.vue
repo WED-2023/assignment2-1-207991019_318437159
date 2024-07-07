@@ -54,7 +54,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { mockLogin } from "../services/auth.js";
+import { login } from "../services/auth.js";
 
 export default {
   name: "LoginBox",
@@ -84,13 +84,7 @@ export default {
     },
     async Login() {
       try {
-        const success = true;
-        const response = mockLogin(
-          this.form.username,
-          this.form.password,
-          success
-        );
-
+        await login(this.form.username, this.form.password);
         this.$root.store.login(this.form.username);
         this.$router.push("/");
       } catch (err) {

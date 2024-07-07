@@ -26,10 +26,12 @@
 <script>
 import RecipePreview from "./RecipePreview.vue";
 import {
+  getRandomRecipes,
   mockGetRecipesPreview,
   mockGetFavoritesRecipes,
   mockGetPrivateRecipes,
   mockGetLastWatchedRecipes,
+  mockGetLastSearchRecipes,
   mockSearchRecipes,
 } from "../services/recipes.js";
 
@@ -119,10 +121,10 @@ export default {
         } else if (this.type === "last-search") {
           response = await mockGetLastSearchRecipes("");
         } else {
-          response = await mockGetRecipesPreview(this.amount);
+          response = await getRandomRecipes(this.amount);
         }
-
-        this.recipes = response.data.recipes || [];
+        console.log(response.data)
+        this.recipes = response.data.recipes || response.data || [];
         if (this.recipes.length === 0) {
           this.$emit("no-results");
         }

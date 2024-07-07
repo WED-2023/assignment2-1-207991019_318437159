@@ -6,7 +6,7 @@ import SearchPage from "./pages/SearchPage";
 import AboutPage from "./pages/AboutPage";
 import FamilyRecipesPage from "./pages/FamilyRecipesPage";
 import RecipeViewPage from "./pages/RecipeViewPage";
-import MyFaviortesPage from "./pages/MyFaviortesPage";
+import MyFavoritePage from "./pages/MyFavoritesPage";
 import MyRecipesPage from "./pages/MyRecipesPage";
 import PrepareRecipePage from "./pages/PrepareRecipePage";
 import MealPage from "./pages/MealPage";
@@ -50,7 +50,7 @@ const routes = [
   {
     path: "/favorites",
     name: "favorites",
-    component: MyFaviortesPage,
+    component: MyFavoritePage,
   },
   {
     path: "/private",

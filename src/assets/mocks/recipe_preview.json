@@ -10,7 +10,7 @@
     "vegan": false,
     "glutenFree": false,
     "summary": "Delicious pasta dish with garlic, scallions, cauliflower, and breadcrumbs.",
-    "faviorte": true,
+    "favorite": true,
     "viewed": false
   },
   {
@@ -23,7 +23,7 @@
     "vegan": false,
     "glutenFree": false,
     "summary": "Quick and flavorful dinner with pork, pasta, tomatoes, and basil.",
-    "faviorte": true,
+    "favorite": true,
     "viewed": true
   },
   {
@@ -36,7 +36,7 @@
     "vegan": false,
     "glutenFree": true,
     "summary": "Hearty and nutritious meal with red kidney beans, rice, and a blend of spices.",
-    "faviorte": false,
+    "favorite": false,
     "viewed": true
   },
   {
@@ -49,7 +49,7 @@
     "vegan": false,
     "glutenFree": false,
     "summary": "Quick and tasty pizza with turkey, tomato, and cheese on a crispy crust.",
-    "faviorte": true,
+    "favorite": true,
     "viewed": false
   },
   {
@@ -62,7 +62,7 @@
     "vegan": true,
     "glutenFree": true,
     "summary": "Perfect dish for spice lovers, made with black beans, tomatoes, and a mix of spices.",
-    "faviorte": true,
+    "favorite": true,
     "viewed": true
   },
   {
@@ -75,7 +75,7 @@
     "vegan": false,
     "glutenFree": true,
     "summary": "Fresh and flavorful salad with chicken, avocado, and mango, perfect for a light meal.",
-    "faviorte": false,
+    "favorite": false,
     "viewed": false
   },
   {

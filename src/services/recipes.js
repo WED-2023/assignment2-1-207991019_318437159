@@ -4,7 +4,12 @@ import recipe_previews from "../assets/mocks/recipe_preview.json";
 import categories from "../assets/mocks/categories.json";
 import favorites_recipes from "../assets/mocks/my_favs.json";
 import my_receips from "../assets/mocks/my_recipes.json";
-import instructions from '../assets/mocks/AnalyzedInstructions.json';
+import api from "../main.js";
+const routePrefix = "recipes";
+
+export async function getRandomRecipes(amount = 3) {
+  return await api.get(`${routePrefix}/random/${amount}`);
+}
 
 export function mockGetRecipesPreview(amount = 3) {
   let recipes = [];
@@ -67,9 +72,13 @@ export function mockGetCategoriesForSearch() {
   return { data: categories };
 }
 
-
-// searchQuary = string, amount = number, selected = every one is []
-export function mockSearchRecipes(searchQuery, amount, selectedCuisines, selectedIntolerance, selectedDiets) {
+export async function mockSearchRecipes(
+  searchQuery,
+  amount,
+  selectedCuisines,
+  selectedIntolerance,
+  selecteddiets
+) {
   let recipes = [];
   const previewLength = recipe_previews.length;
   let usedIndices = new Set();
@@ -77,10 +86,10 @@ export function mockSearchRecipes(searchQuery, amount, selectedCuisines, selecte
   while (recipes.length < amount && usedIndices.size < previewLength) {
     let randomIndex = Math.floor(Math.random() * previewLength);
 
-    if (!usedIndices.has(randomIndex)) {
-      recipes.push(recipe_previews[randomIndex]);
-      usedIndices.add(randomIndex);
-    }
+    //if (!usedIndices.has(randomIndex)) {
+    recipes.push(recipe_previews[randomIndex]);
+    //   usedIndices.add(randomIndex);
+    // }
   }
 
   return { data: { recipes } };

@@ -9,7 +9,7 @@
     "vegan": false,
     "glutenFree": false,
     "summary": "A zesty and flavorful shrimp pasta with lemon and garlic.",
-    "faviorte": "true",
+    "favorite": "true",
     "viewed": "true"
   },
   {
@@ -22,7 +22,7 @@
     "vegan": false,
     "glutenFree": false,
     "summary": "A classic beef and broccoli stir fry with a savory sauce.",
-    "faviorte": "true",
+    "favorite": "true",
     "viewed": "true"
   },
   {
@@ -35,7 +35,7 @@
     "vegan": false,
     "glutenFree": false,
     "summary": "A rich and creamy spaghetti carbonara with pancetta and parmesan.",
-    "faviorte": "true",
+    "favorite": "true",
     "viewed": "true"
   },
   {
@@ -48,7 +48,20 @@
     "vegan": false,
     "glutenFree": true,
     "summary": "A fresh and simple Caprese salad with tomatoes, mozzarella, and basil.",
-    "faviorte": "true",
+    "favorite": "true",
+    "viewed": "true"
+  },
+  {
+    "id": 800313,
+    "image": "https://img.spoonacular.com/recipes/800345-556x370.jpg",
+    "title": "Lemon Garlic Shrimp Pasta",
+    "readyInMinutes": 25,
+    "aggregateLikes": 180,
+    "vegetarian": false,
+    "vegan": false,
+    "glutenFree": false,
+    "summary": "A zesty and flavorful shrimp pasta with lemon and garlic.",
+    "favorite": "true",
     "viewed": "true"
   },
   {
@@ -61,7 +74,20 @@
     "vegan": true,
     "glutenFree": true,
     "summary": "A quick and healthy vegetable stir fry with tofu.",
-    "faviorte": "true",
+    "favorite": "true",
+    "viewed": "false"
+  },
+  {
+    "id": 805617,
+    "image": "https://img.spoonacular.com/recipes/805679-556x370.jpg",
+    "title": "Caprese Salad",
+    "readyInMinutes": 10,
+    "aggregateLikes": 270,
+    "vegetarian": true,
+    "vegan": false,
+    "glutenFree": true,
+    "summary": "A fresh and simple Caprese salad with tomatoes, mozzarella, and basil.",
+    "favorite": "true",
     "viewed": "false"
   }
 ]

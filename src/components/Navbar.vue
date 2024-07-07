@@ -59,6 +59,7 @@
 
 <script>
 import NewRecipeModal from "./NewRecipeModal.vue";
+import { logout } from "../services/auth.js";
 
 export default {
   name: "Navbar",
@@ -72,7 +73,8 @@ export default {
     };
   },
   methods: {
-    Logout() {
+    async Logout() {
+      await logout();
       this.$root.store.logout();
       this.$root.$toast("Logout", "User logged out successfully", "success");
       this.$router.push("/").catch(() => {

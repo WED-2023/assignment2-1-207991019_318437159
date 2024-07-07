@@ -224,7 +224,7 @@ import {
   sameAs,
   email,
 } from "vuelidate/lib/validators";
-import { mockRegister } from "../services/auth.js";
+import { register } from "../services/auth.js";
 import countries from "../assets/countries";
 
 export default {
@@ -299,16 +299,14 @@ export default {
           firstName: this.form.firstName,
           lastName: this.form.lastName,
           email: this.form.email,
+          country: this.form.country,
           password: this.form.password,
         };
-        const isSuccessful = true;
-        //const isSuccessful = Math.random() >= 0.5; // Randomly set isSuccessful to true or false
-        const response = await mockRegister(userDetails, isSuccessful);
-
-        if (response.status === 200 && response.response.data.success) {
+        const response = await register(userDetails);
+        if (response.status === 200 && response.data.success) {
           this.$router.push("/login");
         } else {
-          this.errorMessage = response.response.data.message;
+          this.errorMessage = response.data.message;
           this.showModal = true;
         }
       } catch (err) {
