@@ -1,9 +1,8 @@
 <template>
   <div class="recipe-preview">
     <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      :to="{ name: 'recipe', params: { recipeId: this.recipe.id } }"
       class="recipe-link"
-      @click.native.prevent="markAsViewed"
     >
       <div class="recipe-body">
         <img v-if="imageLoad" :src="recipe.image" class="recipe-image" />
@@ -52,7 +51,7 @@
 </template>
 
 <script>
-import { markFavoirte, markViewed } from "../services/user.js";
+import { markFavoirte } from "../services/user.js";
 export default {
   mounted() {
     this.loadImage();
@@ -87,25 +86,12 @@ export default {
       img.src = this.recipe.image;
     },
     /**
-     * Marks the recipe as viewed if the user is logged in.
-     */
-    async markAsViewed() {
-      if (this.recipe.viewed || !this.loggedIn) return;
-      recipe.viewed = true;
-      await markViewed(this.recipe.id);
-      this.$router.push({
-        name: "recipe",
-        params: { recipeId: this.recipe.id },
-      });
-    },
-    /**
      * Toggles the favorite status of the recipe.
      */
     toggleFavorite(event) {
       event.stopPropagation(); // Prevent triggering the link click
       event.preventDefault(); // Prevent default action
 
-      console.log(this.recipe);
       if (!this.recipe.favorite) {
         this.recipe.favorite = !this.recipe.favorite;
 
@@ -188,7 +174,8 @@ export default {
 }
 
 @keyframes like-bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {

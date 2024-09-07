@@ -1,19 +1,21 @@
 <template>
   <b-container fluid class="main-container">
     <div class="background-container">
-      
       <!-- Logo Section -->
       <b-row class="justify-content-center">
         <b-col cols="12" lg="6" class="text-center logo-container">
           <div class="logo-background">
-            <img src="../assets/photos/logo-Photoroom.png" alt="Logo" class="logo-image"/>
+            <img
+              src="../assets/photos/logo-Photoroom.png"
+              alt="Logo"
+              class="logo-image"
+            />
           </div>
         </b-col>
       </b-row>
 
       <!-- Main Content -->
       <b-row>
-
         <!-- Left Column: Random Recipes -->
         <b-col cols="12" lg="6" class="left-column">
           <div class="list-box">
@@ -30,8 +32,8 @@
           <div v-if="isLoggedIn" class="list-box">
             <RecipePreviewList
               title="Last Watched Recipes"
-              :amount="Number(5)"
-              type="last-watched"
+              :amount="Number(4)"
+              type="last-viewed"
             />
           </div>
           <div v-else class="login-container">

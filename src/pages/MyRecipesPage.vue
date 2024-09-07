@@ -11,7 +11,6 @@
     <div v-else>
       <RecipePreviewList
         ref="recipePreviewList"
-        :amount="4"
         type="private"
         @no-results="handleNoResultsFound"
       />

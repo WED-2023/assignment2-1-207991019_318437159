@@ -15,13 +15,11 @@
     >
       <div class="modal-background">
         <div class="modal-content-wrapper">
-          
           <!-- Modal Header Information -->
           <p>
             Fields marked with <span class="mandatory">*</span> are mandatory
           </p>
           <form @submit.prevent="submitForm">
-
             <!-- Recipe Name Input -->
             <div
               class="form-group"
@@ -85,6 +83,7 @@
               <label>Photo <span class="mandatory">*</span></label>
               <b-form-file
                 v-model="recipe.photo"
+                @change="handleFileUpload"
                 @blur="touched.photo = true"
                 accept="image/*"
                 placeholder="Upload a photo"
@@ -345,16 +344,30 @@
         >OK</b-button
       >
     </b-modal>
+    <!-- Error Modal -->
+    <b-modal
+      v-model="showErrorModal"
+      hide-footer
+      centered
+      title="Recipe Save Error"
+      header-class="bg-danger text-white"
+      content-class="bg-white text-center"
+    >
+      <div class="text-black">
+        {{ errorMessage }}
+      </div>
+      <b-button class="mt-3" variant="dark" @click="showErrorModal = false"
+        >Close</b-button
+      >
+    </b-modal>
   </div>
 </template>
 
 <script>
 import Multiselect from "vue-multiselect";
 import "vue-multiselect/dist/vue-multiselect.min.css";
-import {
-  mockSaveNewRecipe,
-  mockGetCategoriesForSearch,
-} from "../services/recipes.js";
+import { mockGetCategoriesForSearch } from "../services/recipes.js";
+import { saveNewRecipe } from "../services/user.js";
 
 export default {
   components: { Multiselect },
@@ -407,6 +420,8 @@ export default {
         servings: false,
         time: false,
       },
+      showErrorModal: false,
+      errorMessage: "",
     };
   },
   created() {
@@ -417,6 +432,8 @@ export default {
       this.diets = data.diets;
     } catch (error) {
       console.error("Error fetching categories:", error);
+      this.showErrorModal = true;
+      this.errorMessage = "Error fetching categories. Please try again later.";
     }
   },
   computed: {
@@ -456,14 +473,56 @@ export default {
         this.recipe.ingredients[index].otherUnit = "";
       }
     },
-    submitForm() {
+    async submitForm() {
       this.showErrors = true;
       if (this.isFormValid) {
-        mockSaveNewRecipe(this.recipe);
-        this.$bvModal.hide("new-recipe-modal");
-        this.showSuccessModal = true;
-        this.resetForm();
-        this.$emit("close");
+        const formData = new FormData();
+
+        // Append all recipe data to formData
+        Object.keys(this.recipe).forEach((key) => {
+          if (key === "photo") {
+            formData.append("photo", this.recipe.photo, this.recipe.photo.name);
+          } else if (Array.isArray(this.recipe[key])) {
+            if (key === "ingredients") {
+              const updatedIngredients = this.recipe.ingredients.map(
+                (ingredient) => {
+                  const unit =
+                    ingredient.otherUnit && ingredient.otherUnit !== ""
+                      ? ingredient.otherUnit
+                      : ingredient.unit;
+                  return {
+                    ...ingredient,
+                    original: `${ingredient.amount} ${unit} ${ingredient.name}`,
+                  };
+                }
+              );
+              formData.append(key, JSON.stringify(updatedIngredients));
+            } else if (key === "instructions") {
+              formData.append(
+                key,
+                JSON.stringify(
+                  this.recipe[key].map((instruction) => instruction.step)
+                )
+              );
+            } else {
+              formData.append(key, JSON.stringify(this.recipe[key]));
+            }
+          } else {
+            formData.append(key, this.recipe[key]);
+          }
+        });
+        try {
+          const response = await saveNewRecipe(formData);
+          console.log("Recipe saved successfully:", response);
+          this.$bvModal.hide("new-recipe-modal");
+          this.showSuccessModal = true;
+          this.resetForm();
+          this.$emit("close");
+        } catch (error) {
+          console.error("Error saving recipe:", error);
+          this.showErrorModal = true;
+          this.errorMessage = `Error saving recipe: ${error}.`;
+        }
       } else {
         this.scrollToFirstError();
       }
@@ -498,6 +557,8 @@ export default {
         time: "",
       };
       this.showErrors = false;
+      this.showErrorModal = false;
+      this.errorMessage = "";
       this.touched = {
         name: false,
         preview: false,
@@ -514,6 +575,12 @@ export default {
     },
     closeSuccessModal() {
       this.showSuccessModal = false;
+    },
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.recipe.photo = file;
+      }
     },
   },
 };

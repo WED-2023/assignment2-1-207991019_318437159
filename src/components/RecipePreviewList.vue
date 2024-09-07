@@ -25,15 +25,12 @@
 
 <script>
 import RecipePreview from "./RecipePreview.vue";
+import { getRandomRecipes, searchRecipes } from "../services/recipes.js";
 import {
-  getRandomRecipes,
-  mockGetRecipesPreview,
-  mockGetFavoritesRecipes,
-  mockGetPrivateRecipes,
-  mockGetLastWatchedRecipes,
-  mockGetLastSearchRecipes,
-  mockSearchRecipes,
-} from "../services/recipes.js";
+  getFavortieRecipes,
+  getLastViewedRecipes,
+  getPrivateRecipes,
+} from "../services/user.js";
 
 export default {
   name: "RecipePreviewList",
@@ -105,30 +102,28 @@ export default {
       try {
         let response;
         if (this.type === "favorites") {
-          response = await mockGetFavoritesRecipes(this.amount);
+          response = await getFavortieRecipes();
         } else if (this.type === "private") {
-          response = await mockGetPrivateRecipes(this.amount);
-        } else if (this.type === "last-watched") {
-          response = await mockGetLastWatchedRecipes(this.amount);
+          response = await getPrivateRecipes(this.amount);
+        } else if (this.type === "last-viewed") {
+          response = await getLastViewedRecipes(this.amount);
         } else if (this.type === "search") {
-          response = await mockSearchRecipes(
+          response = await searchRecipes(
             this.searchQuery,
             this.amount,
             this.selectedCuisines,
             this.selectedIntolerance,
             this.selectedDiets
           );
-        } else if (this.type === "last-search") {
-          response = await mockGetLastSearchRecipes("");
         } else {
           response = await getRandomRecipes(this.amount);
         }
-        console.log(response.data)
-        this.recipes = response.data.recipes || response.data || [];
+        this.recipes = response.data || [];
         if (this.recipes.length === 0) {
           this.$emit("no-results");
         }
       } catch (error) {
+        console.log(error.stack);
         console.error(error);
       }
     },
@@ -163,6 +158,6 @@ export default {
   font-size: 24px;
   font-weight: bold;
   color: #333;
-  margin: 0 auto; 
+  margin: 0 auto;
 }
 </style>

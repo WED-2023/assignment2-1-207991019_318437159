@@ -24,7 +24,11 @@
 
 <script>
 import DetailedRecipePreview from "../components/DetailedRecipePreview.vue";
-import { mockGetRecipeFullDetails, mockAddRecipeToMeal } from "../services/recipes.js";
+import {
+  getRecipeFullDetails,
+  mockAddRecipeToMeal,
+} from "../services/recipes.js";
+import { markViewed } from "../services/user.js";
 
 export default {
   components: {
@@ -41,7 +45,7 @@ export default {
      * Navigates to the preparation page
      */
     navigateToPreparePage() {
-      this.$router.push({ name: "prepare"});
+      this.$router.push({ name: "prepare" });
     },
     navigateToMealPage() {
       const addedRecipe = mockAddRecipeToMeal(this.recipe.id);
@@ -50,10 +54,14 @@ export default {
   },
   async created() {
     try {
-      let recipeId = this.$route.params.Id;
-      let response = mockGetRecipeFullDetails(recipeId);
-
+      let recipeId = this.$route.params.recipeId;
+      console.log(recipeId);
+      if (!!this.$root.store.username) {
+        await markViewed(recipeId);
+      }
+      let response = await getRecipeFullDetails(recipeId);
       let {
+        id,
         analyzedInstructions,
         instructions,
         extendedIngredients,
@@ -67,9 +75,10 @@ export default {
         glutenFree,
         summary,
         servings,
-      } = response.data.recipe;
+      } = response.data;
 
       this.recipe = {
+        id,
         instructions,
         analyzedInstructions,
         extendedIngredients,
