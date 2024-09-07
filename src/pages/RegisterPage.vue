@@ -5,7 +5,6 @@
         <h1 class="title">Register</h1>
       </b-card-title>
       <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
-
         <!-- Username Field -->
         <b-form-group
           id="input-group-username"
@@ -189,8 +188,12 @@
         </b-form-group>
 
         <!-- Reset and Submit Buttons -->
-        <b-button type="reset" variant="danger" class="register-btn">Reset</b-button>
-        <b-button type="submit" variant="primary" class="register-btn">Register</b-button>
+        <b-button type="reset" variant="danger" class="register-btn"
+          >Reset</b-button
+        >
+        <b-button type="submit" variant="primary" class="register-btn"
+          >Register</b-button
+        >
         <div class="mt-4 text-center lead">
           Already have an account?
           <router-link to="login"> Log in here</router-link>
@@ -210,7 +213,9 @@
       <div class="text-black">
         {{ errorMessage }}
       </div>
-      <b-button class="mt-3" variant="dark" @click="showModal = false">Close</b-button>
+      <b-button class="mt-3" variant="dark" @click="showModal = false"
+        >Close</b-button
+      >
     </b-modal>
   </div>
 </template>
@@ -374,6 +379,12 @@ export default {
 @media (max-width: 768px) {
   .b-card {
     padding: 10px;
+  }
+}
+
+@media (max-height: 900px) {
+  .register-container {
+    margin-top: 4%;
   }
 }
 </style>

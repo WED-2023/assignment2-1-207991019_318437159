@@ -43,9 +43,10 @@ const routes = [
     component: FamilyRecipesPage,
   },
   {
-    path: "/recipe",
+    path: "/recipe/:recipeId",
     name: "recipe",
     component: RecipeViewPage,
+    props: true,
   },
   {
     path: "/favorites",
@@ -71,7 +72,7 @@ const routes = [
     path: "/meal",
     name: "meal",
     component: MealPage,
-  }
+  },
 ];
 
 export default routes;

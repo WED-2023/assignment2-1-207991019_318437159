@@ -1,15 +1,16 @@
 <template>
   <div class="search-page">
-
     <!-- Search Header -->
-    <div class="search-header" :class="{ 'search-header-top': searchPerformed }">
+    <div
+      class="search-header"
+      :class="{ 'search-header-top': searchPerformed }"
+    >
       <h1>Find your Perfect Recipe here!</h1>
       <p>
         A delightful combination of ingredients and flavors to inspire your
         culinary adventures. Find the best recipes now.
       </p>
       <div class="input-group search-bar">
-
         <!-- Search Input -->
         <input
           type="text"
@@ -21,7 +22,11 @@
         <div class="separator"></div>
 
         <!-- Search Button -->
-        <button class="btn btn-search no-border" type="button" @click="performSearch">
+        <button
+          class="btn btn-search no-border"
+          type="button"
+          @click="performSearch"
+        >
           <i class="fas fa-search"></i>
         </button>
 
@@ -39,19 +44,36 @@
           </button>
           <ul class="dropdown-menu" :class="{ show: dropdownOpen }">
             <li>
-              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(5)">5</button>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setSelectedRecipesToShow(5)"
+              >
+                5
+              </button>
             </li>
             <li>
-              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(10)">10</button>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setSelectedRecipesToShow(10)"
+              >
+                10
+              </button>
             </li>
             <li>
-              <button class="dropdown-item text-dark" @click.stop="setSelectedRecipesToShow(15)">15</button>
+              <button
+                class="dropdown-item text-dark"
+                @click.stop="setSelectedRecipesToShow(15)"
+              >
+                15
+              </button>
             </li>
           </ul>
         </div>
 
         <!-- Filter Button -->
-        <button @click="toggleFilterMenu" class="btn btn-search filter-button">Filter (Advanced Search)</button>
+        <button @click="toggleFilterMenu" class="btn btn-search filter-button">
+          Filter (Advanced Search)
+        </button>
       </div>
 
       <!-- Filter Options -->
@@ -68,23 +90,44 @@
       <div>
         <div v-if="searchPerformed">
           <div v-if="noResultsFound" class="no-results-message">
-            <img src="../assets/photos/no-results.png" alt="No results found" class="no-results-image" />
+            <img
+              src="../assets/photos/no-results.png"
+              alt="No results found"
+              class="no-results-image"
+            />
             <h3>No Result Found!</h3>
             <p>We can't find any recipe matching your search.</p>
           </div>
           <div v-else class="search-results results-found">
             <div class="sort-container">
               <div class="dropdown top-left-dropdown">
-                <button class="top-left-button dropdown-toggle" @click="toggleSortDropdown">
-                  <img src="../assets/photos/funnel.png" alt="icon" class="icon" />
+                <button
+                  class="top-left-button dropdown-toggle"
+                  @click="toggleSortDropdown"
+                >
+                  <img
+                    src="../assets/photos/funnel.png"
+                    alt="icon"
+                    class="icon"
+                  />
                 </button>
                 <span class="sort-by-text">Sort by: {{ selectedSort }}</span>
                 <ul class="dropdown-menu" :class="{ show: sortDropdownOpen }">
                   <li>
-                    <button class="dropdown-item text-dark" @click.stop="setSort('Popularity')">Popularity</button>
+                    <button
+                      class="dropdown-item text-dark"
+                      @click.stop="setSort('Popularity')"
+                    >
+                      Popularity
+                    </button>
                   </li>
                   <li>
-                    <button class="dropdown-item text-dark" @click.stop="setSort('Time To Make')">Time To Make</button>
+                    <button
+                      class="dropdown-item text-dark"
+                      @click.stop="setSort('Time To Make')"
+                    >
+                      Time To Make
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -173,9 +216,9 @@ export default {
         this.selectedIntolerance = selectedIntolerance;
         this.selectedDiets = selectedDiets;
         this.selectedSort = selectedSort;
-        this.selectedRecipesToShow = recipesToShow; 
+        this.selectedRecipesToShow = recipesToShow;
         this.recipesToShow = recipesToShow;
-        this.performSearch(); 
+        this.performSearch();
         this.isLastSearch = true;
       }
     },
@@ -233,7 +276,11 @@ export default {
     setSort(sortCriteria) {
       this.selectedSort = sortCriteria;
       this.sortDropdownOpen = false;
-      if (this.searchPerformed && !this.noResultsFound && this.$refs.recipePreviewList) {
+      if (
+        this.searchPerformed &&
+        !this.noResultsFound &&
+        this.$refs.recipePreviewList
+      ) {
         this.$refs.recipePreviewList.sortedRecipes();
       }
     },
@@ -242,7 +289,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Segoe+Print&display=swap");
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
 .search-page {
@@ -494,5 +540,10 @@ export default {
   color: #fff;
   padding: 10px 20px;
   border-radius: 50px;
+}
+@media (max-width: 768px) {
+  .sort-by-text {
+    display: none;
+  }
 }
 </style>

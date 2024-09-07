@@ -34,6 +34,7 @@
               title="Last Watched Recipes"
               :amount="Number(4)"
               type="last-viewed"
+              :showEmptyMessage="true"
             />
           </div>
           <div v-else class="login-container">

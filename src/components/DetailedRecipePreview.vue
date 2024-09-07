@@ -10,7 +10,7 @@
       <img :src="image" alt="Recipe Image" />
       <div class="recipe-text-overlay">
         <h3 class="recipe-title">{{ title }}</h3>
-        <div class="recipe-cuisine">Cuisine: {{ cuisine }}</div>
+        <div v-if="!!cuisine" class="recipe-cuisine">Cuisine: {{ cuisine }}</div>
       </div>
     </div>
     <div class="recipe-info">

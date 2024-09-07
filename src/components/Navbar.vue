@@ -76,7 +76,7 @@ export default {
     async Logout() {
       await logout();
       this.$root.store.logout();
-      this.$root.$toast("Logout", "User logged out successfully", "success");
+      this.$root.toast("Logout", "User logged out successfully", "success");
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
@@ -101,9 +101,9 @@ export default {
 
 <style scoped>
 .navbar {
-  z-index: 1000; 
+  z-index: 1000;
   width: 100%;
-  top: 0; 
+  top: 0;
   left: 0;
   right: 0;
 }

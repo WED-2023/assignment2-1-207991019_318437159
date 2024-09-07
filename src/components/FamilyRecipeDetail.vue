@@ -67,7 +67,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Segoe+Print&display=swap");
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
 .recipe-detail {
@@ -115,7 +114,7 @@ export default {
   font-style: italic;
   color: #ccc;
   margin-bottom: 10px;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
 }
 
 .recipe-info {
@@ -169,7 +168,7 @@ export default {
 .recipe-ingredients li,
 .recipe-directions li {
   margin-bottom: 10px;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
   font-weight: bolder;
   font-size: 18px;
 }

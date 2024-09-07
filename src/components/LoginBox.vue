@@ -86,7 +86,9 @@ export default {
       try {
         await login(this.form.username, this.form.password);
         this.$root.store.login(this.form.username);
-        this.$router.push("/");
+        this.$router.push("/").catch(() => {
+          this.$forceUpdate();
+        });
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
@@ -107,18 +109,18 @@ export default {
 <style scoped>
 .login-box {
   width: 100%;
-  max-width: 700px; 
+  max-width: 700px;
   padding: 20px;
-  background: #333333; 
-  border-radius: 8px; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  background: #333333;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: #ffffff;
 }
 
 .title {
   text-align: center;
   margin-bottom: 20px;
-  color: #ffffff; 
+  color: #ffffff;
 }
 
 .login-button {
@@ -131,13 +133,13 @@ export default {
 .register-link {
   margin-top: 10px;
   text-align: center;
-  color: #ffffff; 
+  color: #ffffff;
 }
 
 .login-label {
   font-size: 1.3rem;
   font-weight: 400;
   margin-bottom: 15px;
-  color: #ffffff; 
+  color: #ffffff;
 }
 </style>

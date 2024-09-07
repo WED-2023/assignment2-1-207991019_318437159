@@ -8,7 +8,12 @@
       </div>
       <h3 class="list-title">{{ title }}</h3>
     </div>
-    <b-row class="justify-content-center">
+    <NoResults
+      v-if="recipes.length === 0 && showEmptyMessage"
+      title="No Recipes Found"
+      message="You haven't viewed any recipes yet."
+    />
+    <b-row v-else class="justify-content-center">
       <b-col
         v-for="r in sortedRecipes"
         :key="r.id"
@@ -25,17 +30,12 @@
 
 <script>
 import RecipePreview from "./RecipePreview.vue";
-import { getRandomRecipes, searchRecipes } from "../services/recipes.js";
-import {
-  getFavortieRecipes,
-  getLastViewedRecipes,
-  getPrivateRecipes,
-} from "../services/user.js";
-
+import NoResults from "./NoResults.vue";
 export default {
   name: "RecipePreviewList",
   components: {
     RecipePreview,
+    NoResults,
   },
   props: {
     title: {
@@ -69,6 +69,10 @@ export default {
       type: String,
       default: "Popularity",
     },
+    showEmptyMessage: {
+      type: Boolean,
+      default: false, // Control to show or hide the NoResults component
+    },
   },
   data() {
     return {
@@ -99,16 +103,18 @@ export default {
      * Fetches recipes based on the type and updates the recipes list
      */
     async updateRecipes() {
+      const recipes = await import("../services/recipes.js");
+      const userService = await import("../services/user.js");
       try {
         let response;
         if (this.type === "favorites") {
-          response = await getFavortieRecipes();
+          response = await userService.getFavortieRecipes();
         } else if (this.type === "private") {
-          response = await getPrivateRecipes(this.amount);
+          response = await userService.getPrivateRecipes(this.amount);
         } else if (this.type === "last-viewed") {
-          response = await getLastViewedRecipes(this.amount);
+          response = await userService.getLastViewedRecipes(this.amount);
         } else if (this.type === "search") {
-          response = await searchRecipes(
+          response = await recipes.searchRecipes(
             this.searchQuery,
             this.amount,
             this.selectedCuisines,
@@ -116,7 +122,7 @@ export default {
             this.selectedDiets
           );
         } else {
-          response = await getRandomRecipes(this.amount);
+          response = await recipes.getRandomRecipes(this.amount);
         }
         this.recipes = response.data || [];
         if (this.recipes.length === 0) {

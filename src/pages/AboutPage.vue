@@ -55,6 +55,23 @@
               </p>
             </div>
           </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-8 mb-4 text-center">
+              <h3 class="text-primary mb-4">Previous Projects</h3>
+              <p>
+                Tom's project:
+                <a href="https://wed-2023.github.io/318437159/" target="_blank"
+                  >https://wed-2023.github.io/318437159/</a
+                >
+              </p>
+              <p>
+                Ron's project:
+                <a href="https://wed-2023.github.io/207991019/" target="_blank"
+                  >https://wed-2023.github.io/207991019/</a
+                >
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

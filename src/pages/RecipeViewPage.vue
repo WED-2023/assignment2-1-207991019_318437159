@@ -24,11 +24,7 @@
 
 <script>
 import DetailedRecipePreview from "../components/DetailedRecipePreview.vue";
-import {
-  getRecipeFullDetails,
-  mockAddRecipeToMeal,
-} from "../services/recipes.js";
-import { markViewed } from "../services/user.js";
+import { mockAddRecipeToMeal } from "../services/recipes.js";
 
 export default {
   components: {
@@ -53,13 +49,14 @@ export default {
     },
   },
   async created() {
+    const recipes = await import("../services/recipes.js");
+    const userService = await import("../services/user.js");
     try {
       let recipeId = this.$route.params.recipeId;
-      console.log(recipeId);
       if (!!this.$root.store.username) {
-        await markViewed(recipeId);
+        await userService.markViewed(recipeId);
       }
-      let response = await getRecipeFullDetails(recipeId);
+      let response = await recipes.getRecipeFullDetails(recipeId);
       let {
         id,
         analyzedInstructions,
