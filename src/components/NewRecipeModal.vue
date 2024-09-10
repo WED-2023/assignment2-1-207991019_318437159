@@ -366,7 +366,7 @@
 <script>
 import Multiselect from "vue-multiselect";
 import "vue-multiselect/dist/vue-multiselect.min.css";
-import { mockGetCategoriesForSearch } from "../services/recipes.js";
+import { getCategoriesForSearch } from "../services/recipes.js";
 import { saveNewRecipe } from "../services/user.js";
 
 export default {
@@ -426,7 +426,7 @@ export default {
   },
   created() {
     try {
-      const { data } = mockGetCategoriesForSearch();
+      const { data } = getCategoriesForSearch();
       this.cuisines = data.cuisine;
       this.intolerances = data.intolerance;
       this.diets = data.diets;
@@ -512,8 +512,7 @@ export default {
           }
         });
         try {
-          const response = await saveNewRecipe(formData);
-          console.log("Recipe saved successfully:", response);
+          await saveNewRecipe(formData);
           this.$bvModal.hide("new-recipe-modal");
           this.showSuccessModal = true;
           this.resetForm();

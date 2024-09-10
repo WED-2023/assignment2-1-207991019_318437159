@@ -24,7 +24,7 @@
 
 <script>
 import DetailedRecipePreview from "../components/DetailedRecipePreview.vue";
-import { mockAddRecipeToMeal } from "../services/recipes.js";
+import { updateRecipeProgress } from "../services/user.js";
 
 export default {
   components: {
@@ -41,11 +41,20 @@ export default {
      * Navigates to the preparation page
      */
     navigateToPreparePage() {
-      this.$router.push({ name: "prepare" });
+      this.$router.push({
+        name: "prepare",
+        params: { recipeId: this.recipe.id },
+      });
     },
-    navigateToMealPage() {
-      const addedRecipe = mockAddRecipeToMeal(this.recipe.id);
-      this.$router.push({ name: "meal", params: { recipeId: addedRecipe.id } });
+    async navigateToMealPage() {
+      try {
+        await updateRecipeProgress(this.recipe.id, 1);
+        this.$router.push({
+          name: "meal",
+        });
+      } catch (error) {
+        console.error("Error updating recipe progress:", error);
+      }
     },
   },
   async created() {

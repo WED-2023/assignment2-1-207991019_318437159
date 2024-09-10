@@ -1,61 +1,80 @@
 <template>
   <div class="background">
-    <div class="navigation-progress">
+    <div class="navigation-progress" v-if="steps.length > 0">
       <div
         v-for="(step, index) in steps"
         :key="index"
-        :class="['progress-step', { active: currentStep === index + 1, completed: currentStep > index + 1 }]"
+        :class="[
+          'progress-step',
+          {
+            active: currentStep === index + 1,
+            completed: currentStep > index + 1,
+          },
+        ]"
       >
         <div class="step-number">{{ index + 1 }}</div>
         <div class="step-title">Step {{ index + 1 }}</div>
       </div>
     </div>
-    <transition :name="transitionName" mode="out-in">
-      <div v-if="steps.length > 0" :key="currentStep" class="content-container">
+    <transition v-if="steps.length > 0" :name="transitionName" mode="out-in">
+      <div :key="currentStep" class="content-container">
         <div class="recipe-steps">
           <PrepareTheRecipeStep
-            :stepNumber="steps[currentStep - 1].number"
-            :title="`Step ${steps[currentStep - 1].number}`"
-            :description="steps[currentStep - 1].step"
+            :stepNumber="currentStep"
+            :title="`Step ${currentStep}`"
+            :description="steps[currentStep - 1].stepDescription"
             :equipment="steps[currentStep - 1].equipment"
             :ingredients="steps[currentStep - 1].ingredients"
             @stepFinished="handleStepFinished"
             @previousStep="handlePreviousStep"
+            :isFirstStep="currentStep === 1"
+            :isLastStep="currentStep === steps.length"
           />
         </div>
       </div>
     </transition>
+    <div v-if="steps.length === 0 && !loading" class="mt-4">
+      <NoResults
+        title="No Instructions"
+        message="this recipe has no instructions."
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import PrepareTheRecipeStep from "../components/PrepareTheRecipeStep.vue";
-import { mockGetRecipeInstructions } from "../services/recipes.js";
+import NoResults from "../components/NoResults.vue";
 
 export default {
   components: {
     PrepareTheRecipeStep,
+    NoResults,
   },
   data() {
     return {
       steps: [],
       currentStep: 1,
-      transitionName: 'slide-left'
+      transitionName: "slide-left",
+      loading: true,
     };
   },
   methods: {
     handleStepFinished() {
-      this.transitionName = 'slide-left';
+      this.transitionName = "slide-left";
       this.nextStep();
     },
     handlePreviousStep() {
-      this.transitionName = 'slide-right';
+      this.transitionName = "slide-right";
       this.prevStep();
     },
     async fetchSteps() {
       try {
-        const instructions = await mockGetRecipeInstructions();
-        this.steps = instructions[0].steps; 
+        const recipeService = await import("../services/recipes.js");
+        let recipeId = this.$route.params.recipeId;
+        const res = await recipeService.getRecipeInstructions(recipeId);
+        this.steps = res.data.steps;
+        this.currentStep = res.data.progress;
       } catch (error) {
         console.error("Error fetching recipe instructions:", error);
       }
@@ -70,9 +89,23 @@ export default {
         this.currentStep -= 1;
       }
     },
+    async updateProgress() {
+      try {
+        const userService = await import("../services/user.js");
+        let recipeId = this.$route.params.recipeId;
+        await userService.updateRecipeProgress(recipeId, this.currentStep);
+      } catch (error) {
+        console.error("Error in updating recipe progress:", error);
+      }
+    },
   },
-  created() {
-    this.fetchSteps();
+  async created() {
+    await this.fetchSteps();
+    this.loading = false;
+  },
+  async beforeRouteLeave(to, from, next) {
+    if (!!this.$root.store.username) await this.updateProgress();
+    next();
   },
 };
 </script>
@@ -81,7 +114,8 @@ export default {
 :root {
   overflow: hidden;
 }
-html, body {
+html,
+body {
   overflow: hidden;
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="recipe-detail">
     <div class="recipe-image">
-      <button v-if="loggedIn" @click="prepareRecipe" class="prepare-recipe-button">
+      <button @click="prepareRecipe" class="prepare-recipe-button">
         Prepare This Recipe
       </button>
       <button v-if="loggedIn" @click="addToMeal" class="add-to-meal-button">
@@ -10,7 +10,9 @@
       <img :src="image" alt="Recipe Image" />
       <div class="recipe-text-overlay">
         <h3 class="recipe-title">{{ title }}</h3>
-        <div v-if="!!cuisine" class="recipe-cuisine">Cuisine: {{ cuisine }}</div>
+        <div v-if="!!cuisine" class="recipe-cuisine">
+          Cuisine: {{ cuisine }}
+        </div>
       </div>
     </div>
     <div class="recipe-info">
@@ -118,16 +120,16 @@ export default {
   computed: {
     loggedIn() {
       return !!this.$root.store.username;
-    }
+    },
   },
   methods: {
     prepareRecipe() {
-      this.$emit('prepareRecipe');
+      this.$emit("prepareRecipe");
     },
     addToMeal() {
-      this.$emit('addToMeal');
-    }
-  }
+      this.$emit("addToMeal");
+    },
+  },
 };
 </script>
 

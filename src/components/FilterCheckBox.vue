@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { mockGetCategoriesForSearch } from '@/services/recipes.js';
+import { getCategoriesForSearch } from '@/services/recipes.js';
 
 export default {
   props: {
@@ -68,7 +68,7 @@ export default {
   created() {
     
     try {
-      const { data } = mockGetCategoriesForSearch();
+      const { data } = getCategoriesForSearch();
       this.cuisine = data.cuisine;
       this.intolerance = data.intolerance;
       this.diets = data.diets;

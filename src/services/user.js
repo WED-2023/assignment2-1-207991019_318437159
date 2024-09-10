@@ -38,3 +38,22 @@ export async function saveNewRecipe(formData) {
     },
   });
 }
+
+export async function updateRecipeProgress(recipeId, progress) {
+  return api.post(`${routePrefix}/updateProgress`, {
+    recipeId: recipeId,
+    progress: progress,
+  });
+}
+
+export async function getMeal() {
+  return api.get(`${routePrefix}/meal`);
+}
+
+export async function deleteRecipe(recipeId) {
+  return api.delete(`${routePrefix}/meal/${recipeId}`);
+}
+
+export async function deleteMeal() {
+  return api.delete(`${routePrefix}/meal`);
+}

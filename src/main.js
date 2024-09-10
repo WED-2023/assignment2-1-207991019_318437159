@@ -21,6 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Multiselect from "vue-multiselect";
 import "vue-multiselect/dist/vue-multiselect.min.css";
 import VModal from "vue-js-modal";
+import { ProgressPlugin } from "bootstrap-vue";
 
 library.add(fasHeart, farHeart, faStar, faEye);
 
@@ -32,6 +33,7 @@ const router = new VueRouter({
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VModal);
+Vue.use(ProgressPlugin);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("multiselect", Multiselect);
@@ -77,8 +79,6 @@ const shared_data = {
     this.username = undefined;
   },
 };
-console.log(shared_data);
-// Vue.prototype.$root.store = shared_data;
 
 new Vue({
   router,

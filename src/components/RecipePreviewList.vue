@@ -129,7 +129,6 @@ export default {
           this.$emit("no-results");
         }
       } catch (error) {
-        console.log(error.stack);
         console.error(error);
       }
     },

@@ -1,7 +1,6 @@
 // src/services/recipes.js
-import recipe_previews from "../assets/mocks/recipe_preview.json";
 import api from "../main.js";
-import categories from "../assets/mocks/categories.json";
+import categories from "../assets/categories.json";
 const routePrefix = "recipes";
 
 export async function getRandomRecipes(amount = 3) {
@@ -28,33 +27,10 @@ export async function getRecipeFullDetails(recipeId) {
   return api.get(`${routePrefix}/${recipeId}`);
 }
 
-
-export function mockGetRecipeInstructions() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(instructions);
-    });
-  });
+export async function getRecipeInstructions(recipeId) {
+  return api.get(`${routePrefix}/instructions/${recipeId}`);
 }
 
-export function mockGetCategoriesForSearch() {
+export function getCategoriesForSearch() {
   return { data: categories };
-}
-
-export function mockAddRecipeToMeal(ID) {
-  let recipes = [];
-  const previewLength = recipe_previews.length;
-  let usedIndices = new Set();
-
-  while (recipes.length < 1) {
-    let randomIndex = Math.floor(Math.random() * previewLength);
-
-    if (!usedIndices.has(randomIndex)) {
-      recipes.push(recipe_previews[randomIndex]);
-      usedIndices.add(randomIndex);
-    }
-  }
-  const result = { data: { recipes } };
-  console.log("mockGetRecipesPreview result:", result); // Debug line
-  return result;
 }

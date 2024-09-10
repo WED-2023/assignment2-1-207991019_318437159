@@ -90,7 +90,7 @@ export default {
           this.$forceUpdate();
         });
       } catch (err) {
-        console.log(err.response);
+        console.error(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
