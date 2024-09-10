@@ -57,3 +57,7 @@ export async function deleteRecipe(recipeId) {
 export async function deleteMeal() {
   return api.delete(`${routePrefix}/meal`);
 }
+
+export async function getMealSize() {
+  return api.get(`${routePrefix}/meal/amount`);
+}

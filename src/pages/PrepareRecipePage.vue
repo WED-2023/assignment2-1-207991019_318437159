@@ -1,19 +1,19 @@
 <template>
   <div class="background">
-    <div class="navigation-progress" v-if="steps.length > 0">
+    <div class="navigation-progress" v-if="visibleSteps.length > 0">
       <div
-        v-for="(step, index) in steps"
+        v-for="(step, index) in visibleSteps"
         :key="index"
         :class="[
           'progress-step',
           {
-            active: currentStep === index + 1,
-            completed: currentStep > index + 1,
+            active: currentStep === index + visibleStart,
+            completed: currentStep > index + visibleStart,
           },
         ]"
       >
-        <div class="step-number">{{ index + 1 }}</div>
-        <div class="step-title">Step {{ index + 1 }}</div>
+        <div class="step-number">{{ index + visibleStart }}</div>
+        <div class="step-title">Step {{ index + visibleStart }}</div>
       </div>
     </div>
     <transition v-if="steps.length > 0" :name="transitionName" mode="out-in">
@@ -55,9 +55,19 @@ export default {
     return {
       steps: [],
       currentStep: 1,
+      visibleStart: 1,
+      maxVisibleSteps: 10,
       transitionName: "slide-left",
       loading: true,
     };
+  },
+  computed: {
+    visibleSteps() {
+      return this.steps.slice(
+        this.visibleStart - 1,
+        this.visibleStart + this.maxVisibleSteps - 1
+      );
+    },
   },
   methods: {
     handleStepFinished() {
@@ -75,6 +85,7 @@ export default {
         const res = await recipeService.getRecipeInstructions(recipeId);
         this.steps = res.data.steps;
         this.currentStep = res.data.progress;
+        this.updateVisibleRange();
       } catch (error) {
         console.error("Error fetching recipe instructions:", error);
       }
@@ -82,13 +93,31 @@ export default {
     nextStep() {
       if (this.currentStep < this.steps.length) {
         this.currentStep += 1;
+        this.updateVisibleRange();
       }
     },
     prevStep() {
       if (this.currentStep > 1) {
         this.currentStep -= 1;
+        this.updateVisibleRange();
       }
     },
+    updateVisibleRange() {
+      const totalSteps = this.steps.length;
+      const halfWindow = Math.floor(this.maxVisibleSteps / 2);
+
+      if (
+        this.currentStep > halfWindow &&
+        this.currentStep <= totalSteps - halfWindow
+      ) {
+        this.visibleStart = this.currentStep - halfWindow;
+      } else if (this.currentStep <= halfWindow) {
+        this.visibleStart = 1;
+      } else if (this.currentStep > totalSteps - halfWindow) {
+        this.visibleStart = totalSteps - this.maxVisibleSteps + 1;
+      }
+    },
+
     async updateProgress() {
       try {
         const userService = await import("../services/user.js");

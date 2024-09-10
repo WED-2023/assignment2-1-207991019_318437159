@@ -22,7 +22,7 @@
 
         <b-navbar-nav class="ms-auto">
           <template v-if="$root.store.username">
-            <b-nav-item-dropdown right>
+            <b-nav-item-dropdown @show="onDropdownOpen" right>
               <template #button-content>
                 {{ $root.store.username }}
               </template>
@@ -33,7 +33,9 @@
                 >Private</b-dropdown-item
               >
               <b-dropdown-item :to="{ name: 'family' }">Family</b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'meal' }">My Meal</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'meal' }">{{
+                myMealText
+              }}</b-dropdown-item>
               <b-dropdown-item @click="Logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item>
@@ -60,6 +62,7 @@
 <script>
 import NewRecipeModal from "./NewRecipeModal.vue";
 import { logout } from "../services/auth.js";
+import { getMealSize } from "../services/user.js";
 
 export default {
   name: "Navbar",
@@ -70,7 +73,13 @@ export default {
     return {
       isUserDropdownOpen: false,
       showNewRecipeModal: false,
+      mealSize: 0,
     };
+  },
+  computed: {
+    myMealText() {
+      return this.mealSize > 0 ? `My Meal (${this.mealSize})` : "My Meal";
+    },
   },
   methods: {
     async Logout() {
@@ -87,6 +96,10 @@ export default {
     handleRouteChange() {
       // Close dropdown when route changes
       this.isUserDropdownOpen = false;
+    },
+    async onDropdownOpen() {
+      const mealSizeResult = await getMealSize();
+      this.mealSize = mealSizeResult.data.amount;
     },
   },
   created() {
