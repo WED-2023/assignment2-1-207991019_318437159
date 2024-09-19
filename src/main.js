@@ -102,7 +102,7 @@ new Vue({
   render: (h) => h(App),
 }).$mount("#app");
 
-const SERVER_DOMAIN = "http://localhost:80/";
+const SERVER_DOMAIN = "https:///one-piece-recipes.cs.bgu.ac.il";
 
 const api = axios.create({
   baseURL: SERVER_DOMAIN,

@@ -103,20 +103,20 @@ export default {
       }
     },
     updateVisibleRange() {
-      const totalSteps = this.steps.length;
-      const halfWindow = Math.floor(this.maxVisibleSteps / 2);
+    const totalSteps = this.steps.length;
+    const halfWindow = Math.floor(this.maxVisibleSteps / 2);
 
-      if (
-        this.currentStep > halfWindow &&
-        this.currentStep <= totalSteps - halfWindow
-      ) {
+    if (totalSteps <= this.maxVisibleSteps) {
+      this.visibleStart = 1;
+    } else {
+      if (this.currentStep > halfWindow && this.currentStep <= totalSteps - halfWindow) {
         this.visibleStart = this.currentStep - halfWindow;
       } else if (this.currentStep <= halfWindow) {
         this.visibleStart = 1;
       } else if (this.currentStep > totalSteps - halfWindow) {
         this.visibleStart = totalSteps - this.maxVisibleSteps + 1;
       }
-    },
+    }},
 
     async updateProgress() {
       try {
